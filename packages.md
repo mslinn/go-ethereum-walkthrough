@@ -28,7 +28,7 @@ _Note:_ Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/ven
 | [`event`](https://github.com/ethereum/go-ethereum/tree/master/event) | Deals with subscriptions to real-time events. |
 | [`internal`](https://github.com/ethereum/go-ethereum/tree/master/internal) | Debugging support, JavaScript dependencies, testing support. |
 | [`les`](https://github.com/ethereum/go-ethereum/tree/master/les) | Implements the Light Ethereum Subprotocol. |
-| [`light`](https://github.com/ethereum/go-ethereum/tree/master/light) | Implements on-demand retrieval capable state and chain objects for the Ethereum Light Client. |
+| [`light`](https://github.com/ethereum/go-ethereum/tree/master/light) | Implements on-demand retrieval capable state and chain objects for the [Ethereum Light Client](https://github.com/ethereum/wiki/wiki/Light-client-protocol). |
 | [`log`](https://github.com/ethereum/go-ethereum/tree/master/log) | Provides an opinionated, simple toolkit for best-practice logging that is both human and machine readable. |
 | [`metrics`](https://github.com/ethereum/go-ethereum/tree/master/metrics) | Port of Coda Hale&#039;s Metrics library. `Suggestion`: Why was this not implemented as a separate library, like [this one](https://github.com/rcrowley/go-metrics)? |
 | [`miner`](https://github.com/ethereum/go-ethereum/tree/master/miner) | Implements Ethereum block creation and mining. |
