@@ -60,7 +60,7 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 | [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | simple Whisper node. It could be used as a stand-alone bootstrap node. Also could be used for different test and diagnostics purposes. |
 
 ## Incantations
-I used the following incantation to discover that `geth` defines 244 packages:
+The following incantation shows that the Ethereum project defines 244 packages:
 
 ```
 grep -rh "^package" | grep -v "not installed" | \
@@ -68,7 +68,7 @@ grep -rh "^package" | grep -v "not installed" | \
   sort | uniq | wc -l
 ```
 
-_I used the following incantation to list the package names:_
+The following incantation lists the top-level package names:
 
 ```find . -maxdepth 1 -type d | sed 's^\./^^' | sed '/\..*/d'```
 
