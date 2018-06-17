@@ -6,11 +6,15 @@ This file defines smart contract behavior.
 
 This comment applies to all of the Go source files in the entire project. I think the following absolute import would have been better specified as a relative import:
 
-<pre>&quot;github.com/ethereum/go-ethereum/common&quot;</pre>
+```
+"github.com/ethereum/go-ethereum/common"
+```
 
 The relative import would look like this instead:
 
-<pre>&quot;../../common&quot;</pre>
+```
+"../../common"
+```
 
 If relative imports were used instead of absolute imports that point to the github repo, local changes to the project made by a developer would automatically be picked up. As currently written, absolute imports cause local changes to be ignored, in favor of the version on github. It might take a software developer a while to realize that the reason why their changes are ignored by most of the code base is because absoluate imports were used. It would then be painful to for the developer to modify the affected source files throughout the project such that they used relative imports.
 
@@ -32,14 +36,17 @@ func (ar AccountRef) Address() common.Address { return (common.Address)(ar) }</p
 
 The [`ContractRef`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L25-L28) interface is used by the `Contract` `struct`, which we&#039;ll see in a moment. This `ContractRef` interface just consists of an `Address`.
 
-<pre>// ContractRef is a reference to the contract&#039;s backing object
+```
+// ContractRef is a reference to the contract&#039;s backing object
 type ContractRef interface {
     Address() common.Address
-}</pre>
+}
+```
 
 The [`Contract`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L42-L65) struct defines the behavior of Ethereum smart contracts, and is central to the topic, so here it is in all its glory:
 
-<pre>type Contract struct {
+```
+type Contract struct {
     CallerAddress common.Address
     caller    ContractRef
     self      ContractRef
@@ -57,7 +64,8 @@ The [`Contract`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/con
     Args []byte
 
     DelegateCall bool
-}</pre>
+}
+```
 
 `CallerAddress` is a publicly visible `Address` of the caller. `caller` and `self` are private `ContractRef`s, which as we know are really just `Address`es.
 

@@ -11,23 +11,27 @@ The following imports are used:
 *   [`math/big`](https://golang.org/pkg/math/big/) implements arbitrary-precision arithmetic (big numbers).
 *   Other packages in this project (`go-ethereum`):
 
-    <pre>&quot;github.com/ethereum/go-ethereum/common&quot;
+    ```
+    &quot;github.com/ethereum/go-ethereum/common&quot;
     &quot;github.com/ethereum/go-ethereum/common/math&quot;
     &quot;github.com/ethereum/go-ethereum/crypto&quot;
     &quot;github.com/ethereum/go-ethereum/crypto/bn256&quot;
-    &quot;github.com/ethereum/go-ethereum/params&quot;</pre>
+    &quot;github.com/ethereum/go-ethereum/params&quot;
+    ```
 
     Again, I think the above imports would have been better specified as relative imports:
 
-    <pre>&quot;../../common&quot;
+    ```
+    &quot;../../common&quot;
     &quot;../../common/math&quot;
     &quot;../../crypto&quot;
     &quot;../../crypto/bn256&quot;
-    &quot;../../params&quot;</pre>
+    &quot;../../params&quot;
+    ```
 
 *   [`ripemd160`](https://godoc.org/golang.org/x/crypto/ripemd160) implements the [RIPEMD-160 hash algorithm](http://homes.esat.kuleuven.be/~bosselae/ripemd160.html), a secure replacement for the MD4 and MD5 hash functions. These hashes are also termed RIPE message digests.
 
-#### Type PrecompiledContract {#type-precompiledcontract}
+#### Type `PrecompiledContract` {#type-precompiledcontract}
 
 [`PrecompiledContract`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contracts.go#L32-L38) is the interface for native Go smart contracts. This interface is used by precompiled contracts, as we will see next. `Contract` is a `struct` defined in `[contract.go](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go)`.
 
@@ -39,7 +43,7 @@ These maps specify various types of cryptographic hashes and utility functions, 
 
 [`PrecompiledContractsByzantium`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contracts.go#L49-L60) contains the default set of pre-compiled contract addresses used in the Byzantium Ethereum release. All of the previously defined pre-compiled contract addresses are provided in Byzantium, plus: `bigModExp`, `bn256Add`, `bn256ScalarMul` and `bn256Pairing`.
 
-I&#039;m not happy about the code duplication, whereby the contents of `PrecompiledContractsHomestead` are incorporated into `PrecompiledContractsByzantium` by listing the values again; this would be better expressed by referencing the values of `PrecompiledContractsHomestead` instead of duplicating them.
+Some code is duplicated, whereby the contents of `PrecompiledContractsHomestead` are incorporated into `PrecompiledContractsByzantium` by listing the values again; this would be better expressed by referencing the values of `PrecompiledContractsHomestead` instead of duplicating them.
 
 #### Contract Evaluator Function {#contract-evaluator-function}
 
