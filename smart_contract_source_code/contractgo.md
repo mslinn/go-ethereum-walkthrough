@@ -2,9 +2,11 @@
 
 This file defines smart contract behavior.
 
-#### Imports {#imports}
+#### Import Suggestion {#imports}
 
-This comment applies to all of the Go source files in the entire project. I think the following absolute import would have been better specified as a relative import:
+_This suggestion applies to all of the Go source files in the entire project._ 
+
+I think the following absolute import would have been better specified as a relative import:
 
 ```
 "github.com/ethereum/go-ethereum/common"
