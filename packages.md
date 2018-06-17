@@ -1,12 +1,16 @@
 ## Packages {#packages}
 
-The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including reading the source code:
+The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including reading the source code.
 
-_Note:_ The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
+### Notes
 
-_Note:_ Only the directories that map 1:1 with packages are shown in this table. The exceptionis the `ethereum` package, which is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
+1. The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
 
-_Note:_ Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
+2. Only the directories that map 1:1 with packages are shown in this table. The exceptionis the `ethereum` package, which is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
+
+3. Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
+
+### Top-Level Packages
 
 | Directory | Description |
 | --- | --- |
@@ -44,7 +48,7 @@ _Note:_ Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/ven
 | [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | Implements [Merkle Patricia tries](https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree). |
 | [`whisper`](https://github.com/ethereum/go-ethereum/tree/master/whisper) | Implements the [Whisper protocol](https://github.com/ethereum/wiki/wiki/Whisper). |
 
-## Command-Line Programs
+### Command-Line Programs
 The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory contains source for the following command-line programs:
 
 | Directory | Description |
@@ -62,7 +66,7 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 | [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/cmd/swarm) | Provides the `bzzhash` command, which computes a swarm tree hash, and implements the swarm daemon and tools. See the [swarm documentation](https://swarm-guide.readthedocs.io/) for more information. 
 | [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | Whisper node, which could be used as a stand-alone bootstrap node and could also be used for test and diagnostics purposes. |
 
-## Incantations
+### Incantations
 The following incantation shows that the `go-ethereum` project defines 244 packages:
 
 ```
