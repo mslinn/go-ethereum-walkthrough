@@ -57,7 +57,7 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 | [`puppeth`](https://github.com/ethereum/go-ethereum/tree/master/cmd/puppeth) | Assembles and maintains private networks. 
 | [`rlpdump`](https://github.com/ethereum/go-ethereum/tree/master/cmd/rlpdump) | A pretty-printer for RLP data. RLP (Recursive Length Prefix) is the data encoding used by the Ethereum protocol. Sample usage: <pre>rlpdump --hex CE0183FFFFFFC4C304050583616263</pre>
 | [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/cmd/swarm) | Provides the `bzzhash` command, which computes a swarm tree hash, and implements the swarm daemon and tools. See the [swarm documentation](https://swarm-guide.readthedocs.io/) for more information. 
-| [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | Simple Whisper node, which could be used as a stand-alone bootstrap node and could also be used for test and diagnostics purposes. |
+| [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | Whisper node, which could be used as a stand-alone bootstrap node and could also be used for test and diagnostics purposes. |
 
 ## Incantations
 The following incantation shows that the `go-ethereum` project defines 244 packages:
