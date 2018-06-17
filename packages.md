@@ -41,6 +41,7 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) | contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&#039;s testing package |
 | [`whisper`](https://github.com/ethereum/go-ethereum/tree/master/whisper) | implements the Whisper protocol |
 
+## Command-Line Programs
 The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory contains source for the following command-line programs:
 
 | Directory | Description |
