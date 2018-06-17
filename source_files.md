@@ -1,4 +1,4 @@
-## Source Files {#source-files}
+## Source Files
 
 The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following source files and lines:
 
@@ -31,3 +31,6 @@ The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following s
 | Awk | 1 | 4 | 4 | 17 |
 | TOML | 1 | 0 | 0 | 3 |
 | Total | 2,260 | 85,278 | 127,556 | 771,825 |
+
+
+
