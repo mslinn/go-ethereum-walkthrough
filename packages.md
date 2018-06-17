@@ -4,6 +4,8 @@ The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244
 
 Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
 
+Note: Only the directories that map 1:1 with packages are shown in this table. Packages that are misaligned with directories are shown separately; for example, the `ethereum` package is defined in the root of the project.
+
 | Directory | Description |
 | --- | --- |
 | [`accounts`](https://github.com/ethereum/go-ethereum/tree/master/accounts) | Implements high-level Ethereum account management. |
