@@ -3,7 +3,7 @@
 The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following source files and lines:
 
 | Language | Files | Blank Lines | Comment Lines | Code Lines |
-| --- | --- | --- | --- | --- |
+| :--- | ---: | ---: | ---: | ---: |
 | Go | 1824 | 58,134 | 81,861 | 639,435 |
 | C | 55 | 17,257 | 30,909 | 84,719 |
 | C Header | 97 | 2,559 | 6,318 | 15,083 |
