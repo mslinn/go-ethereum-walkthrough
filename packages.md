@@ -4,7 +4,7 @@ The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244
 
 Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
 
-Note: Only the directories that map 1:1 with packages are shown in this table. Packages that are misaligned with directories are shown separately; for example, the `ethereum` package is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go).
+Note: Only the directories that map 1:1 with packages are shown in this table. The exceptionis the `ethereum` package, which is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
 
 Note: Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
 
