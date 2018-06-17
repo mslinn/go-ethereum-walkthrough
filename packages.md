@@ -2,9 +2,11 @@
 
 I used the following incantation to discover that `geth` defines 244 packages:
 
-<pre>grep -rh &quot;^package&quot; | grep -v &quot;not installed&quot; | \
-  tr -d &#039;;&#039; | sed &#039;s^//.*^^&#039; | awk &#039;{$1=$1};1&#039; | \
-  sort | uniq | wc -l</pre>
+```
+grep -rh "^package" | grep -v "not installed" | \
+  tr -d ';' | sed 's^//.*^^' | awk '{$1=$1};1' | \
+  sort | uniq | wc -l
+```
 
 I won&#039;t list them all. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains much of the [following documentation](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the top-level packages. I provided the rest of the information from disparate sources, including reading the source code:
 
@@ -62,6 +64,6 @@ The [cmd](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory con
 
 _I used the following incantation to list the package names:_
 
-<pre>find . -maxdepth 1 -type d | sed &#039;s^\./^^&#039; | sed &#039;/\..*/d&#039;</pre>
+```find . -maxdepth 1 -type d | sed 's^\./^^' | sed '/\..*/d'```
 
 The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
