@@ -68,19 +68,22 @@ type Contract struct {
     DelegateCall bool
 }
 ```
+### Public members 
+`CallerAddress` is the `Address` of the caller. `caller` and `self` are private `ContractRef`s, which as we know are really just `Address`es.
 
-`CallerAddress` is a publicly visible `Address` of the caller. `caller` and `self` are private `ContractRef`s, which as we know are really just `Address`es.
+`Code` is a `byte` slice. We don&rsquo;t yet know if this is the smart contract source code, compiled code, or something else.
 
-`jumpdests`, a private field, has type `destinations`, which as we&#039;ve already discussed defines if the entry point in the smart contract that need the program counter to be incremented after executing.
+`CodeHash` is hash of the `Code`.
 
-`Code` is a a publicly visible `byte` slice. We don&#039;t yet know if this is the smart contract source code, compiled code, or something else.
+`CodeAddr` is a pointer to the `Address` (of the code, presumably).
 
-`CodeHash` is the publicly visible hash of the `Code`, while `CodeAddr` is a publicly visible pointer to the `Address` (of the code, presumably).
+`Gas` is the amount of Ethereum gas allocated by the user for executing this smart contract, stored as an unsigned 64-bit integer.
 
-`Gas` is the publicly visible amount of Ethereum gas allocated by the user for executing this smart contract, stored as an unsigned 64-bit integer.
+`Value` is a pointer to a big integer. TODO possibly this might be the result of executing the contract?
 
-`Value` is a private pointer to a big integer. Possibly this might be the result of executing the contract?
+`Args` is a `byte` slice, not sure what it is for.
 
-`Args` is a publicly visible `byte` slice, not sure what it is for.
+`DelegateCall` is Boolean value, unclear if this means the smart contract was invoked using [`delegatecall`](http://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries). From the documentation: &quot;This means that a contract can dynamically load code from a different address at runtime. Storage, current address and balance still refer to the calling contract, only the code is taken from the called address. This makes it possible to implement the “library” feature in Solidity: Reusable library code that can be applied to a contract’s storage, e.g. in order to implement a complex data structure.&quot;
 
-`DelegateCall` is a publicly visible Boolean value, unclear if this means the smart contract was invoked using [`delegatecall`](http://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries). From the documentation: &quot;This means that a contract can dynamically load code from a different address at runtime. Storage, current address and balance still refer to the calling contract, only the code is taken from the called address. This makes it possible to implement the “library” feature in Solidity: Reusable library code that can be applied to a contract’s storage, e.g. in order to implement a complex data structure.&quot;
+### Private members
+`jumpdests` has type `destinations`, which as we&#039;ve already discussed defines if the entry point in the smart contract that need the program counter to be incremented after executing.
