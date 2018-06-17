@@ -2,11 +2,11 @@
 
 The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including reading the source code:
 
-Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
+_Note:_ The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
 
-Note: Only the directories that map 1:1 with packages are shown in this table. The exceptionis the `ethereum` package, which is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
+_Note:_ Only the directories that map 1:1 with packages are shown in this table. The exceptionis the `ethereum` package, which is defined in the root of the project in only one file: [interfaces.go](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
 
-Note: Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
+_Note:_ Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
 
 | Directory | Description |
 | --- | --- |
