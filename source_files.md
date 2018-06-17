@@ -30,7 +30,7 @@ The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following s
 | CMake | 1 | 9 | 0 | 35 |
 | Awk | 1 | 4 | 4 | 17 |
 | TOML | 1 | 0 | 0 | 3 |
-| Total | 2,260 | 85,278 | 127,556 | 771,825 |
+| **Total** | **2,260** | **85,278** | **127,556** | **771,825** |
 
 
 
