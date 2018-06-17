@@ -12,14 +12,14 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`common`](https://github.com/ethereum/go-ethereum/tree/master/common) | contains various helper functions worth checking out |
 | [`consensus`](https://github.com/ethereum/go-ethereum/tree/master/consensus) | implements different Ethereum consensus engines (which must conform to the [`Engine` interface](https://godoc.org/github.com/ethereum/go-ethereum/consensus#Engine)): [`clique`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/clique) implements proof-of-authority consensus, and [`ethash`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/ethash) implements proof-of-work consensus. |
 | [`console`](https://github.com/ethereum/go-ethereum/tree/master/console) | Ethereum implements a JavaScript runtime environment (JSRE) that can be used in either interactive (console) or non-interactive (script) mode. Ethereum&#039;s JavaScript console exposes the full web3 JavaScript Dapp API and the admin API. [More documentation is here.](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console) This package implements JSRE for the `geth attach` and `geth console` subcommands. |
-| [`containers`](https://github.com/ethereum/go-ethereum/tree/master/containers) |  |
-| [`contracts`](https://github.com/ethereum/go-ethereum/tree/master/contracts) |  |
+| [`containers`](https://github.com/ethereum/go-ethereum/tree/master/containers) | currently just provides docker support |
+| [`contracts`](https://github.com/ethereum/go-ethereum/tree/master/contracts) | supports the [`chequebook` smart contract](https://godoc.org/github.com/ethereum/go-ethereum/contracts/chequebook) and the Ethereum Name Service ([EIP 137](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-137.md)) |
 | [`core`](https://github.com/ethereum/go-ethereum/tree/master/core) | implements the Ethereum consensus protocol, implements the Ethereum Virtual Machine, and other miscellaneous important bits |
 | [`crypto`](https://github.com/ethereum/go-ethereum/tree/master/crypto) | cryptographic implementations |
-| [`dashboard`](https://github.com/ethereum/go-ethereum/tree/master/dashboard) |  |
+| [`dashboard`](https://github.com/ethereum/go-ethereum/tree/master/dashboard) | client-server data visualizer integrated into geth, that collects and visualizes information about an Ethereum node. |
 | [`eth`](https://github.com/ethereum/go-ethereum/tree/master/eth) | implements the Ethereum protocol |
 | [`ethclient`](https://github.com/ethereum/go-ethereum/tree/master/ethclient) | provides a client for the Ethereum RPC API |
-| [`ethdb`](https://github.com/ethereum/go-ethereum/tree/master/ethdb) |  |
+| [`ethdb`](https://github.com/ethereum/go-ethereum/tree/master/ethdb) | TODO leveldb code? |
 | [`ethstats`](https://github.com/ethereum/go-ethereum/tree/master/ethstats) | implements the network stats reporting service |
 | [`event`](https://github.com/ethereum/go-ethereum/tree/master/event) | deals with subscriptions to real-time events |
 | [`internal`](https://github.com/ethereum/go-ethereum/tree/master/internal) | Debugging support, JavaScript dependencies, testing support |
@@ -31,11 +31,11 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`mobile`](https://github.com/ethereum/go-ethereum/tree/master/mobile) | contains the simplified mobile APIs to go-ethereum |
 | [`node`](https://github.com/ethereum/go-ethereum/tree/master/node) | sets up multi-protocol Ethereum nodes |
 | [`p2p`](https://github.com/ethereum/go-ethereum/tree/master/p2p) | implements the Ethereum p2p network protocols: Node Discovery Protocol, RLPx v5 Topic Discovery Protocol, Ethereum Node Records as defined in EIP-778, common network port mapping protocols, and p2p network simulation. |
-| [`params`](https://github.com/ethereum/go-ethereum/tree/master/params) |  |
+| [`params`](https://github.com/ethereum/go-ethereum/tree/master/params) | TODO what is this? |
 | [`rlp`](https://github.com/ethereum/go-ethereum/tree/master/rlp) | implements the RLP serialization format |
 | [`rpc`](https://github.com/ethereum/go-ethereum/tree/master/rpc) | provides access to the exported methods of an object across a network or other I/O connection |
-| [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) | signs transactions  |
-| [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) |  |
+| [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) | rule-based transaction signer  |
+| [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) | TODO how is this different from the Swarm command in the next table? |
 | [`tests`](https://github.com/ethereum/go-ethereum/tree/master/tests) | implements execution of Ethereum JSON tests |
 | [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | implements Merkle Patricia Tries |
 | [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) | contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&#039;s testing package |
