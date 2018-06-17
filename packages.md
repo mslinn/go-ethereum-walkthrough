@@ -10,7 +10,7 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`bmt`](https://github.com/ethereum/go-ethereum/tree/master/bmt) | Provides a binary Merkle tree implementation. |
 | [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) | Source for the command-line programs in the next table, below. |
 | [`common`](https://github.com/ethereum/go-ethereum/tree/master/common) | Contains various helper functions worth checking out. |
-| [`consensus`](https://github.com/ethereum/go-ethereum/tree/master/consensus) | Implements different Ethereum consensus engines (which must conform to the [`Engine` interface].(https://godoc.org/github.com/ethereum/go-ethereum/consensus#Engine)): [`clique`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/clique) implements proof-of-authority consensus, and [`ethash`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/ethash) implements proof-of-work consensus. |
+| [`consensus`](https://github.com/ethereum/go-ethereum/tree/master/consensus) | Implements different Ethereum consensus engines (which must conform to the [`Engine` interface].(https://godoc.org/github.com/ethereum/go-ethereum/consensus#Engine)): [`clique`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/clique) implements proof-of-authority consensus, and [`ethash`](https://godoc.org/github.com/ethereum/go-ethereum/consensus/ethash) implements proof-of-work consensus. [Original docs.](https://github.com/ethereum/wiki/wiki/Ethash) |
 | [`console`](https://github.com/ethereum/go-ethereum/tree/master/console) | Ethereum implements a JavaScript runtime environment (JSRE) that can be used in either interactive (console) or non-interactive (script) mode. Ethereum&#039;s JavaScript console exposes the full web3 JavaScript Dapp API and the admin API. [More documentation is here.](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console) This package implements JSRE for the `geth attach` and `geth console` subcommands. |
 | [`containers`](https://github.com/ethereum/go-ethereum/tree/master/containers) | Currently just provides docker support. |
 | [`contracts`](https://github.com/ethereum/go-ethereum/tree/master/contracts) | Supports the [`chequebook` smart contract](https://godoc.org/github.com/ethereum/go-ethereum/contracts/chequebook) and the Ethereum Name Service ([EIP 137](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-137.md)). |
@@ -26,18 +26,18 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`les`](https://github.com/ethereum/go-ethereum/tree/master/les) | Implements the Light Ethereum Subprotocol. |
 | [`light`](https://github.com/ethereum/go-ethereum/tree/master/light) | Implements on-demand retrieval capable state and chain objects for the Ethereum Light Client. |
 | [`log`](https://github.com/ethereum/go-ethereum/tree/master/log) | Provides an opinionated, simple toolkit for best-practice logging that is both human and machine readable. |
-| [`metrics`](https://github.com/ethereum/go-ethereum/tree/master/metrics) | Port of Coda Hale&#039;s Metrics library. `Suggestion`: Why was this not implemented as a separate library, like [this one](https://github.com/rcrowley/go-metrics). |
+| [`metrics`](https://github.com/ethereum/go-ethereum/tree/master/metrics) | Port of Coda Hale&#039;s Metrics library. `Suggestion`: Why was this not implemented as a separate library, like [this one](https://github.com/rcrowley/go-metrics)? |
 | [`miner`](https://github.com/ethereum/go-ethereum/tree/master/miner) | Implements Ethereum block creation and mining. |
 | [`mobile`](https://github.com/ethereum/go-ethereum/tree/master/mobile) | Contains the simplified mobile APIs to go-ethereum. |
 | [`node`](https://github.com/ethereum/go-ethereum/tree/master/node) | Sets up multi-protocol Ethereum nodes. |
-| [`p2p`](https://github.com/ethereum/go-ethereum/tree/master/p2p) | Implements the Ethereum p2p network protocols: Node Discovery Protocol, RLPx v5 Topic Discovery Protocol, Ethereum Node Records as defined in EIP-778, common network port mapping protocols, and p2p network simulation. |
+| [`p2p`](https://github.com/ethereum/go-ethereum/tree/master/p2p) | Implements the Ethereum p2p network protocols: Node Discovery Protocol, RLPx v5 Topic Discovery Protocol, Ethereum Node Records as defined in [EIP-778](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-778.md), common network port mapping protocols, and p2p network simulation. |
 | [`params`](https://github.com/ethereum/go-ethereum/tree/master/params) | TODO what is this? |
 | [`rlp`](https://github.com/ethereum/go-ethereum/tree/master/rlp) | Implements the RLP serialization format. |
 | [`rpc`](https://github.com/ethereum/go-ethereum/tree/master/rpc) | Provides access to the exported methods of an object across a network or other I/O connection. |
 | [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) | Rule-based transaction signer. |
 | [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) | TODO how is this different from the Swarm command in the next table? |
 | [`tests`](https://github.com/ethereum/go-ethereum/tree/master/tests) | Implements execution of Ethereum JSON tests. |
-| [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | Implements Merkle Patricia tries. |
+| [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | Implements [Merkle Patricia tries](https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree). |
 | [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) | Contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&#039;s testing package. |
 | [`whisper`](https://github.com/ethereum/go-ethereum/tree/master/whisper) | Implements the [Whisper protocol](https://github.com/ethereum/wiki/wiki/Whisper). |
 
