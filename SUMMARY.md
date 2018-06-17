@@ -1,6 +1,6 @@
 # Summary
 
-* [Ethereum Walkthrough](README.md)
+* [Overview](README.md)
 * [License](license.md)
 * [Source Files](source_files.md)
 * [Packages](packages.md)
@@ -8,3 +8,4 @@
   * [Referenced Types](smart_contract_source_code/referenced_types.md)
   * [contract.go](smart_contract_source_code/contractgo.md)
   * [contracts.go](smart_contract_source_code/contractsgo.md)
+
