@@ -1,4 +1,4 @@
-### contracts.go {#contracts-go}
+### `contracts.go` {#contracts-go}
 
 This file is responsible for executing smart contracts on the EVM.
 

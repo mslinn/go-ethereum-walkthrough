@@ -1,4 +1,4 @@
-### contract.go {#contract-go}
+### `contract.go` {#contract-go}
 
 This file defines smart contract behavior.
 
