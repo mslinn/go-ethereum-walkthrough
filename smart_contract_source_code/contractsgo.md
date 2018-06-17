@@ -51,7 +51,7 @@ The `RunPrecompiledContract` function runs and evaluates the output of a precomp
 
 * A `PrecompiledContract` instance.
 * A byte array of input data.
-* A reference to a `Contract`, defined in `[contract.go](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L44-L65)`, discussed above.
+* A reference to a `Contract`, defined in [`contract.go`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L44-L65), discussed above.
 
 The function returns:
 
