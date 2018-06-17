@@ -6,6 +6,8 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 
 Note: Only the directories that map 1:1 with packages are shown in this table. Packages that are misaligned with directories are shown separately; for example, the `ethereum` package is defined in the root of the project.
 
+Note: Go's  [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
+
 | Directory | Description |
 | --- | --- |
 | [`accounts`](https://github.com/ethereum/go-ethereum/tree/master/accounts) | Implements high-level Ethereum account management. |
@@ -40,7 +42,6 @@ Note: Only the directories that map 1:1 with packages are shown in this table. P
 | [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) | TODO how is this different from the Swarm command in the next table? |
 | [`tests`](https://github.com/ethereum/go-ethereum/tree/master/tests) | Implements execution of Ethereum JSON tests. |
 | [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | Implements [Merkle Patricia tries](https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree). |
-| [`vendor`](https://github.com/ethereum/go-ethereum/tree/master/vendor) | Contains a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&#039;s testing package. |
 | [`whisper`](https://github.com/ethereum/go-ethereum/tree/master/whisper) | Implements the [Whisper protocol](https://github.com/ethereum/wiki/wiki/Whisper). |
 
 ## Command-Line Programs
