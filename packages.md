@@ -60,7 +60,7 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 | [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | Simple Whisper node, which could be used as a stand-alone bootstrap node and could also be used for test and diagnostics purposes. |
 
 ## Incantations
-The following incantation shows that the Ethereum project defines 244 packages:
+The following incantation shows that the `go-ethereum` project defines 244 packages:
 
 ```
 grep -rh "^package" | grep -v "not installed" | \
