@@ -1,6 +1,6 @@
 ## Source Files
 
-The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following source files and lines:
+The [`gocloc`](https://github.com/hhatto/gocloc) program counted the following source files and lines in the [`go-ethereum`](https://github.com/ethereum/go-ethereum) project:
 
 | Language | Files | Blank Lines | Comment Lines | Code Lines |
 | :--- | ---: | ---: | ---: | ---: |

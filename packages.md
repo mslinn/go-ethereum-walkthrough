@@ -1,6 +1,6 @@
 ## Packages {#packages}
 
-`geth` defines 244 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including reading the source code:
+The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 244 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including reading the source code:
 
 Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
 
