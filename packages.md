@@ -34,7 +34,7 @@ Note: The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) 
 | [`params`](https://github.com/ethereum/go-ethereum/tree/master/params) |  |
 | [`rlp`](https://github.com/ethereum/go-ethereum/tree/master/rlp) | implements the RLP serialization format |
 | [`rpc`](https://github.com/ethereum/go-ethereum/tree/master/rpc) | provides access to the exported methods of an object across a network or other I/O connection |
-| [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) |  |
+| [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) | signs transactions  |
 | [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) |  |
 | [`tests`](https://github.com/ethereum/go-ethereum/tree/master/tests) | implements execution of Ethereum JSON tests |
 | [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | implements Merkle Patricia Tries |
