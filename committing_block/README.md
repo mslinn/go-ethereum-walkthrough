@@ -58,7 +58,7 @@ type Protocol struct {
        PeerInfo func(id discover.NodeID) interface{}
 }</pre>
 
-3. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): <pre>type ProtocolManager struct {
+4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): <pre>type ProtocolManager struct {
        networkID uint64
        fastSync  uint32 // Flag whether fast sync is enabled (gets disabled if we already have blocks)
        acceptTxs uint32 // Flag whether we're considered synchronised (enables transaction processing)
@@ -84,7 +84,7 @@ type Protocol struct {
        wg sync.WaitGroup
 }</pre>
 
-4. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+5. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 <pre>// Initiate a sub-protocol for every implemented version we can handle
 manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
    for i, version := range ProtocolVersions {
@@ -121,7 +121,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
        })
    }</pre>
 
-4. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet: <pre><b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet: <pre><b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
     peer := manager.newPeer(int(version), p, rw)
     select {
     case manager.newPeerCh &lt;- peer:
@@ -133,9 +133,12 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
     }
 }</pre>
 
-5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
-  a. see [`node/node.go#L138`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138) <pre>func (n *Node) Start() error</pre>
-  b. see [`node/node.go#L196`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) <pre>if err := running.Start(); err != nil</pre>
+7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
+  a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) <pre>// Start create a live P2P node and starts running it.
+  func (n *Node) Start() error {</pre>
+  b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198) <pre>if err := running.Start(); err != nil {
+        return convertFileLockError(err)
+}</pre>
   c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) <pre>go srv.run(dialer)</pre>
   d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) <pre>remoteRequested, err := p.run()</pre>
   e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) <pre>p.startProtocols(writeStart, writeErr)</pre>
