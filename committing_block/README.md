@@ -52,7 +52,7 @@ func geth(ctx *cli.Context) error {
                 case manager.newPeerCh &lt;- peer:
                     manager.wg.Add(1)
                     defer manager.wg.Done()
-                    return manager.handle(peer)
+                    <span style="background-color: yellow">return manager.handle(peer)</span>
                 case &lt;-manager.quitSync:
                     return p2p.DiscQuitting
                 }
