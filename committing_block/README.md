@@ -133,16 +133,13 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
     }
 }</pre>
 
-5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
-
-  | Line | Code |
-  | --- |   --- |
-  | [node/node.go#L138](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138) | ``` func (n *Node) Start() error``` |
-  | [node/node.go#L196](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) | ```if err := running.Start(); err != nil ``` |
-  | [p2p/server.go#L504](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) | ```go srv.run(dialer)``` |
-  | [p2p/server.go#L894](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) | ```remoteRequested, err := p.run()``` |
-  | [p2p/peer.go#L197](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) | ```p.startProtocols(writeStart, writeErr)``` |
-  | [p2p/peer.go#L348](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) | ```err := proto.Run(p, rw)``` |
+5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
+  a. see [`node/node.go#L138`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138) <pre>func (n *Node) Start() error</pre>
+  b. see [`node/node.go#L196`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) <pre>if err := running.Start(); err != nil</pre>
+  c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) <pre>go srv.run(dialer)</pre>
+  d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) <pre>remoteRequested, err := p.run()</pre>
+  e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) <pre>p.startProtocols(writeStart, writeErr)</pre>
+  f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) <pre>err := proto.Run(p, rw)</pre>
    
 6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
   ```
