@@ -1,4 +1,4 @@
-## Smart Contract Tour {#smart-contract-source-code}
+## Tour: Smart Contracts {#smart-contracts}
 
 The `core/vm` directory contains the files that implement the EVM. These files are part of the `vm` package. We will look at two of them:
 

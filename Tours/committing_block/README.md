@@ -1,4 +1,4 @@
-# Following a Block From the Socket Until Committed to the Blockchain
+# Tour: Committing a Block {#committing-block}
 
 _This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added._
 
