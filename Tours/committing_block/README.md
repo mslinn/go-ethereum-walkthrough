@@ -5,7 +5,7 @@ _Following a block from the socket until it is committed to the blockchain._
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
 ## Attribution
-This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added._
+This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added.
 
 ## Preconditions
 * `geth` is configured and started.
