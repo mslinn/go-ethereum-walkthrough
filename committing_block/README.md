@@ -50,10 +50,7 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Handling the message
 
-1. `handleMsg()` reads the message from the peer; See [eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L324)
-  ```
-  msg, err := p.rw.ReadMsg()
-  ```
+1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320) <pre>msg, err := p.rw.ReadMsg()</pre>
 
 2. In this case is a `NewBlockMsg`, so the block data is decoded and scheduled for import:
 [eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L629)
