@@ -1,3 +1,3 @@
-* [Referenced Types](smart_contract_source_code/referenced_types.md)
-* [contract.go](smart_contract_source_code/contractgo.md)
-* [contracts.go](smart_contract_source_code/contractsgo.md)
+* [Referenced Types](referenced_types.md)
+* [contract.go](contractgo.md)
+* [contracts.go](contractsgo.md)
