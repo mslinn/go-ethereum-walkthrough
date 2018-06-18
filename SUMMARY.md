@@ -4,7 +4,7 @@
 * [Licenses](license.md)
 * [Source Files](source_files.md)
 * [Packages](packages.md)
-* [Tries](tries.md)
+* [Tries](tries.md#tries)
   * [Merkle Trees](tries.md#merkle)
   * [Merkle Patricia Tries](tries.md#patricia)
 * [Tours](Tours/README.md)
