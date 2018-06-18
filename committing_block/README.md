@@ -14,7 +14,9 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Initialization
 
-1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):<pre>// geth is the main entry point into the system if no special subcommand is ran.
+1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
+  ```
+// geth is the main entry point into the system if no special subcommand is ran.
 // It creates a default node based on the command line arguments and runs it in
 // blocking mode, waiting for it to be shut down.
 func geth(ctx *cli.Context) error {
@@ -22,10 +24,9 @@ func geth(ctx *cli.Context) error {
         <b>startNode(ctx, node)</b>
         node.Wait()
         return nil
-}</pre>
+}```
 
 2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
-
   ```
   func makeFullNode(ctx *cli.Context) *node.Node {
         stack, cfg := makeConfigNode(ctx)
@@ -35,16 +36,21 @@ func geth(ctx *cli.Context) error {
   }
   ```
 
-3. A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here): <pre>// Protocol represents a P2P subprotocol implementation.
+3. A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here); see [`p2p/protocol.go#L26-L55`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L26-L55): 
+  ```
+  // Protocol represents a P2P subprotocol implementation.
 type Protocol struct {
        // Name should contain the official protocol name,
        // often a three-letter word.
        Name string
+       
        // Version should contain the version number of the protocol.
        Version uint
+       
        // Length should contain the number of message codes used
        // by the protocol.
        Length uint64
+       
        // Run is called in a new groutine when the protocol has been
        // negotiated with a peer. It should read and write messages from
        // rw. The Payload for each message must be fully consumed.
@@ -53,14 +59,17 @@ type Protocol struct {
        // any protocol-level error (such as an I/O error) that is
        // encountered.
        Run func(peer *Peer, rw MsgReadWriter) error
+       
        // NodeInfo is an optional helper method to retrieve protocol specific metadata
        // about the host node.
        NodeInfo func() interface{}
+       
        // PeerInfo is an optional helper method to retrieve protocol specific metadata
        // about a certain peer in the network. If an info retrieval function is set,
        // but returns nil, it is assumed that the protocol handshake is still running.
        PeerInfo func(id discover.NodeID) interface{}
-}</pre>
+}
+```
 
 4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): <pre>type ProtocolManager struct {
        networkID uint64
