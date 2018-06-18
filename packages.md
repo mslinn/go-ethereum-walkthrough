@@ -8,7 +8,7 @@ The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 245
 
 2. Only the directories that map 1:1 with packages are shown in this table. The exception is the `ethereum` package, which is defined in only one file: [`interfaces.go`](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
 
-3. Go&rsquo;s [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor/`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contain a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. 
+3. Go&rsquo;s [special treatment](https://blog.gopheracademy.com/advent-2015/vendor-folder/) of the [`vendor/`](https://github.com/ethereum/go-ethereum/tree/master/vendor) directory defines dependencies which contain a minimal framework for creating and organizing command line Go applications, and a rich testing extension for Go&rsquo;s testing package. Details are here: https://github.com/ethereum/go-ethereum/wiki/Developers'-Guide#managing-vendored-dependencies
 
 ### Top-Level Packages
 
