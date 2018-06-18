@@ -64,8 +64,15 @@ Note: All links to the code are based on `master` as it was when this document w
 4. If the block header validates correctly it is propagated to the node's peers; see [eth/fetcher/fetcher.go#L654-L657](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
 ```go f.broadcastBlock(block, true)```
 
-5. The block is processed; see [eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
-[core/blockchain.go#L959](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L959)
+5. The block is processed; see [eth/fetcher/fetcher.go#L669-L672](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L669-L672)
+```
+if _, err := f.insertChain(types.Blocks{block}); err != nil {
+    glog.V(logger.Warn).Infof("Peer %s: block #%d [%x…] import failed: %v", peer, block.NumberU64(), hash[:4], err)
+    return
+}
+```
+See [core/blockchain.go#L1147](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1147)
+```receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)```
 
 6. If the block is processed successfully it is committed to the database:
 [core/blockchain.go#L971](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L971)
