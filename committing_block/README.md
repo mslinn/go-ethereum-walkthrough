@@ -52,7 +52,7 @@ func geth(ctx *cli.Context) error {
                 case manager.newPeerCh &lt;- peer:
                     manager.wg.Add(1)
                     defer manager.wg.Done()
-                    <span style="background-color: yellow">return manager.handle(peer)</span>
+                    return manager.handle(peer)</b>
                 case &lt;-manager.quitSync:
                     return p2p.DiscQuitting
                 }
@@ -66,11 +66,11 @@ func geth(ctx *cli.Context) error {
                 }
                 return nil
             },
-        })</b>
+        })
     }</pre>
 
-4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
-```return manager.handle(peer)```
+4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet:
+<pre>return manager.handle(peer)</pre>
 
 5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
 
