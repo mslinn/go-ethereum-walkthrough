@@ -1,6 +1,6 @@
 # Following a Block From the Socket Until Committed to the Blockchain
 
-_This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, minor corrections were made, links to types were provided and code snippets were added._
+_This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided and code snippets were added._
 
 Note: All links to the code are based on `master` as it was when this document was last modified. Line numbers might shift as a result.
 
