@@ -14,19 +14,19 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Initialization
 
-1. `geth` sets up a full `Node`; see `cmd/geth/main.go#L236`:
-[```node := makeFullNode(ctx)```](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236)
+1. `geth` sets up a full `Node`; see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
+```node := makeFullNode(ctx)```
 
-2. `geth` registers an instance of the `eth.Ethereum` service with that `Node`; see `cmd/geth/config.go#L156`:
-[```utils.RegisterEthService(stack, &cfg.Eth)```](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156)
+2. `geth` registers an instance of the `eth.Ethereum` service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+```utils.RegisterEthService(stack, &cfg.Eth)```
 
-3. The `eth.Ethereum` service contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see `eth/handler.go#L132`:
-[```manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol ...```](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132)
+3. The `eth.Ethereum` service contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+```manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol ...```
 
-Each of the SubProtocols is setup with a Run method that calls the ProtocolManager's handle() method:
-[eth/handler.go#L144](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L144)
+4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
+```return manager.handle(peer)```
 
-And the Run method of each SubProtocol gets called when geth starts the Node:
+5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
 [cmd/geth/main.go#L188](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L188)
 [node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L142)
 [node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L206)
