@@ -49,11 +49,11 @@ func geth(ctx *cli.Context) error {
             Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
                 peer := manager.newPeer(int(version), p, rw)
                 select {
-                case manager.newPeerCh <- peer:
+                case manager.newPeerCh &lt;- peer:
                     manager.wg.Add(1)
                     defer manager.wg.Done()
                     return manager.handle(peer)
-                case <-manager.quitSync:
+                case &lt;-manager.quitSync:
                     return p2p.DiscQuitting
                 }
             },
@@ -66,8 +66,8 @@ func geth(ctx *cli.Context) error {
                 }
                 return nil
             },
-        })
-    }</b></pre>
+        })</b>
+    }</pre>
 
 4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
 ```return manager.handle(peer)```
