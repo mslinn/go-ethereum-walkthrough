@@ -14,7 +14,7 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Initialization
 
-1. `geth` sets up a full `Node`; see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
+1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
 ```node := makeFullNode(ctx)```
 
 2. `geth` registers an instance of the `eth.Ethereum` service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
