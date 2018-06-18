@@ -4,9 +4,9 @@
 > a trie, also called digital tree and sometimes radix tree or prefix tree (as they can be searched by prefixes), is a kind of search tree—an ordered tree data structure that is used to store a dynamic set or associative array where the keys are usually strings. Unlike a binary search tree, no node in the tree stores the key associated with that node; instead, its position in the tree defines the key with which it is associated. All the descendants of a node have a common prefix of the string associated with that node, and the root is associated with the empty string. Values are not necessarily associated with every node. Rather, values tend only to be associated with leaves, and with some inner nodes that correspond to keys of interest. For the space-optimized presentation of prefix tree, see compact prefix tree.
 
 ## Merkle Tree {#merkle}
-Package [`merkle`](https://godoc.org/github.com/google/trillian/merkle) provides Merkle tree manipulation functions.
+Package [`merkle`](https://godoc.org/github.com/google/trillian/merkle) in the `go-ethereum` project provides Merkle tree manipulation functions.
 
-Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) provides a binary Merkle tree implementation.
+Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) in the `go-ethereum` project provides a binary Merkle tree implementation.
 
 [Wikipedia says](https://en.wikipedia.org/wiki/Merkle_tree): 
 > In cryptography and computer science, a hash tree or Merkle tree is a tree in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the cryptographic hash of the labels of its child nodes. Hash trees allow efficient and secure verification of the contents of large data structures. Hash trees are a generalization of hash lists and hash chains.
