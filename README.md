@@ -6,5 +6,13 @@ This is a walkthrough of some of the core source files in the `master` branch of
 
 This document is up to date with the upcoming `go-ethereum` v1.8.12.
 
+I've added special comments in the displayed source code, in this format:
+```go
+var x = 41
+var y = 42   // <<=== #1
+var z = 43
+```
+The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context.
+
 I've added some suggestions for how the source code might be improved \(to locate them, search for `Suggestion`\). If there is general agreement that these suggestions make sense \(tell me in the comments!\) then I'll create a pull request. Anything I don't know or am unsure about is marked with `TODO`.
 
