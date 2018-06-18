@@ -27,16 +27,21 @@ Note: All links to the code are based on `master` as it was when this document w
 ```return manager.handle(peer)```
 
 5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
-[cmd/geth/main.go#L188](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/cmd/geth/main.go#L188)
-[node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L142)
-[node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L206)
-[p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L406)
-[p2p/server.go#L542](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L542)
-[p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742)
-[p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150)
-[p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303)
 
-which loops infinitely, handling incoming messages from the connected peer:
+  | Line | Code |
+  | --- |   --- |
+  | [cmd/geth/main.go#L188](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/cmd/geth/main.go#L188) | xx |
+  | 
+[node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L142) | xx |
+  | [node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L206) | x  |
+  | [p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L406) | xx |
+  | [p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742)
+ | xx |
+  | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150)
+ | xx |
+  | [p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303 | xx |
+  | | 
+6. which loops infinitely, handling incoming messages from the connected peer:
 [eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L311)
 
 
