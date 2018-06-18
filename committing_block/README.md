@@ -71,31 +71,41 @@ type Protocol struct {
 }
 ```
 
-4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): <pre>type ProtocolManager struct {
+4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
+  ```
+  type ProtocolManager struct {
        networkID uint64
+       
        fastSync  uint32 // Flag whether fast sync is enabled (gets disabled if we already have blocks)
        acceptTxs uint32 // Flag whether we're considered synchronised (enables transaction processing)
+       
        txpool      txPool
        blockchain  *core.BlockChain
        chainconfig *params.ChainConfig
        maxPeers    int
+       
        downloader *downloader.Downloader
        fetcher    *fetcher.Fetcher
        peers      *peerSet
-       <b>SubProtocols []p2p.Protocol</b>
+       
+       SubProtocols []p2p.Protocol
+       
        eventMux      *event.TypeMux
        txsCh         chan core.NewTxsEvent
        txsSub        event.Subscription
        minedBlockSub *event.TypeMuxSubscription
+       
        // channels for fetcher, syncer, txsyncLoop
        newPeerCh   chan *peer
        txsyncCh    chan *txsync
        quitSync    chan struct{}
        noMorePeers chan struct{}
+       
        // wait group is used for graceful shutdowns during downloading
        // and processing
        wg sync.WaitGroup
-}</pre>
+}
+```
 
 5. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 <pre>// Initiate a sub-protocol for every implemented version we can handle
