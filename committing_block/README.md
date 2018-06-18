@@ -24,12 +24,16 @@ func geth(ctx *cli.Context) error {
         return nil
 }</pre>
 
-2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):<pre>func makeFullNode(ctx *cli.Context) *node.Node {
+2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+
+  ```
+  func makeFullNode(ctx *cli.Context) *node.Node {
         stack, cfg := makeConfigNode(ctx)
         <b>utils.RegisterEthService(stack, &cfg.Eth)</b>
         if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
             utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
-}</pre>
+  }
+  ```
 
 3. A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here): <pre>// Protocol represents a P2P subprotocol implementation.
 type Protocol struct {
