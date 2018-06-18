@@ -74,7 +74,7 @@ if _, err := f.insertChain(types.Blocks{block}); err != nil {
 See [core/blockchain.go#L1147](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1147)
 ```receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)```
 
-6. If the block is processed successfully it is committed to the database; see core/blockchain.go#L902](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L902)
+6. If the block is processed successfully it is committed to the database; see [core/blockchain.go#L902](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L902)
 ```root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))```
 
 7. The new block is written to the chain; see [core/blockchain.go#L900](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L900)
