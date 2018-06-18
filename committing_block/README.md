@@ -14,24 +14,22 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Initialization
 
-1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):<pre>
-// geth is the main entry point into the system if no special subcommand is ran.
+1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):<pre>// geth is the main entry point into the system if no special subcommand is ran.
 // It creates a default node based on the command line arguments and runs it in
 // blocking mode, waiting for it to be shut down.
 func geth(ctx *cli.Context) error {
-	node := makeFullNode(ctx)
-	<b>startNode(ctx, node)</b>
-	node.Wait()
-	return nil
-}
-</pre>
+        node := makeFullNode(ctx)
+        <b>startNode(ctx, node)</b>
+        node.Wait()
+        return nil
+}</pre>
 
 2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):<pre>func makeFullNode(ctx *cli.Context) *node.Node {
-	stack, cfg := makeConfigNode(ctx)
-	<b>utils.RegisterEthService(stack, &cfg.Eth)</b>
-	if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
-		utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
-	}</pre>
+        stack, cfg := makeConfigNode(ctx)
+        <b>utils.RegisterEthService(stack, &cfg.Eth)</b>
+        if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
+            utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
+   }</pre>
 
 3. The `eth.Ethereum` struct contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):<pre>	// Initiate a sub-protocol for every implemented version we can handle
    	manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
