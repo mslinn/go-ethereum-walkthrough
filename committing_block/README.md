@@ -26,14 +26,14 @@ Note: All links to the code are based on `master` as it was when this document w
 4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
 ```return manager.handle(peer)```
 
-5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
+5. The `run` method of each `SubProtocol` is called when `geth` starts the `Node`:
 
   | Line | Code |
   | --- |   --- |
   | [node/node.go#L138](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138) | ``` func (n *Node) Start() error``` |
   | [node/node.go#L196](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) | ```if err := running.Start(); err != nil ``` |
   | [p2p/server.go#L504](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) | ```go srv.run(dialer)``` |
-  | [p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742) | xx |
+  | [p2p/server.go#L894](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) | ```remoteRequested, err := p.run()``` |
   | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150) | xx |
   | [p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303) | xx |
    
