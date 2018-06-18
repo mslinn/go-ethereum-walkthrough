@@ -26,7 +26,7 @@ Note: All links to the code are based on `master` as it was when this document w
 4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
 ```return manager.handle(peer)```
 
-5. The `run` method of each `SubProtocol` is called when `geth` starts the `Node`:
+5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
 
   | Line | Code |
   | --- |   --- |
@@ -37,13 +37,23 @@ Note: All links to the code are based on `master` as it was when this document w
   | [p2p/peer.go#L197](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) | ```p.startProtocols(writeStart, writeErr)``` |
   | [p2p/peer.go#L348](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) | ```err := proto.Run(p, rw)``` |
    
-6. An infinite loop handles incoming messages from the connected peer:
-[eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L311)
+6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
+  ```
+	// main loop. handle incoming messages.
+	for {
+		if err := pm.handleMsg(p); err != nil {
+			p.Log().Debug("Ethereum message handling failed", "err", err)
+			return err
+		}
+	}
+  ```
 
 ## Handling the message
 
-1. `handleMsg()` reads the message from the peer:
-[eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L324)
+1. `handleMsg()` reads the message from the peer; See [eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L324)
+  ```
+  msg, err := p.rw.ReadMsg()
+  ```
 
 2. In this case is a `NewBlockMsg`, so the block data is decoded and scheduled for import:
 [eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L629)
