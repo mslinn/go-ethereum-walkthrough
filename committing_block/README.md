@@ -50,16 +50,20 @@ Note: All links to the code are based on `master` as it was when this document w
 
 ## Handling the message
 
-1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320) <pre>msg, err := p.rw.ReadMsg()</pre>
+1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
+```msg, err := p.rw.ReadMsg()```
 
-2. In this case is a `NewBlockMsg`, so the block data is decoded and scheduled for import:
-[eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L629)
+2. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import:
+[eth/handler.go#L634-L664](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L634-L664)
+```case msg.Code == NewBlockMsg:```
 
-3. The block fetcher then tries to import the new block:
-[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L313)
+3. The block fetcher then tries to import the new block; see
+[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313
+```f.insert(op.origin, op.block)```
 
 4. If the block header validates correctly it is propagated to the node's peers:
-[eth/fetcher/fetcher.go#L672](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L672)
+[eth/fetcher/fetcher.go#L654-L657](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
+```go f.broadcastBlock(block, true)```
 
 5. The block is processed:
 [eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
