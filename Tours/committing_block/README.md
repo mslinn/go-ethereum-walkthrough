@@ -159,7 +159,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
   func (n *Node) Start() error {
   ```
   
-  b. Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used for Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
+  b. Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used to manage Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
   ```go
   type Server struct {
        // Config fields may not be modified while the server is running.
@@ -211,7 +211,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
   }	
 ```
   
-  e. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
+  e. Near the end of `Node.Start()`, we see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
   ```go
 go srv.run(dialer)
 ```
