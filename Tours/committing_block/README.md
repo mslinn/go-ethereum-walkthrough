@@ -90,7 +90,7 @@ type Protocol struct {
        fetcher    *fetcher.Fetcher
        peers      *peerSet
        
-       SubProtocols []p2p.Protocol
+       SubProtocols []p2p.Protocol     // <<=== #4
        
        eventMux      *event.TypeMux
        txsCh         chan core.NewTxsEvent
@@ -120,11 +120,11 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
        }
        // Compatible; initialise the sub-protocol
        version := version // Closure for the run
-       manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
+       manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
            Name:    ProtocolName,
            Version: version,
            Length:  ProtocolLengths[i],
-           Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+           Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {          // <<=== #6 start
                peer := manager.newPeer(int(version), p, rw)
                select {
                case manager.newPeerCh &lt;- peer:
@@ -134,7 +134,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
                case &lt;-manager.quitSync:
                    return p2p.DiscQuitting
                }
-           },
+           },                                                            // <<=== #6 end
            NodeInfo: func() interface{} {
                return manager.NodeInfo()
            },
@@ -148,20 +148,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
    }
 ```
 
-6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet:
-```go
-Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
-        peer := manager.newPeer(int(version), p, rw)
-        select {
-        case manager.newPeerCh &lt;- peer:
-            manager.wg.Add(1)
-            defer manager.wg.Done()
-            return manager.handle(peer)
-        case &lt;-manager.quitSync:
-            return p2p.DiscQuitting
-        }
-}
-```
+6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet.
 
 7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
   

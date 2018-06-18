@@ -14,5 +14,27 @@ var z = 43
 ```
 The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context.
 
+If more than one line is referenced, the referenced block of code is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
+```go
+manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
+    Name: ProtocolName,
+    Version: version,
+    Length: ProtocolLengths[i],
+    Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error { // <<=== #6 start
+        peer := manager.newPeer(int(version), p, rw)
+        select {
+        case manager.newPeerCh &lt;- peer:
+            manager.wg.Add(1)
+            defer manager.wg.Done()
+            return manager.handle(peer)</b>
+        case &lt;-manager.quitSync:
+            return p2p.DiscQuitting
+        }
+    }, // <<=== #6 end
+    NodeInfo: func() interface{} {
+    return manager.NodeInfo()
+},
+```
+
 I've added some suggestions for how the source code might be improved \(to locate them, search for `Suggestion`\). If there is general agreement that these suggestions make sense \(tell me in the comments!\) then I'll create a pull request. Anything I don't know or am unsure about is marked with `TODO`.
 
