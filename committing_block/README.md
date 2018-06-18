@@ -121,7 +121,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
        })
    }</pre>
 
-4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet: <pre><b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+4. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet: <pre><b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
     peer := manager.newPeer(int(version), p, rw)
     select {
     case manager.newPeerCh &lt;- peer:
