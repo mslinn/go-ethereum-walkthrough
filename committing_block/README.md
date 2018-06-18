@@ -4,7 +4,7 @@ _This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.gi
 
 Note: All links to the code are based on `master` as it was when this document was last modified. Line numbers might shift as a result.
 
-## Preconditons
+## Preconditions
 * `geth` is configured and started.
 * All services are registered.
 * The discovery protocol discovered some nodes.
