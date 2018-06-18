@@ -31,40 +31,43 @@ func geth(ctx *cli.Context) error {
             utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
    }</pre>
 
-3. The `eth.Ethereum` struct contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):<pre>	// Initiate a sub-protocol for every implemented version we can handle
-   	manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
-        for i, version := range ProtocolVersions {
-		// Skip protocol version if incompatible with the mode of operation
-		if mode == downloader.FastSync && version < eth63 {
-			continue
-		}
-		// Compatible; initialise the sub-protocol
-		version := version // Closure for the run
-		<b>manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
-			Name:    ProtocolName,
-			Version: version,
-			Length:  ProtocolLengths[i],
-			Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
-				peer := manager.newPeer(int(version), p, rw)
-				select {
-				case manager.newPeerCh <- peer:
-					manager.wg.Add(1)
-					defer manager.wg.Done()
-					return manager.handle(peer)
-				case <-manager.quitSync:
-					return p2p.DiscQuitting
-				}
-			},
-			NodeInfo: func() interface{} {
-				return manager.NodeInfo()
-			},
-			PeerInfo: func(id discover.NodeID) interface{} {
-				if p := manager.peers.Peer(fmt.Sprintf("%x", id[:8])); p != nil {
-					return p.Info()
-				}
-				return nil
-			},
-		})</b></pre>
+3. The `eth.Ethereum` struct contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+
+<pre>    // Initiate a sub-protocol for every implemented version we can handle
+    manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
+    for i, version := range ProtocolVersions {
+        // Skip protocol version if incompatible with the mode of operation
+        if mode == downloader.FastSync && version < eth63 {
+            continue
+        }
+        // Compatible; initialise the sub-protocol
+        version := version // Closure for the run
+        <b>manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
+            Name:    ProtocolName,
+            Version: version,
+            Length:  ProtocolLengths[i],
+            Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+                peer := manager.newPeer(int(version), p, rw)
+                select {
+                case manager.newPeerCh <- peer:
+                    manager.wg.Add(1)
+                    defer manager.wg.Done()
+                    return manager.handle(peer)
+                case <-manager.quitSync:
+                    return p2p.DiscQuitting
+                }
+            },
+            NodeInfo: func() interface{} {
+                return manager.NodeInfo()
+            },
+            PeerInfo: func(id discover.NodeID) interface{} {
+                if p := manager.peers.Peer(fmt.Sprintf("%x", id[:8])); p != nil {
+                    return p.Info()
+                }
+                return nil
+            },
+        })
+    }</b></pre>
 
 4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
 ```return manager.handle(peer)```
