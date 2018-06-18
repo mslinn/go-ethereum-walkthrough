@@ -23,7 +23,7 @@ Note: All links to the code are based on `master` as it was when this document w
 // blocking mode, waiting for it to be shut down.
 func geth(ctx *cli.Context) error {
         node := makeFullNode(ctx)
-        <b>startNode(ctx, node)</b>
+        startNode(ctx, node)   // <<=== #1
         node.Wait()
         return nil
 }```
@@ -32,7 +32,7 @@ func geth(ctx *cli.Context) error {
   ```go
   func makeFullNode(ctx *cli.Context) *node.Node {
         stack, cfg := makeConfigNode(ctx)
-        <b>utils.RegisterEthService(stack, &cfg.Eth)</b>
+        utils.RegisterEthService(stack, &cfg.Eth)   // <<=== #2
         if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
             utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
   }
@@ -150,16 +150,16 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
 
 6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet:
 ```go
-<b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
-    peer := manager.newPeer(int(version), p, rw)
-    select {
-    case manager.newPeerCh &lt;- peer:
-        manager.wg.Add(1)
-        defer manager.wg.Done()
-        return manager.handle(peer)
-    case &lt;-manager.quitSync:
-        return p2p.DiscQuitting
-    }
+Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+        peer := manager.newPeer(int(version), p, rw)
+        select {
+        case manager.newPeerCh &lt;- peer:
+            manager.wg.Add(1)
+            defer manager.wg.Done()
+            return manager.handle(peer)
+        case &lt;-manager.quitSync:
+            return p2p.DiscQuitting
+        }
 }
 ```
 
@@ -168,7 +168,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
   a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
   ```go
   // Start create a live P2P node and starts running it.
-  func (n *Node) Start() error {</pre>
+  func (n *Node) Start() error {
   ```
   
   b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198)
@@ -180,33 +180,33 @@ if err := running.Start(); err != nil {
   
   c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
   ```go
-go srv.run(dialer)</pre>
+go srv.run(dialer)
 ```
   
   d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
   ```go
-remoteRequested, err := p.run()</pre>
+remoteRequested, err := p.run()
 ```
   
   e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
   ```go
-p.startProtocols(writeStart, writeErr)</pre>
+p.startProtocols(writeStart, writeErr)
 ```
   
   f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
   ```go
-err := proto.Run(p, rw)</pre>
+err := proto.Run(p, rw)
 ```
    
 6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
   ```go
-	// main loop. handle incoming messages.
-	for {
-		if err := pm.handleMsg(p); err != nil {
-			p.Log().Debug("Ethereum message handling failed", "err", err)
-			return err
-		}
-	}
+// main loop. handle incoming messages.
+for {
+      if err := pm.handleMsg(p); err != nil {
+          p.Log().Debug("Ethereum message handling failed", "err", err)
+          return err
+      }
+}
   ```
 
 ## Handling the message
