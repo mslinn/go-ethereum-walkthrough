@@ -134,14 +134,21 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
 }</pre>
 
 7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
-  a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) <pre>// Start create a live P2P node and starts running it.
+  
+  a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
+  <pre>// Start create a live P2P node and starts running it.
   func (n *Node) Start() error {</pre>
+  
   b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198) <pre>if err := running.Start(); err != nil {
         return convertFileLockError(err)
 }</pre>
+  
   c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) <pre>go srv.run(dialer)</pre>
+  
   d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) <pre>remoteRequested, err := p.run()</pre>
+  
   e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) <pre>p.startProtocols(writeStart, writeErr)</pre>
+  
   f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) <pre>err := proto.Run(p, rw)</pre>
    
 6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
