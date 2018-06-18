@@ -3,6 +3,31 @@
 
 > a trie, also called digital tree and sometimes radix tree or prefix tree (as they can be searched by prefixes), is a kind of search tree—an ordered tree data structure that is used to store a dynamic set or associative array where the keys are usually strings. Unlike a binary search tree, no node in the tree stores the key associated with that node; instead, its position in the tree defines the key with which it is associated. All the descendants of a node have a common prefix of the string associated with that node, and the root is associated with the empty string. Values are not necessarily associated with every node. Rather, values tend only to be associated with leaves, and with some inner nodes that correspond to keys of interest. For the space-optimized presentation of prefix tree, see compact prefix tree.
 
+## Database
+`go-ethereum` provides the [`Database`](https://github.com/ethereum/go-ethereum/blob/master/core/state/database.go#L41-L60) type, which encapsulates tries.
+```go
+// Database wraps access to tries and contract code.
+type Database interface {
+	// OpenTrie opens the main account trie.
+	OpenTrie(root common.Hash) (Trie, error)
+
+	// OpenStorageTrie opens the storage trie of an account.
+	OpenStorageTrie(addrHash, root common.Hash) (Trie, error)
+
+	// CopyTrie returns an independent copy of the given trie.
+	CopyTrie(Trie) Trie
+
+	// ContractCode retrieves a particular contract's code.
+	ContractCode(addrHash, codeHash common.Hash) ([]byte, error)
+
+	// ContractCodeSize retrieves a particular contracts code's size.
+	ContractCodeSize(addrHash, codeHash common.Hash) (int, error)
+
+	// TrieDB retrieves the low level trie database used for data storage.
+	TrieDB() *trie.Database
+}
+```
+
 ## Merkle Tree {#merkle}
 Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) in the `go-ethereum` project provides a binary Merkle tree implementation.
 
@@ -10,6 +35,49 @@ Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) in the `g
 > In cryptography and computer science, a hash tree or Merkle tree is a tree in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the cryptographic hash of the labels of its child nodes. Hash trees allow efficient and secure verification of the contents of large data structures. Hash trees are a generalization of hash lists and hash chains.
 
 > Demonstrating that a leaf node is a part of a given binary hash tree requires computing a number of hashes proportional to the logarithm of the number of leaf nodes of the tree; this contrasts with hash lists, where the number is proportional to the number of leaf nodes itself.
+
+[`core/state/statedb.go#L47-L84`](https://github.com/ethereum/go-ethereum/blob/master/core/state/statedb.go#L47-L84) says:
+```go
+// StateDBs within the ethereum protocol are used to store anything
+// within the merkle trie. StateDBs take care of caching and storing
+// nested states. It's the general query interface to retrieve:
+// * Contracts
+// * Accounts
+type StateDB struct {
+	db   Database
+	trie Trie
+
+	// This map holds 'live' objects, which will get modified while processing a state transition.
+	stateObjects      map[common.Address]*stateObject
+	stateObjectsDirty map[common.Address]struct{}
+
+	// DB error.
+	// State objects are used by the consensus core and VM which are
+	// unable to deal with database-level errors. Any error that occurs
+	// during a database read is memoized here and will eventually be returned
+	// by StateDB.Commit.
+	dbErr error
+
+	// The refund counter, also used by state transitioning.
+	refund uint64
+
+	thash, bhash common.Hash
+	txIndex      int
+	logs         map[common.Hash][]*types.Log
+	logSize      uint
+
+	preimages map[common.Hash][]byte
+
+	// Journal of state modifications. This is the backbone of
+	// Snapshot and RevertToSnapshot.
+	journal        *journal
+	validRevisions []revision
+	nextRevisionId int
+
+	lock sync.Mutex
+}
+```
+Methods to manipulate `StateDB` follow the `struct`, such as `New`, `Error`, `Reset`, etc.
 
 ## Merkle Patricia Tries {#patricia}
 Package [`trie`](https://godoc.org/github.com/ethereum/go-ethereum/trie) implements Merkle Patricia Tries.
