@@ -86,7 +86,7 @@ type Contract struct {
 
 `Value` is a pointer to a big integer. `TODO` possibly this might be the result of executing the contract?
 
-`Args` is a `byte` slice, not sure what it is for.
+`Args` is a `byte` slice, `TODO` not sure what it is for.
 
 `DelegateCall` is Boolean value, unclear if this means the smart contract was invoked using [`delegatecall`](http://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries). From the documentation: &quot;This means that a contract can dynamically load code from a different address at runtime. Storage, current address and balance still refer to the calling contract, only the code is taken from the called address. This makes it possible to implement the “library” feature in Solidity: Reusable library code that can be applied to a contract’s storage, e.g. in order to implement a complex data structure.&quot;
 
