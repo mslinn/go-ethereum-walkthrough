@@ -1,5 +1,3 @@
-# Merkle and Merkle Patricia Tries
-
 ## Tries
 [Wikipedia says](https://en.wikipedia.org/wiki/Trie): 
 
