@@ -1,6 +1,6 @@
 # Following a Block From the Socket Until Committed to the Blockchain
 
-_This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, and code snippets were added._
+_This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, minor corrections were made, links to types were provided and code snippets were added._
 
 Note: All links to the code are based on `master` as it was when this document was last modified. Line numbers might shift as a result.
 
@@ -17,10 +17,10 @@ Note: All links to the code are based on `master` as it was when this document w
 1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
 ```node := makeFullNode(ctx)```
 
-2. `geth` registers an instance of the `eth.Ethereum` service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
 ```utils.RegisterEthService(stack, &cfg.Eth)```
 
-3. The `eth.Ethereum` service contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+3. The `eth.Ethereum` struct contains a `ProtocolManager`, which includes one `SubProtocol` for every supported protocol version; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 ```manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol ...```
 
 4. Each of the `SubProtocols` is defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142):
