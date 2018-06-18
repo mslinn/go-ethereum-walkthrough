@@ -5,6 +5,7 @@
 * [Source Files](source_files.md)
 * [Packages](packages.md)
 * [Tries](tries.md#tries)
+  * [Database](tries.md#db)
   * [Merkle Trees](tries.md#merkle)
   * [Merkle Patricia Tries](tries.md#patricia)
 * [Tours](Tours/README.md)
