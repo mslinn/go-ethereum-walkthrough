@@ -153,35 +153,80 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
 
 7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
   
-  a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
+  a. First the `Node.Start()` method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
   ```go
   // Start create a live P2P node and starts running it.
   func (n *Node) Start() error {
   ```
   
-  b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198)
+  b. The `Server` type is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
   ```go
-if err := running.Start(); err != nil {
-        return convertFileLockError(err)
-}
+  type Server struct {
+       // Config fields may not be modified while the server is running.
+       Config
+
+        // Hooks for testing. These are useful because we can inhibit
+        // the whole protocol stack.
+        newTransport func(net.Conn) transport
+        newPeerHook  func(*Peer)
+
+        lock    sync.Mutex // protects running
+        running bool
+
+        ntab         discoverTable
+        listener     net.Listener
+        ourHandshake *protoHandshake
+        lastLookup   time.Time
+        DiscV5       *discv5.Network
+
+        // These are for Peers, PeerCount (and nothing else).
+        peerOp     chan peerOpFunc
+        peerOpDone chan struct{}
+
+        quit          chan struct{}
+        addstatic     chan *discover.Node
+        removestatic  chan *discover.Node
+        posthandshake chan *conn
+        addpeer       chan *conn
+        delpeer       chan peerDrop
+        loopWG        sync.WaitGroup // loop, listenLoop
+        peerFeed      event.Feed
+        log           log.Logger
+  }
+  ```
+  
+  c. Within `Node.Start()`, [this line](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L165) defines a variable called `running` that will point to a new `Server` instance:
+  ```go
+  running := &p2p.Server{Config: n.serverConfig}
+  ```
+  
+  d. The supported protocols are appended and the p2p server is started; see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198)
+  ```go
+  // Gather the protocols and start the freshly assembled P2P server
+  for _, service := range services {
+      running.Protocols = append(running.Protocols, service.Protocols()...)
+  }
+  if err := running.Start(); err != nil {
+      return convertFileLockError(err)
+  }	
 ```
   
-  c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
+  e. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
   ```go
 go srv.run(dialer)
 ```
   
-  d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
+  f. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
   ```go
 remoteRequested, err := p.run()
 ```
   
-  e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
+  g. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
   ```go
 p.startProtocols(writeStart, writeErr)
 ```
   
-  f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
+  h. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
   ```go
 err := proto.Run(p, rw)
 ```
