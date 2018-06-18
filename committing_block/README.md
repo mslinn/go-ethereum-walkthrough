@@ -27,39 +27,39 @@ Note: All links to the code are based on `master` as it was when this document w
 ```return manager.handle(peer)```
 
 5. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`:
-[cmd/geth/main.go#L188](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L188)
-[node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L142)
-[node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L206)
-[p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L406)
-[p2p/server.go#L542](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L542)
-[p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L742)
-[p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L150)
-[p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L303)
+[cmd/geth/main.go#L188](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/cmd/geth/main.go#L188)
+[node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L142)
+[node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L206)
+[p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L406)
+[p2p/server.go#L542](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L542)
+[p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742)
+[p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150)
+[p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303)
 
 which loops infinitely, handling incoming messages from the connected peer:
-[eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L311)
+[eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L311)
 
 
 ## Handling the message
 
 handleMsg() reads the msg from the peer:
-[eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L324)
+[eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L324)
 
 which in our case is a NewBlockMsg, so the block data is decoded and scheduled for import:
-[eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L629)
+[eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L629)
 
 The block fetcher will then try to import the new block:
-[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313)
+[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L313)
 
 If the block header validates correctly it is propagated to the node's peers:
-[eth/fetcher/fetcher.go#L672](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L672)
+[eth/fetcher/fetcher.go#L672](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L672)
 
 processed:
-[eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L684)
-[core/blockchain.go#L959](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L959)
+[eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
+[core/blockchain.go#L959](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L959)
 
 and if that results in a valid state, it is committed to the database:
-[core/blockchain.go#L971](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L971)
+[core/blockchain.go#L971](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L971)
 
 and written to the chain:
-[core/blockchain.go#L984](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L984)
+[core/blockchain.go#L984](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L984)
