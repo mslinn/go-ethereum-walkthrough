@@ -32,7 +32,7 @@ Note: All links to the code are based on `master` as it was when this document w
   | --- |   --- |
   | [node/node.go#L138](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138) | ``` func (n *Node) Start() error``` |
   | [node/node.go#L196](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) | ```if err := running.Start(); err != nil ``` |
-  | [p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L406) | xx |
+  | [p2p/server.go#L504](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) | ```go srv.run(dialer)``` |
   | [p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742) | xx |
   | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150) | xx |
   | [p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303) | xx |
