@@ -34,8 +34,8 @@ Note: All links to the code are based on `master` as it was when this document w
   | [node/node.go#L196](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196) | ```if err := running.Start(); err != nil ``` |
   | [p2p/server.go#L504](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) | ```go srv.run(dialer)``` |
   | [p2p/server.go#L894](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) | ```remoteRequested, err := p.run()``` |
-  | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150) | xx |
-  | [p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303) | xx |
+  | [p2p/peer.go#L197](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) | ```p.startProtocols(writeStart, writeErr)``` |
+  | [p2p/peer.go#L348](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) | ```err := proto.Run(p, rw)``` |
    
 6. An infinite loop handles incoming messages from the connected peer:
 [eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L311)
