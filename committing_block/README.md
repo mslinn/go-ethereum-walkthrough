@@ -35,36 +35,34 @@ Note: All links to the code are based on `master` as it was when this document w
 [node/node.go#L142](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L142) | xx |
   | [node/node.go#L206](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/node/node.go#L206) | x  |
   | [p2p/server.go#L406](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L406) | xx |
-  | [p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742)
- | xx |
-  | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150)
- | xx |
+  | [p2p/server.go#L742](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/server.go#L742) | xx |
+  | [p2p/peer.go#L150](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L150) | xx |
   | [p2p/peer.go#L303](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/p2p/peer.go#L303 | xx |
-  | | 
-6. which loops infinitely, handling incoming messages from the connected peer:
+   
+6. An infinite loop handles incoming messages from the connected peer:
 [eth/handler.go#L311](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L311)
 
 
 ## Handling the message
 
-handleMsg() reads the msg from the peer:
+1. `handleMsg()` reads the message from the peer:
 [eth/handler.go#L324](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L324)
 
-which in our case is a NewBlockMsg, so the block data is decoded and scheduled for import:
+2. In this case is a `NewBlockMsg`, so the block data is decoded and scheduled for import:
 [eth/handler.go#L629](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/handler.go#L629)
 
-The block fetcher will then try to import the new block:
+3. The block fetcher then tries to import the new block:
 [eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L313)
 
-If the block header validates correctly it is propagated to the node's peers:
+4. If the block header validates correctly it is propagated to the node's peers:
 [eth/fetcher/fetcher.go#L672](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L672)
 
-processed:
+5. The block is processed:
 [eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
 [core/blockchain.go#L959](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L959)
 
-and if that results in a valid state, it is committed to the database:
+6. If the block is processed successfully it is committed to the database:
 [core/blockchain.go#L971](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L971)
 
-and written to the chain:
+7. The new block is written to the chain:
 [core/blockchain.go#L984](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L984)
