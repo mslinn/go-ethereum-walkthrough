@@ -6,6 +6,7 @@ This is a walkthrough of some of the core source files in the `master` branch of
 
 This document is up to date with the upcoming `go-ethereum` v1.8.12.
 
+## Code Reference Comments
 I've added special comments in the displayed source code, in this format:
 ```go
 var x = 41
@@ -36,5 +37,6 @@ manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
 },
 ```
 
+## TODO and Suggestion
 I've added some suggestions for how the source code might be improved \(to locate them, search for `Suggestion`\). If there is general agreement that these suggestions make sense \(tell me in the comments!\) then I'll create a pull request. Anything I don't know or am unsure about is marked with `TODO`.
 
