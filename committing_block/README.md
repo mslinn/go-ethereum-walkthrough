@@ -61,12 +61,10 @@ Note: All links to the code are based on `master` as it was when this document w
 [eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313
 ```f.insert(op.origin, op.block)```
 
-4. If the block header validates correctly it is propagated to the node's peers:
-[eth/fetcher/fetcher.go#L654-L657](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
+4. If the block header validates correctly it is propagated to the node's peers; see [eth/fetcher/fetcher.go#L654-L657](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
 ```go f.broadcastBlock(block, true)```
 
-5. The block is processed:
-[eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
+5. The block is processed; see [eth/fetcher/fetcher.go#L684](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/eth/fetcher/fetcher.go#L684)
 [core/blockchain.go#L959](https://github.com/ethereum/go-ethereum/blob/1886d03faa9b7d8cdf335da84c297d30c213bb69/core/blockchain.go#L959)
 
 6. If the block is processed successfully it is committed to the database:
