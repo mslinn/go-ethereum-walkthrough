@@ -29,12 +29,37 @@ type Database interface {
 ```
 
 ## Merkle Tree {#merkle}
-Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) in the `go-ethereum` project provides a binary Merkle tree implementation.
-
-[Wikipedia says](https://en.wikipedia.org/wiki/Merkle_tree): 
+[Wikipedia says](https://en.wikipedia.org/wiki/Merkle_tree):
 > In cryptography and computer science, a hash tree or Merkle tree is a tree in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the cryptographic hash of the labels of its child nodes. Hash trees allow efficient and secure verification of the contents of large data structures. Hash trees are a generalization of hash lists and hash chains.
 
 > Demonstrating that a leaf node is a part of a given binary hash tree requires computing a number of hashes proportional to the logarithm of the number of leaf nodes of the tree; this contrasts with hash lists, where the number is proportional to the number of leaf nodes itself.
+
+`go-ethereum` defines the following `Trie interface`; see [`core/state/database.go#L62-L72`](https://github.com/ethereum/go-ethereum/blob/master/core/state/database.go#L62-L72)
+```go
+// Trie is a Ethereum Merkle Trie.
+type Trie interface {
+	TryGet(key []byte) ([]byte, error)
+	TryUpdate(key, value []byte) error
+	TryDelete(key []byte) error
+	Commit(onleaf trie.LeafCallback) (common.Hash, error)
+	Hash() common.Hash
+	NodeIterator(startKey []byte) trie.NodeIterator
+	GetKey([]byte) []byte // TODO(fjl): remove this when SecureTrie is removed
+	Prove(key []byte, fromLevel uint, proofDb ethdb.Putter) error
+}
+```
+
+The same file defines the [`cachingDB`](https://github.com/ethereum/go-ethereum/blob/master/core/state/database.go#L62-L72) type, which is concurrency aware:
+```go
+type cachingDB struct {
+	db            *trie.Database
+	mu            sync.Mutex
+	pastTries     []*trie.SecureTrie
+	codeSizeCache *lru.Cache
+}
+```
+
+Package [`bmt`](https://godoc.org/github.com/ethereum/go-ethereum/bmt) in the `go-ethereum` project provides a binary Merkle tree implementation.
 
 [`core/state/statedb.go#L47-L84`](https://github.com/ethereum/go-ethereum/blob/master/core/state/statedb.go#L47-L84) says:
 ```go
