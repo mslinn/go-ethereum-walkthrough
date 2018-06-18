@@ -69,7 +69,7 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 ### Incantations
 The following incantation reports the number of packages in the `go-ethereum` project:
 
-```
+```bash
 grep -rh "^package" | grep -v "not installed" | \
   tr -d ';' | sed 's^//.*^^' | awk '{$1=$1};1' | \
   sort | uniq | wc -l
@@ -77,5 +77,7 @@ grep -rh "^package" | grep -v "not installed" | \
 
 The following incantation lists the top-level directories, most of which are package names:
 
-```find . -maxdepth 1 -type d | sed 's^\./^^' | sed '/\..*/d'```
+```bash
+find . -maxdepth 1 -type d | sed 's^\./^^' | sed '/\..*/d'
+```
 

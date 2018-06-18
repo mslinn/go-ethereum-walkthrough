@@ -4,7 +4,7 @@ Two of the types used in the source files that we would like to understand are d
 
 [`Address`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go#L137-L138) is defined as an array of 20 `byte`s:
 
-```
+```go
 const (
     HashLength    = 32
     AddressLength = 20
@@ -16,14 +16,14 @@ type Address [AddressLength]byte
 
 [`Hash`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go#L43) is defined as an array of 32 `byte`s:
 
-```
+```go
 // Hash represents the 32 byte Keccak256 hash of arbitrary data.
 type Hash [HashLength]byte
 ```
 
 The opcodes for each version of the EVM are defined in [`jump_table.go`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go). The [`operation`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go#L35-L51) `struct` defines the properties:
 
-```
+```go
 type operation struct {
     // execute is the operation function
     execute executionFunc
@@ -47,7 +47,7 @@ Notice the `jumps` property, a Boolean, which if set indicates that the program 
 
 The `destinations` type maps the hash of a smart contract to a bit vector for each the smart contract&rsquo;s entry points. If a bit is set, that indicates the EMV&rsquo;s program counter should increment after executing the entry point. [`analysis.go`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/analysis.go#L25-L28) defines the `destinations` type like this:
 
-```
+```go
 // destinations stores one map per contract (keyed by hash of code).
 // The maps contain an entry for each location of a JUMPDEST instruction.
 type destinations map[common.Hash]bitvec

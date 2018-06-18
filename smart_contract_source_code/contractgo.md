@@ -8,13 +8,13 @@ _This suggestion applies to all of the Go source files in the entire project._
 
 I think the following absolute import would have been better specified as a relative import:
 
-```
+```go
 "github.com/ethereum/go-ethereum/common"
 ```
 
 The relative import would look like this instead:
 
-```
+```go
 "../../common"
 ```
 
@@ -24,21 +24,25 @@ If relative imports were used instead of absolute imports that point to the gith
 
 The publicly visible [`AccountRef`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L30-L40) type is defined as:
 
-<pre>// Account references are used during EVM initialisation and
+```go
+// Account references are used during EVM initialisation and
 // it&#039;s primary use is to fetch addresses. Removing this object
 // proves difficult because of the cached jump destinations which
 // are fetched from the parent contract (i.e. the caller), which
 // is a ContractRef.
-type AccountRef common.Address</pre>
+type AccountRef common.Address
+```
 
 The same file defines a type cast from `AccountRef` to `Address`:
 
-<pre>// Address casts AccountRef to a Address
-func (ar AccountRef) Address() common.Address { return (common.Address)(ar) }</pre>
+```go
+// Address casts AccountRef to a Address
+func (ar AccountRef) Address() common.Address { return (common.Address)(ar) }
+```
 
 The [`ContractRef`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L25-L28) interface is used by the `Contract` `struct`, which we&#039;ll see in a moment. This `ContractRef` interface just consists of an `Address`.
 
-```
+```go
 // ContractRef is a reference to the contract&#039;s backing object
 type ContractRef interface {
     Address() common.Address
@@ -47,7 +51,7 @@ type ContractRef interface {
 
 The [`Contract`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/contract.go#L42-L65) struct defines the behavior of Ethereum smart contracts, and is central to the topic, so here it is in all its glory:
 
-```
+```go
 type Contract struct {
     CallerAddress common.Address
     caller    ContractRef

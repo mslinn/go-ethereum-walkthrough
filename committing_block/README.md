@@ -15,7 +15,7 @@ Note: All links to the code are based on `master` as it was when this document w
 ## Initialization
 
 1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
-  ```
+  ```go
 // geth is the main entry point into the system if no special subcommand is ran.
 // It creates a default node based on the command line arguments and runs it in
 // blocking mode, waiting for it to be shut down.
@@ -27,7 +27,7 @@ func geth(ctx *cli.Context) error {
 }```
 
 2. `geth` registers an instance of the [`eth.Ethereum`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) service with that `Node`; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
-  ```
+  ```go
   func makeFullNode(ctx *cli.Context) *node.Node {
         stack, cfg := makeConfigNode(ctx)
         <b>utils.RegisterEthService(stack, &cfg.Eth)</b>
@@ -37,7 +37,7 @@ func geth(ctx *cli.Context) error {
   ```
 
 3. A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here); see [`p2p/protocol.go#L26-L55`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L26-L55): 
-  ```
+  ```go
   // Protocol represents a P2P subprotocol implementation.
 type Protocol struct {
        // Name should contain the official protocol name,
@@ -72,7 +72,7 @@ type Protocol struct {
 ```
 
 4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
-  ```
+  ```go
   type ProtocolManager struct {
        networkID uint64
        
@@ -108,7 +108,8 @@ type Protocol struct {
 ```
 
 5. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
-<pre>// Initiate a sub-protocol for every implemented version we can handle
+```go
+// Initiate a sub-protocol for every implemented version we can handle
 manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
    for i, version := range ProtocolVersions {
        // Skip protocol version if incompatible with the mode of operation
@@ -117,7 +118,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
        }
        // Compatible; initialise the sub-protocol
        version := version // Closure for the run
-       <b>manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
+       manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
            Name:    ProtocolName,
            Version: version,
            Length:  ProtocolLengths[i],
@@ -142,40 +143,61 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
                return nil
            },
        })
-   }</pre>
+   }
+```
 
-6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet: <pre><b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
+6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet:
+```go
+<b>Run</b>: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
     peer := manager.newPeer(int(version), p, rw)
     select {
     case manager.newPeerCh &lt;- peer:
         manager.wg.Add(1)
         defer manager.wg.Done()
-        <b>return manager.handle(peer)</b>
+        return manager.handle(peer)
     case &lt;-manager.quitSync:
         return p2p.DiscQuitting
     }
-}</pre>
+}
+```
 
 7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
   
   a. First the Node.Start() method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
-  <pre>// Start create a live P2P node and starts running it.
+  ```go
+  // Start create a live P2P node and starts running it.
   func (n *Node) Start() error {</pre>
+  ```
   
-  b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198) <pre>if err := running.Start(); err != nil {
+  b. see [`node/node.go#L196-L198`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L196-L198)
+  ```go
+if err := running.Start(); err != nil {
         return convertFileLockError(err)
-}</pre>
+}
+```
   
-  c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504) <pre>go srv.run(dialer)</pre>
+  c. see [`p2p/server.go#L504`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L504)
+  ```go
+go srv.run(dialer)</pre>
+```
   
-  d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) <pre>remoteRequested, err := p.run()</pre>
+  d. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
+  ```go
+remoteRequested, err := p.run()</pre>
+```
   
-  e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) <pre>p.startProtocols(writeStart, writeErr)</pre>
+  e. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
+  ```go
+p.startProtocols(writeStart, writeErr)</pre>
+```
   
-  f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348) <pre>err := proto.Run(p, rw)</pre>
+  f. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
+  ```go
+err := proto.Run(p, rw)</pre>
+```
    
 6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
-  ```
+  ```go
 	// main loop. handle incoming messages.
 	for {
 		if err := pm.handleMsg(p); err != nil {
@@ -188,31 +210,45 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
 ## Handling the message
 
 1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
-```msg, err := p.rw.ReadMsg()```
+```go 
+msg, err := p.rw.ReadMsg()
+```
 
 2. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import:
 [eth/handler.go#L634-L664](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L634-L664)
-```case msg.Code == NewBlockMsg:```
+```go
+case msg.Code == NewBlockMsg:
+```
 
 3. The block fetcher then tries to import the new block; see
 [eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313
-```f.insert(op.origin, op.block)```
+```go
+f.insert(op.origin, op.block)
+```
 
 4. If the block header validates correctly it is propagated to the node's peers; see [eth/fetcher/fetcher.go#L654-L657](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
-```go f.broadcastBlock(block, true)```
+```go 
+go f.broadcastBlock(block, true)
+```
 
 5. The block is processed; see [eth/fetcher/fetcher.go#L669-L672](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L669-L672)
-```
+```go
 if _, err := f.insertChain(types.Blocks{block}); err != nil {
     glog.V(logger.Warn).Infof("Peer %s: block #%d [%x…] import failed: %v", peer, block.NumberU64(), hash[:4], err)
     return
 }
 ```
 See [core/blockchain.go#L1147](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1147)
-```receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)```
+```go
+receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)
+```
 
 6. If the block is processed successfully it is committed to the database; see [core/blockchain.go#L902](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L902)
-```root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))```
+```go
+root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))
+```
 
 7. The new block is written to the chain; see [core/blockchain.go#L900](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L900)
-```rawdb.WriteBlock(batch, block)```
+```go
+rawdb.WriteBlock(batch, block)
+```

@@ -11,7 +11,7 @@ The following imports are used:
 * [`math/big`](https://golang.org/pkg/math/big/) implements arbitrary-precision arithmetic \(big numbers\).
 * Other packages in this project \(`go-ethereum`\):
 
-  ```
+  ```go
   "github.com/ethereum/go-ethereum/common"
   "github.com/ethereum/go-ethereum/common/math"
   "github.com/ethereum/go-ethereum/crypto"
@@ -21,7 +21,7 @@ The following imports are used:
 
   `Suggestion`: Again, I think the above imports would have been better specified as relative imports:
 
-  ```
+  ```go
   "../../common"
   "../../common/math"
   "../../crypto"
