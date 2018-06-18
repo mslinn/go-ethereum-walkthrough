@@ -29,7 +29,7 @@ func geth(ctx *cli.Context) error {
         <b>utils.RegisterEthService(stack, &cfg.Eth)</b>
         if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
             utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
-   }</pre>
+}</pre>
 
 3. A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here): <pre>// Protocol represents a P2P subprotocol implementation.
 type Protocol struct {
