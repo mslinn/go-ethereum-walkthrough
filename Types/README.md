@@ -1,6 +1,6 @@
 # Types
 
-Remember, publicly visible methods and properties in Go are denoted by having names that start with a capital letter. Private scope is denoted by names starting with a lower-case letter.
+[Remember](https://tour.golang.org/basics/3), publicly visible methods and properties in Go (those that are _exported_) are denoted by having names that start with a capital letter. Private scope is denoted by names starting with a lower-case letter.
 
 This section describes critical data structures used in `go-ethereum`. The main categories of types defined by this documentation are:
 
