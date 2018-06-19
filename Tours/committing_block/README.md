@@ -16,7 +16,7 @@ This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.git
 * We are waiting for ingress data in the peer connection.
 
 ## Initialization {#initialization}
-1. `geth` sets up a full [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
+1. `geth` sets up a full [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
 // geth is the main entry point into the system if no special subcommand is ran.
 // It creates a default node based on the command line arguments and runs it in
