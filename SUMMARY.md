@@ -15,6 +15,7 @@
     * [Patricia Trie](Types/database.md#patricia)
   * [Peer to Peer](Types/p2p.md#p2p)
   * [Smart Contract](Types/smart_contract.md)
+    * [Types](Types/smart_contract.md#types)
     * [`operation`](Types/smart_contract.md#operation)
     * [`instructionSet`](Types/smart_contract.md#instruction_set)
 * [Tours](Tours/README.md)
