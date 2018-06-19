@@ -5,7 +5,7 @@
 * [Source Files](source_files.md)
 * [Packages](packages.md)
 * [Types](Types/README.md)
-  * [Database](Types/database.md#database)
+  * [Blockchain Database](Types/database.md#blockchain)
     * [Tries](Types/database.md#tries)
     * [Database](Types/database.md#db)
     * [Merkle Tries](Types/database.md#merkle)

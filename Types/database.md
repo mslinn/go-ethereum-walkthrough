@@ -1,4 +1,4 @@
-# Database {#database}
+# Blockchain Database {#blockchain}
 These types define the blockchain database.
 
 ## Tries {#tries}
