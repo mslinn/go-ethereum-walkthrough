@@ -29,8 +29,7 @@
     * [Preconditions](Tours/committing_block/README.md#preconditions)
     * [Initialization](Tours/committing_block/README.md#initialization)
     * [Message Handling](Tours/committing_block/README.md#handling)
-  * [Smart Contracts](Tours/smart_contracts/SUMMARY.md)
-    * [Types](/Types/smart_contract.md#types)
+  * [Smart Contracts](Tours/smart_contracts/SUMMARY.md#tour)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
     * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
 
