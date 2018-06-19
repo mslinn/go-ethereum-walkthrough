@@ -1,3 +1,5 @@
+# Database {#database}
+
 ## Tries {#tries}
 [Wikipedia says](https://en.wikipedia.org/wiki/Trie): 
 
