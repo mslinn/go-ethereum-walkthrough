@@ -6,8 +6,10 @@ These types define the blockchain database.
 
 > a trie, also called digital tree and sometimes radix tree or prefix tree (as they can be searched by prefixes), is a kind of search tree—an ordered tree data structure that is used to store a dynamic set or associative array where the keys are usually strings. Unlike a binary search tree, no node in the tree stores the key associated with that node; instead, its position in the tree defines the key with which it is associated. All the descendants of a node have a common prefix of the string associated with that node, and the root is associated with the empty string. Values are not necessarily associated with every node. Rather, values tend only to be associated with leaves, and with some inner nodes that correspond to keys of interest. For the space-optimized presentation of prefix tree, see compact prefix tree.
 
+_More to come..._
+
 ## Database {#db}
-`go-ethereum` provides the `Database` type, which encapsulates tries; see [`core/state/database.go#L41-L60`](https://github.com/ethereum/go-ethereum/blob/master/core/state/database.go#L41-L60).
+`go-ethereum` provides the `Database` type, which encapsulates `Trie`; see [`core/state/database.go#L41-L60`](https://github.com/ethereum/go-ethereum/blob/master/core/state/database.go#L41-L60).
 ```go
 // Database wraps access to tries and contract code.
 type Database interface {
@@ -30,6 +32,8 @@ type Database interface {
 	TrieDB() *trie.Database
 }
 ```
+
+_More to come..._
 
 ## Merkle Trie {#merkle}
 The `go-ethereum` project calls this data structure a `Trie`, whereas Wikipedia calls it a `tree`. This document follows the `go-ethereum` convention.
@@ -109,8 +113,10 @@ type StateDB struct {
 ```
 Methods to manipulate `StateDB` follow the `struct`, such as `New`, `Error`, `Reset`, etc.
 
+_More to come..._
+
 ## Patricia Trie {#patricia}
-Package [`trie`](https://godoc.org/github.com/ethereum/go-ethereum/trie) implements Merkle Patricia Tries.
+Package [`trie`](https://godoc.org/github.com/ethereum/go-ethereum/trie) implements a Patricia trie.
 
 [Wikipedia says](https://en.wikipedia.org/wiki/Radix_tree): 
 > A radix tree (also radix trie or compact prefix tree) is a data structure that represents a space-optimized trie in which each node that is the only child is merged with its parent. The result is that the number of children of every internal node is at most the radix r of the radix tree, where r is a positive integer and a power x of 2, having x ≥ 1. Unlike in regular tries, edges can be labeled with sequences of elements as well as single elements. This makes radix trees much more efficient for small sets (especially if the strings are long) and for sets of strings that share long prefixes.
@@ -121,4 +127,4 @@ Package [`trie`](https://godoc.org/github.com/ethereum/go-ethereum/trie) impleme
 
 > Donald R. Morrison first described what he called "Patricia trees" in 1968; the name comes from the acronym PATRICIA, which stands for "Practical Algorithm To Retrieve Information Coded In Alphanumeric". Gernot Gwehenberger independently invented and described the data structure at about the same time. PATRICIA trees are radix trees with radix equals 2, which means that each bit of the key is compared individually and each node is a two-way (i.e., left versus right) branch.
 
-
+_More to come..._
