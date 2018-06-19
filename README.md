@@ -2,7 +2,7 @@
 
 _This is a work in progress. Comments and suggestions are welcome._
 
-This documentation contains several tours through the [`go-ethereum`](https://github.com/ethereum/go-ethereum) source code. The tours are contained in the last section of this documentation. The penultimate section discusses the major types used in `go-ethereum`, broken into the subsections so they can be conveniently referenced from each of the tours.
+This documentation contains several tours through the [`go-ethereum`](https://github.com/ethereum/go-ethereum) source code. The tours are contained in the last section of this documentation. The penultimate section discusses the major types used in `go-ethereum`, broken into the subsections so they can be conveniently referenced from each of the tours. 
 
 This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source files in the `master` branch of the official [Go language](https://golang.org/) implementation of Ethereum, which includes the [`geth`](https://github.com/ethereum/go-ethereum/tree/master/core/vm) command-line Ethereum client program, along with many others. Ethereum clients include an implementation of the Ethereum Virtual Machine \(EVM\), which are able to parse and verify the Ethereum blockchain, including smart contracts, and provides interfaces to create transactions and mine blocks.
 
