@@ -37,6 +37,41 @@ type Protocol struct {
 }
 ```
 
-
+## `ProtocolManager` {#protocol_manager}
+A [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97) includes one `Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
+  ```go
+  type ProtocolManager struct {
+       networkID uint64
+       
+       fastSync  uint32 // Flag whether fast sync is enabled (gets disabled if we already have blocks)
+       acceptTxs uint32 // Flag whether we're considered synchronised (enables transaction processing)
+       
+       txpool      txPool
+       blockchain  *core.BlockChain
+       chainconfig *params.ChainConfig
+       maxPeers    int
+       
+       downloader *downloader.Downloader
+       fetcher    *fetcher.Fetcher
+       peers      *peerSet
+       
+       SubProtocols []p2p.Protocol     // <<=== #4
+       
+       eventMux      *event.TypeMux
+       txsCh         chan core.NewTxsEvent
+       txsSub        event.Subscription
+       minedBlockSub *event.TypeMuxSubscription
+       
+       // channels for fetcher, syncer, txsyncLoop
+       newPeerCh   chan *peer
+       txsyncCh    chan *txsync
+       quitSync    chan struct{}
+       noMorePeers chan struct{}
+       
+       // wait group is used for graceful shutdowns during downloading
+       // and processing
+       wg sync.WaitGroup
+}
+```
 
 _More to come..._
