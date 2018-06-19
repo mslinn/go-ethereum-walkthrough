@@ -4,8 +4,14 @@ _Following a block in the `geth` client from the socket until it is committed to
 
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
+## Types {#types}
+The following types are referenced in this tour:
+ * `go-ethereum` [common types](/Types/common.md)
+ * [Database](/Types/database.md)
+ * [Peer to peer](/Types/p2p.md)
+
 ## Attribution {#attribution}
-This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added.
+Following is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added.
 
 ## Preconditions {#preconditions}
 * Program is configured and started.
