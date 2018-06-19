@@ -2,7 +2,7 @@
 These types define Ethereum clients, servers and peers.
 
 ## `Config` {#config}
-[This data structure](https://github.com/ethereum/go-ethereum/blob/master/node/config.go#L49-L150) configures an Ethereum `Node`.
+[This data structure](https://github.com/ethereum/go-ethereum/blob/master/node/config.go#L49-L150) configures an Ethereum [`Node`](#node).
 
 ```go
 type Config struct {
