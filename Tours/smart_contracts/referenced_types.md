@@ -1,27 +1,8 @@
-### Referenced Types {#referenced-types}
+# Referenced Types {#referenced-types}
+In addition to the [common types](/Types/common.md#common) used throughout `go-ethereum`, the following types are important for smart contracts.
 
-Two of the types used in the source files that we would like to understand are defined in [`common/types.go`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go). Let&#039;s look at them first.
-
-[`Address`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go#L137-L138) is defined as an array of 20 `byte`s:
-
-```go
-const (
-    HashLength    = 32
-    AddressLength = 20
-)
-
-// Address represents the 20 byte address of an Ethereum account.
-type Address [AddressLength]byte
-```
-
-[`Hash`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go#L43) is defined as an array of 32 `byte`s:
-
-```go
-// Hash represents the 32 byte Keccak256 hash of arbitrary data.
-type Hash [HashLength]byte
-```
-
-The opcodes for each version of the EVM are defined in [`jump_table.go`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go). The [`operation`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go#L35-L51) `struct` defines the properties:
+## `operation` {#operation}
+The [`operation`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go#L35-L51) `struct` defines an EVM opcode:
 
 ```go
 type operation struct {
@@ -52,3 +33,6 @@ The `destinations` type maps the hash of a smart contract to a bit vector for ea
 // The maps contain an entry for each location of a JUMPDEST instruction.
 type destinations map[common.Hash]bitvec
 ```
+
+## `InstructionSet` {#instruction_set}
+The EVM instruction set for each version of the EVM are defined in [`jump_table.go`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go#L60-L951). 
