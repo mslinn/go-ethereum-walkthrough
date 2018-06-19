@@ -15,7 +15,7 @@ var z = 43
 ```
 The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context.
 
-If more than one line is referenced, the referenced block of code is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
+If a block of code is referenced it is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
 ```go
 manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
     Name: ProtocolName,
