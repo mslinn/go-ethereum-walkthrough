@@ -29,7 +29,7 @@
     * [Initialization](Tours/committing_block/README.md#initialization)
     * [Message Handling](Tours/committing_block/README.md#handling)
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md)
-    * [Referenced Types](Tours/smart_contracts/referenced_types.md)
+    * [Types](/Types/smart_contract.md#types)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
     * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
 
