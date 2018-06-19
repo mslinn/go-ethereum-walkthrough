@@ -24,7 +24,7 @@
     * [`instructionSet`](Types/smart_contract.md#instruction_set)
 * [Tours](Tours/README.md)
   * [Committing a Block](Tours/committing_block/README.md#committing-block)
-    * [Types](Types/README.md#types)
+    * [Types](Tours/committing_block/README.md#types)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)
     * [Initialization](Tours/committing_block/README.md#initialization)
