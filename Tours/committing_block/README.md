@@ -1,6 +1,6 @@
 # Tour: Committing a Block {#committing-block}
 
-_Following a block from the socket until it is committed to the blockchain._
+_Following a block in the `geth` client from the socket until it is committed to the blockchain._
 
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
@@ -8,7 +8,7 @@ All links to the code are based on the `master` branch as it was when this docum
 This is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added.
 
 ## Preconditions {#preconditions}
-* `geth` is configured and started.
+* Program is configured and started.
 * All services are registered.
 * The discovery protocol discovered some nodes.
 * The peermanager successfully connected to a node.
