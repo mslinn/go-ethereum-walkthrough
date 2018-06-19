@@ -38,7 +38,7 @@ func geth(ctx *cli.Context) error {
   }
   ```
 
-3. A [`Protocol`](/Types/common.md#protocol) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here).
+3. A [`Protocol`](/Types/p2p.md#protocol) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here).
 
 4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
   ```go
