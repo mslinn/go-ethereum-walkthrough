@@ -12,7 +12,7 @@
     * [Patricia Trie](Types/database.md#patricia)
   * [Peer to Peer](Types/p2p.md#p2p)
 * [Tours](Tours/README.md)
-  * [Committing a Block](Tours/committing_block/README.md)
+  * [Committing a Block](Tours/committing_block/README.md#committing-block)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)
     * [Initialization](Tours/committing_block/README.md#initialization)
