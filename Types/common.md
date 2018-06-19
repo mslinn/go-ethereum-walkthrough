@@ -1,7 +1,7 @@
 # Common Types {#common}
 Foundational types used throughout `go-ethereum`.
 
-Two types are defined in [`common/types.go`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go):
+Two types are defined in [`common/types.go`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go): `Address` and `Hash`.
 
 ## `Address` {#address}
 [`Address`](https://github.com/ethereum/go-ethereum/blob/master/common/types.go#L137-L138) is defined as an array of 20 `byte`s:
