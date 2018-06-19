@@ -10,6 +10,7 @@
     * [Database](Types/database.md#db)
     * [Merkle Trie](Types/database.md#merkle)
     * [Patricia Trie](Types/database.md#patricia)
+  * [Peer to Peer](Types/p2p.md#p2p)
 * [Tours](Tours/README.md)
   * [Committing a Block](Tours/committing_block/README.md)
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md)
