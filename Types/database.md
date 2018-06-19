@@ -1,4 +1,5 @@
 # Database {#database}
+These types define the blockchain database.
 
 ## Tries {#tries}
 [Wikipedia says](https://en.wikipedia.org/wiki/Trie): 
@@ -106,7 +107,7 @@ type StateDB struct {
 ```
 Methods to manipulate `StateDB` follow the `struct`, such as `New`, `Error`, `Reset`, etc.
 
-## Merkle Patricia Tries {#patricia}
+## Patricia Tries {#patricia}
 Package [`trie`](https://godoc.org/github.com/ethereum/go-ethereum/trie) implements Merkle Patricia Tries.
 
 [Wikipedia says](https://en.wikipedia.org/wiki/Radix_tree): 
