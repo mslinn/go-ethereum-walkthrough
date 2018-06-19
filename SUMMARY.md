@@ -6,7 +6,7 @@
 * [Packages](packages.md)
 * [Types](Types/README.md)
   * [Blockchain Database](Types/database.md#blockchain)
-    * [Trie](Types/database.md#tries)
+    * [Trie](Types/database.md#trie)
     * [Database](Types/database.md#db)
     * [Merkle Trie](Types/database.md#merkle)
     * [Patricia Trie](Types/database.md#patricia)
