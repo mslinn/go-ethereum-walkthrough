@@ -1,4 +1,4 @@
-# Referenced Types {#types}
+# Smart Contract Types {#types}
 In addition to the [common types](common.md#common) used throughout `go-ethereum`, the following types are important for smart contracts.
 
 ## `operation` {#operation}
