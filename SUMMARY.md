@@ -26,6 +26,6 @@
     * [Message Handling](Tours/committing_block/README.md#handling)
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md)
     * [Referenced Types](Tours/smart_contracts/referenced_types.md)
-    * [contract.go](Tours/smart_contracts/contractgo.md)
-    * [contracts.go](Tours/smart_contracts/contractsgo.md)
+    * [`contract.go`](Tours/smart_contracts/contractgo.md)
+    * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
 
