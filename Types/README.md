@@ -18,7 +18,7 @@ The following incantation reports the number of packages in the `go-ethereum` pr
 
 ```bash
 grep -rIhw --include \*.go "^\s*Type\s*" | \
-  tr -d ',' | sed 's^//.*^^' | awk '{$1=$1};1' | \
+  tr -d ',' | tr -d ':' | sed 's^//.*^^' | awk '{$1=$1};1' | \
   sort | uniq | wc -l
 ```
 
