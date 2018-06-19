@@ -40,41 +40,7 @@ func geth(ctx *cli.Context) error {
 
 3. A [`Protocol`](/Types/p2p.md#protocol) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here).
 
-4. The `eth.Ethereum` struct contains a [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97), which include one `p2p.Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
-  ```go
-  type ProtocolManager struct {
-       networkID uint64
-       
-       fastSync  uint32 // Flag whether fast sync is enabled (gets disabled if we already have blocks)
-       acceptTxs uint32 // Flag whether we're considered synchronised (enables transaction processing)
-       
-       txpool      txPool
-       blockchain  *core.BlockChain
-       chainconfig *params.ChainConfig
-       maxPeers    int
-       
-       downloader *downloader.Downloader
-       fetcher    *fetcher.Fetcher
-       peers      *peerSet
-       
-       SubProtocols []p2p.Protocol     // <<=== #4
-       
-       eventMux      *event.TypeMux
-       txsCh         chan core.NewTxsEvent
-       txsSub        event.Subscription
-       minedBlockSub *event.TypeMuxSubscription
-       
-       // channels for fetcher, syncer, txsyncLoop
-       newPeerCh   chan *peer
-       txsyncCh    chan *txsync
-       quitSync    chan struct{}
-       noMorePeers chan struct{}
-       
-       // wait group is used for graceful shutdowns during downloading
-       // and processing
-       wg sync.WaitGroup
-}
-```
+4. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version.
 
 5. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 ```go
@@ -124,44 +90,8 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
   // Start create a live P2P node and starts running it.
   func (n *Node) Start() error {
   ```
-  
-  b. Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used to manage Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
-  ```go
-  type Server struct {
-       // Config fields may not be modified while the server is running.
-       Config
-
-        // Hooks for testing. These are useful because we can inhibit
-        // the whole protocol stack.
-        newTransport func(net.Conn) transport
-        newPeerHook  func(*Peer)
-
-        lock    sync.Mutex // protects running
-        running bool
-
-        ntab         discoverTable
-        listener     net.Listener
-        ourHandshake *protoHandshake
-        lastLookup   time.Time
-        DiscV5       *discv5.Network
-
-        // These are for Peers, PeerCount (and nothing else).
-        peerOp     chan peerOpFunc
-        peerOpDone chan struct{}
-
-        quit          chan struct{}
-        addstatic     chan *discover.Node
-        removestatic  chan *discover.Node
-        posthandshake chan *conn
-        addpeer       chan *conn
-        delpeer       chan peerDrop
-        loopWG        sync.WaitGroup // loop, listenLoop
-        peerFeed      event.Feed
-        log           log.Logger
-  }
-  ```
-  
-  c. Within `Node.Start()`, [this line](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L165) defines a variable called `running` that will point to a new `Server` instance:
+   
+  b. Within `Node.Start()`, [this line](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L165) defines a variable called `running` that will point to a new [`Server`](/Types/p2p.md#server) instance:
   ```go
   running := &p2p.Server{Config: n.serverConfig}
   ```

@@ -74,4 +74,42 @@ A [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/ha
 }
 ```
 
+## `Server` {#server}
+Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used to manage Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
+
+```go
+type Server struct {
+    // Config fields may not be modified while the server is running.
+    Config
+
+    // Hooks for testing. These are useful because we can inhibit
+    // the whole protocol stack.
+    newTransport func(net.Conn) transport
+    newPeerHook  func(*Peer)
+
+    lock    sync.Mutex // protects running
+    running bool
+
+    ntab         discoverTable
+    listener     net.Listener
+    ourHandshake *protoHandshake
+    lastLookup   time.Time
+    DiscV5       *discv5.Network
+
+    // These are for Peers, PeerCount (and nothing else).
+    peerOp     chan peerOpFunc
+    peerOpDone chan struct{}
+
+    quit          chan struct{}
+    addstatic     chan *discover.Node
+    removestatic  chan *discover.Node
+    posthandshake chan *conn
+    addpeer       chan *conn
+    delpeer       chan peerDrop
+    loopWG        sync.WaitGroup // loop, listenLoop
+    peerFeed      event.Feed
+    log           log.Logger
+}
+```
+
 _More to come..._
