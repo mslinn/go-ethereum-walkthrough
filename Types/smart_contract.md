@@ -1,5 +1,5 @@
 # Referenced Types {#referenced-types}
-In addition to the [common types](/Types/common.md#common) used throughout `go-ethereum`, the following types are important for smart contracts.
+In addition to the [common types](common.md#common) used throughout `go-ethereum`, the following types are important for smart contracts.
 
 ## `operation` {#operation}
 The [`operation`](https://github.com/ethereum/go-ethereum/blob/master/core/vm/jump_table.go#L35-L51) `struct` defines an EVM opcode:
