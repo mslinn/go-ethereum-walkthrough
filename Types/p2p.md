@@ -109,6 +109,47 @@ type Config struct {
 }
 ```
 
+## gethConfig {#gethConfig}
+
+```
+type gethConfig struct {
+	Eth       eth.Config
+	Shh       whisper.Config
+	Node      node.Config
+	Ethstats  ethstatsConfig
+	Dashboard dashboard.Config
+}
+```
+
+This private type is only visible within the `main` package for the `geth` command, and is used in only two places. The package `main` is the top-level package for Go programs, and tells the Go compiler that the package should compile as an executable program instead of a shared library.
+
+ * [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); `loadConfig` is only invoked from the `geth` command. 
+ 
+  ```go
+func loadConfig(file string, cfg *gethConfig) error {
+        f, err := os.Open(file)
+        if err != nil {
+            return err
+        }
+        defer f.Close()
+
+        err = tomlSettings.NewDecoder(bufio.NewReader(f)).Decode(cfg)
+        // Add file name to errors that have a line number.
+        if _, ok := err.(*toml.LineError); ok {
+            err = errors.New(file + ", " + err.Error())
+        }
+        return err
+}
+```
+ 
+ * Another reference from the `geth` command; see [`cmd/geth/accountcmd.go#L294`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/accountcmd.go#L294)
+
+  ```go
+// accountCreate creates a new account into the keystore defined by the CLI flags.
+func accountCreate(ctx *cli.Context) error {
+cfg := gethConfig{Node: defaultNodeConfig()}
+  ```
+
 ## `Node` {#node}
 A [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74) is a node on the Ethereum blockchain, each of which has its own Ethereum Virtual Machine (EVM).
 

@@ -16,6 +16,7 @@
     * [Patricia Trie](Types/database.md#patricia)
   * [Peer to Peer](Types/p2p.md#p2p)
     * [`Config`](Types/p2p.md#config)
+    * [`gethConfig`](Types/p2p.md#gethConfig) 
     * [`Node`](Types/p2p.md#node)
     * [`Protocol`](Types/p2p.md#protocol)
     * [`ProtocolManager`](Types/p2p.md#protocol_manager)
