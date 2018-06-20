@@ -8,7 +8,7 @@ Welcome to the **Go Ethereum Walkthrough** gitbook! I’m excited to have you he
 
 I’m [Mike Slinn](https://www.micronauticsresearch.com/#people), an independent consultant, software developer and technical instructor specializing in Ethereum, and blockchain \(with Go, Scala, and JavaScript / ECMAScript\).
 
-I offer software development and consultancy services with hands-on, in-depth workshops and mentoring. Reach out to me at [mslinn@micronauticsresearch.com](mailto:mslinn@micronauticsresearch.com) or [@mslinn](https://twitter.com/mslinn) to discuss opportunities.
+I can present this material interactively on line or in person anywhere in the world for an hour, a day, or over several days. I also offer software development and consultancy services with hands-on, in-depth workshops and mentoring. Reach out to me at [mslinn@micronauticsresearch.com](mailto:mslinn@micronauticsresearch.com) or [@mslinn](https://twitter.com/mslinn) to discuss opportunities.
 
 Consider joining me at [SF Ethereum Developers](https://www.meetup.com/SF-Ethereum-Developers/) and [Silicon Valley Ethereum](https://www.meetup.com/EthereumSiliconValley/) meetups.
 
