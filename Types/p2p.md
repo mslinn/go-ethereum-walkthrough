@@ -2,7 +2,7 @@
 These types define Ethereum clients, servers and peers.
 
 ## `Config` {#config}
-[This data structure](https://github.com/ethereum/go-ethereum/blob/master/node/config.go#L49-L150) configures an Ethereum [`Node`](#node).
+[This data structure](https://github.com/ethereum/go-ethereum/blob/master/node/config.go#L49-L150) configures an Ethereum [`Node`](#node). All members are public.
 
 ```go
 type Config struct {
@@ -154,7 +154,7 @@ type Node struct {
 ```
 
 ## `Protocol` {#protocol}
-A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here); see [`p2p/protocol.go#L26-L55`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L26-L55): 
+A [`Protocol`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L25-L55) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here). All members are public. See [`p2p/protocol.go#L26-L55`](https://github.com/ethereum/go-ethereum/blob/master/p2p/protocol.go#L26-L55): 
 ```go
 // Protocol represents a P2P subprotocol implementation.
 type Protocol struct {
@@ -190,7 +190,7 @@ type Protocol struct {
 ```
 
 ## `ProtocolManager` {#protocol_manager}
-A [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97) includes one `Protocol` for every supported protocol version; see [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
+A [`ProtocolManager`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97) includes one `Protocol` for every supported protocol version. All members are private. See [`eth/handler.go#L66-L97`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L66-L97): 
 ```go
 type ProtocolManager struct {
        networkID uint64
@@ -227,7 +227,7 @@ type ProtocolManager struct {
 ```
 
 ## `Server` {#server}
-Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used to manage Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this:
+Peer to peer networking (for Ethereum clients) is described in the [go-ethereum documentation](https://github.com/ethereum/go-ethereum/wiki/Peer-to-Peer). The `Server` type is oddly enough used to manage Ethereum clients, and is defined in [`node/server.go#147-178`](https://github.com/ethereum/go-ethereum/blob/master/node/server.go#L147-178) like this; all members are private:
 
 ```go
 type Server struct {
@@ -263,5 +263,3 @@ type Server struct {
     log           log.Logger
 }
 ```
-
-_More to come..._
