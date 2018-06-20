@@ -110,7 +110,9 @@ type Config struct {
 ```
 
 ## `Node` {#node}
-An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of a [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74).
+A [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74) is a node on the Ethereum blockchain, each of which has its own Ethereum Virtual Machine (EVM).
+
+An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of the `Node` type. The definition of `Node` contains many properties, none of which are exported (this means that `Node` state is only accessed from other packages via methods):
 
 ```go
 // Node is a container on which services can be registered.
