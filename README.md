@@ -3,6 +3,7 @@
 Welcome to the **Go Ethereum Walkthrough** gitbook! I’m excited to have you here and hope you will enjoy exploring the internals of the Go implementation of Ethereum as much as I have.
 
 > “Probably no subject is too hard if people take the trouble to think and write and read clearly.” 
+
 > &mdash; William Zinsser
 
 I’m [Mike Slinn](https://www.micronauticsresearch.com/#people), an independent consultant, software developer and technical instructor specializing in Ethereum, and blockchain \(with Go, Scala, and JavaScript / ECMAScript\).
