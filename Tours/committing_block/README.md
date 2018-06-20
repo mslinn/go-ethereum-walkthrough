@@ -29,8 +29,8 @@ _This section is messed up right now due to reorganization, check back in a bit.
 // It creates a default node based on the command line arguments and runs it in
 // blocking mode, waiting for it to be shut down.
 func geth(ctx *cli.Context) error {
-        node := makeFullNode(ctx)
-        startNode(ctx, node)   // <<=== #1
+        node := makeFullNode(ctx)    // <<=== #1
+        startNode(ctx, node)
         node.Wait()
         return nil
 }```
