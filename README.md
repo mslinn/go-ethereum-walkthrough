@@ -14,5 +14,5 @@ Consider joining me at [SF Ethereum Developers](https://www.meetup.com/SF-Ethere
 
 This documentation includes text and code snippets from a variety of public sources, attributed appropriately.
 
-Now, let me introduce you to [Ethereum](/overview.md).
+Now, let me introduce you to [Go Ethereum](/overview.md).
 
