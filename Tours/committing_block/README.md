@@ -1,12 +1,12 @@
 # Tour: Committing a Block {#committing-block}
 
-_Following a block in the `geth` client from the socket until it is committed to the blockchain._
+_This tour follows a block in the `geth` client from the socket until it is committed to the blockchain._
 
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
 ## Types {#types}
-The following types are referenced in this tour:
- * `go-ethereum` [common types](/Types/common.md)
+The following `go-ethereum` types are referenced in this tour:
+ * [Common](/Types/common.md)
  * [Database](/Types/database.md)
  * [Peer to peer](/Types/p2p.md)
 
@@ -22,6 +22,7 @@ Following is a modified version of [go-ethereum-code-walkthrough.md](https://gis
 * We are waiting for ingress data in the peer connection.
 
 ## Initialization {#initialization}
+_This section is messed up right now due to reorganization, check back in a bit._
 1. `geth` sets up a full [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
 // geth is the main entry point into the system if no special subcommand is ran.
@@ -145,6 +146,7 @@ for {
   ```
 
 ## Message Handling {#handling}
+_This section is messed up right now due to reorganization, check back in a bit._
 
 1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
 ```go 

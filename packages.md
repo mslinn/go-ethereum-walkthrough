@@ -1,6 +1,6 @@
 ## Packages {#packages}
 
-The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 245 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including the [wiki](https://github.com/ethereum/go-ethereum/wiki) and reading the source code.
+The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 242 packages. Only the top-level packages are discussed here. The [`godoc`](https://godoc.org/github.com/ethereum/go-ethereum#pkg-subdirectories) for the project contains some of the following documentation for the top-level packages. The rest of the information was taken from disparate sources, including the [wiki](https://github.com/ethereum/go-ethereum/wiki) and reading the source code.
 
 ### Notes
 
@@ -67,14 +67,17 @@ The [`cmd`](https://github.com/ethereum/go-ethereum/tree/master/cmd) directory c
 | [`wnode`](https://github.com/ethereum/go-ethereum/tree/master/cmd/wnode) | Whisper node, which could be used as a stand-alone bootstrap node and could also be used for test and diagnostics purposes. |
 
 ### Incantations
+
+#### Counting Packages
 The following incantation reports the number of packages in the `go-ethereum` project:
 
 ```bash
-grep -rh "^package" | grep -v "not installed" | \
+grep -rIhw --include \*.go "^\s*package\s*" | grep -v "not installed" | \
   tr -d ';' | sed 's^//.*^^' | awk '{$1=$1};1' | \
   sort | uniq | wc -l
 ```
 
+### Counting Top-Level Directories
 The following incantation lists the top-level directories, most of which are package names:
 
 ```bash
