@@ -12,7 +12,7 @@ I can present this material interactively on line or in person anywhere in the w
 
 Consider joining me at [SF Ethereum Developers](https://www.meetup.com/SF-Ethereum-Developers/) and [Silicon Valley Ethereum](https://www.meetup.com/EthereumSiliconValley/) meetups.
 
-This documentation includes text and code snippets from a variety of public sources, attributed appropriately.
+This documentation includes text and code snippets from a variety of public sources, attributed appropriately, plus my own original writing.
 
 Now, let me introduce you to [Go Ethereum](/overview.md).
 
