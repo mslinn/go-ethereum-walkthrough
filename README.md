@@ -1,4 +1,4 @@
-## Go Ethereum Walkthrough \(1.8.12\) {# walkthrough}
+## Go Ethereum Walkthrough \(1.8.12\) {#walkthrough}
 
 Welcome to the **Go Ethereum Walkthrough** gitbook! I’m excited to have you here and hope you will enjoy exploring the internals of the Go implementation of Ethereum as much as I have.
 
