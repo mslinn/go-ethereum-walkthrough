@@ -1,6 +1,6 @@
 # Tour: Committing a Block {#committing-block}
 
-_Following a block in the `geth` client from the socket until it is committed to the blockchain._
+_This tour follows a block in the `geth` client from the socket until it is committed to the blockchain._
 
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
