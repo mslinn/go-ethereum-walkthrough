@@ -141,9 +141,7 @@ func RegisterEthService(stack *node.Node, cfg *eth.Config) {
 
 3. A [`Protocol`](/Types/p2p.md#protocol) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here).
 
-4. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version.
-
-5. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+4. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 ```go
 // Initiate a sub-protocol for every implemented version we can handle
 manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
