@@ -5,8 +5,8 @@ _Following a block in the `geth` client from the socket until it is committed to
 All links to the code are based on the `master` branch as it was when this document was last modified. Line numbers might shift as a result.
 
 ## Types {#types}
-The following types are referenced in this tour:
- * `go-ethereum` [common types](/Types/common.md)
+The following `go-ethereum` types are referenced in this tour:
+ * [Common](/Types/common.md)
  * [Database](/Types/database.md)
  * [Peer to peer](/Types/p2p.md)
 
