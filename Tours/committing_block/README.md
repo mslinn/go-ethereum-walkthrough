@@ -22,6 +22,7 @@ Following is a modified version of [go-ethereum-code-walkthrough.md](https://gis
 * We are waiting for ingress data in the peer connection.
 
 ## Initialization {#initialization}
+_This section is messed up right now due to reorganization, check back in a bit._
 1. `geth` sets up a full [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
 // geth is the main entry point into the system if no special subcommand is ran.
@@ -145,6 +146,7 @@ for {
   ```
 
 ## Message Handling {#handling}
+_This section is messed up right now due to reorganization, check back in a bit._
 
 1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
 ```go 
