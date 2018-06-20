@@ -1,42 +1,17 @@
-## Overview
+## Go Ethereum Walkthrough \(1.8.12\) {# walkthrough}
 
-_This is a work in progress. Comments and suggestions are welcome._
+Welcome to the **Go Ethereum Walkthrough** gitbook! I’m excited to have you here and hope you will enjoy exploring the internals of the Go implementation of Ethereum as much as I have.
 
-This documentation contains several tours through the [`go-ethereum`](https://github.com/ethereum/go-ethereum) source code. The tours are contained in the last section of this documentation. The penultimate section discusses the major types used in `go-ethereum`, broken into the subsections so they can be conveniently referenced from each of the tours. 
+> “Probably no subject is too hard if people take the trouble to think and write and read clearly.” 
+― William Zinsser
 
-This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source files in the `master` branch of the official [Go language](https://golang.org/) implementation of Ethereum, which includes the [`geth`](https://github.com/ethereum/go-ethereum/tree/master/core/vm) command-line Ethereum client program, along with many others. Ethereum clients include an implementation of the Ethereum Virtual Machine \(EVM\), which are able to parse and verify the Ethereum blockchain, including smart contracts, and provides interfaces to create transactions and mine blocks.
+I’m [Mike Slinn](https://www.micronauticsresearch.com/#people), an independent consultant, software developer and technical instructor specializing in Ethereum, and blockchain \(with Go, Scala, and JavaScript / ECMAScript\).
 
-## Code Reference Comments
-I've added special comments in the displayed source code, in this format:
-```go
-var x = 41
-var y = 42   // <<=== #1
-var z = 43
-```
-The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context.
+I offer software development and consultancy services with hands-on, in-depth workshops and mentoring. Reach out to me at [mslinn@micronauticsresearch.com](mailto:mslinn@micronauticsresearch.com) or [@mslinn](https://twitter.com/mslinn) to discuss opportunities.
 
-If a block of code is referenced it is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
-```go
-manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
-    Name: ProtocolName,
-    Version: version,
-    Length: ProtocolLengths[i],
-    Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error { // <<=== #6 start
-        peer := manager.newPeer(int(version), p, rw)
-        select {
-        case manager.newPeerCh &lt;- peer:
-            manager.wg.Add(1)
-            defer manager.wg.Done()
-            return manager.handle(peer)</b>
-        case &lt;-manager.quitSync:
-            return p2p.DiscQuitting
-        }
-    }, // <<=== #6 end
-    NodeInfo: func() interface{} {
-    return manager.NodeInfo()
-},
-```
+Consider joining me at [SF Ethereum Developers](https://www.meetup.com/SF-Ethereum-Developers/) and [Silicon Valley Ethereum](https://www.meetup.com/EthereumSiliconValley/) meetups.
 
-## TODO and Suggestion
-I've added some suggestions for how the source code might be improved \(to locate them, search for `Suggestion`\). If there is general agreement that these suggestions make sense \(tell me in the comments!\) then I'll create a pull request. Anything I don't know or am unsure about is marked with `TODO`.
+This documentation includes text and code snippets from a variety of public sources, attributed appropriately.
+
+Now, let me introduce you to [Ethereum](/overview.md).
 
