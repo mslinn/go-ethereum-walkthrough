@@ -104,7 +104,7 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
 }
   ```
 
-3. `makeConfigNode` is invoked and returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#3a` below. On the next line (see `#3b` below) `RegisterEthService` uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+4. `makeConfigNode` is invoked and returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#3a` below. On the next line (see `#3b` below) `RegisterEthService` uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
   ```go
   func makeFullNode(ctx *cli.Context) *node.Node {
         stack, cfg := makeConfigNode(ctx)           // <<=== #3a
@@ -114,7 +114,7 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
         }
   ```
 
-4. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
+5. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
    ```go
 // RegisterEthService adds an Ethereum client to the stack.
 func RegisterEthService(stack *node.Node, cfg *eth.Config) {
@@ -139,9 +139,7 @@ func RegisterEthService(stack *node.Node, cfg *eth.Config) {
 }
    ```
 
-3. A [`Protocol`](/Types/p2p.md#protocol) `struct` is created for every supported protocol when `geth` starts (the startup sequence is not shown here).
-
-4. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+6. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
 ```go
 // Initiate a sub-protocol for every implemented version we can handle
 manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
@@ -152,11 +150,11 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
        }
        // Compatible; initialise the sub-protocol
        version := version // Closure for the run
-       manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
+       manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #6a
            Name:    ProtocolName,
            Version: version,
            Length:  ProtocolLengths[i],
-           Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {          // <<=== #6 start
+           Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {          // <<=== #6b start
                peer := manager.newPeer(int(version), p, rw)
                select {
                case manager.newPeerCh &lt;- peer:
@@ -166,7 +164,7 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
                case &lt;-manager.quitSync:
                    return p2p.DiscQuitting
                }
-           },                                                            // <<=== #6 end
+           },                                                            // <<=== #6b end
            NodeInfo: func() interface{} {
                return manager.NodeInfo()
            },
@@ -180,9 +178,9 @@ manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
    }
 ```
 
-6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet.
+7. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet.
 
-7. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
+8. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
   
   a. First the `Node.Start()` method is invoked; see [`node/node.go#L138-L228`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L138-L228) 
   ```go
@@ -226,7 +224,7 @@ p.startProtocols(writeStart, writeErr)
 err := proto.Run(p, rw)
 ```
    
-6. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
+9. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
   ```go
 // main loop. handle incoming messages.
 for {
