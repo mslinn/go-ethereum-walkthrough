@@ -90,9 +90,9 @@ func loadConfig(file string, cfg *gethConfig) error {           // <<=== #2a
 }
 ```
 
-3. The `makeConfigNode` method of the `Context` type (not shown, not important) returns a tuple containing a reference to a new `Node` and the new instance of `gethConfig` used to construct the `Node`; see [`cmd/geth/config.go#L110-L141`](
+3. The private `makeConfigNode` method added to the `cli.Context` type in `cmd/geth/config.go` uses the user-supplied command line to return a tuple containing a reference to a new `Node` and the new instance of `gethConfig` used to construct the `Node`; see [`cmd/geth/config.go#L110-L141`](
 https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141):
-   ```go
+  ```go
 func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
       // Load defaults.
       cfg := gethConfig{
