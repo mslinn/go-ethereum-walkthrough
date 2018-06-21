@@ -71,7 +71,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
   ```
 
-2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` (shown [later](#RegisterEthService)) uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
     ```go
     func makeFullNode(ctx *cli.Context) *node.Node {
            stack, cfg := makeConfigNode(ctx)          // <<=== #2a
@@ -178,8 +178,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
   ```
 
-4. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
-   ```go
+4. <a name="RegisterEthService"></a>`RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):   ```go
     // RegisterEthService adds an Ethereum client to the stack.
     func RegisterEthService(stack *node.Node, cfg *eth.Config) {
         var err error
