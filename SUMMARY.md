@@ -27,6 +27,8 @@
 * [Tours](Tours/README.md)
   * [Committing a Block](Tours/committing_block/README.md#committing-block)
     * [Types](Tours/committing_block/README.md#types)
+      * [`cli.Context`](Tours/committing_block/README.md#Context)
+      * [`gethConfig`](Tours/committing_block/README.md#gethConfig)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)
     * [Initialization](Tours/committing_block/README.md#initialization)
