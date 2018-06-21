@@ -178,18 +178,18 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
   ```
 
-4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146). As previously mentioned, `RegisterEthService` uses a reference to a new `Node` (which is actually a new Ethereum client) and the corresponding `eth.Config` data to add the new Ethereum client. `TODO` the terminology is confusing; the terms "Ethereum client", "stack" and "Ethereum service" all seem to refer to the same object.
+4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146). As previously mentioned, `RegisterEthService` uses a reference to a new `Node` (which is actually a new Ethereum client) and the corresponding `eth.Config` data to add the new Ethereum client. The `eth.New` method, shown in `#5a` and `#5b`, returns the registered Ethereum client. `TODO` the terminology is confusing; the terms "Ethereum client", "stack" and "Ethereum service" all seem to refer to the same object.
     ```go
     // RegisterEthService adds an Ethereum client to the stack.
     func RegisterEthService(stack *node.Node, cfg *eth.Config) {
         var err error
         if cfg.SyncMode == downloader.LightSync {
             err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-                return les.New(ctx, cfg)
+                return les.New(ctx, cfg) // <<=== #5a
             })
         } else {
             err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-                fullNode, err := eth.New(ctx, cfg)
+                fullNode, err := eth.New(ctx, cfg)  // <<=== #5a
                 if fullNode != nil && cfg.LightServ > 0 {
                     ls, _ := les.NewLesServer(fullNode, cfg)
                     fullNode.AddLesServer(ls)
@@ -203,6 +203,68 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
    ```
 
+5. The `eth.New` method accepts a `node.ServiceContext` and a reference to an `eth.Config` instance and returns a reference to a new `LightEthereum` instance; see [`les/backend.go#L83-L140`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L83-L140):
+  ```go
+  func New(ctx *node.ServiceContext, config *eth.Config) (*LightEthereum, error) {
+    chainDb, err := eth.CreateDB(ctx, config, "lightchaindata")
+    if err != nil {
+        return nil, err
+    }
+    chainConfig, genesisHash, genesisErr := core.SetupGenesisBlock(chainDb, config.Genesis)
+    if _, isCompat := genesisErr.(*params.ConfigCompatError); genesisErr != nil && !isCompat {
+        return nil, genesisErr
+    }
+    log.Info("Initialised chain configuration", "config", chainConfig)
+
+    peers := newPeerSet()
+    quitSync := make(chan struct{})
+
+    leth := &LightEthereum{
+        config:           config,
+        chainConfig:      chainConfig,
+        chainDb:          chainDb,
+        eventMux:         ctx.EventMux,
+        peers:            peers,
+        reqDist:          newRequestDistributor(peers, quitSync),
+        accountManager:   ctx.AccountManager,
+        engine:           eth.CreateConsensusEngine(ctx, &config.Ethash, chainConfig, chainDb),
+        shutdownChan:     make(chan bool),
+        networkId:        config.NetworkId,
+        bloomRequests:    make(chan chan *bloombits.Retrieval),
+        bloomIndexer:     eth.NewBloomIndexer(chainDb, light.BloomTrieFrequency),
+        chtIndexer:       light.NewChtIndexer(chainDb, true),
+        bloomTrieIndexer: light.NewBloomTrieIndexer(chainDb, true),
+    }
+
+    leth.relay = NewLesTxRelay(peers, leth.reqDist)
+    leth.serverPool = newServerPool(chainDb, quitSync, &leth.wg)
+    leth.retriever = newRetrieveManager(peers, leth.reqDist, leth.serverPool)
+    leth.odr = NewLesOdr(chainDb, leth.chtIndexer, leth.bloomTrieIndexer, leth.bloomIndexer, leth.retriever)
+    if leth.blockchain, err = light.NewLightChain(leth.odr, leth.chainConfig, leth.engine); err != nil {
+        return nil, err
+    }
+    leth.bloomIndexer.Start(leth.blockchain)
+    // Rewind the chain in case of an incompatible config upgrade.
+    if compat, ok := genesisErr.(*params.ConfigCompatError); ok {
+        log.Warn("Rewinding chain to upgrade configuration", "err", compat)
+        leth.blockchain.SetHead(compat.RewindTo)
+        rawdb.WriteChainConfig(chainDb, genesisHash, chainConfig)
+    }
+
+    leth.txPool = light.NewTxPool(leth.chainConfig, leth.blockchain, leth.relay)
+    if leth.protocolManager, err = NewProtocolManager(leth.chainConfig, true, ClientProtocolVersions, config.NetworkId, leth.eventMux, leth.engine, leth.peers, leth.blockchain, nil, chainDb, leth.odr, leth.relay, leth.serverPool, quitSync, &leth.wg); err != nil {
+        return nil, err
+    }
+    leth.ApiBackend = &LesApiBackend{leth, nil}
+    gpoParams := config.GPO
+    if gpoParams.Default == nil {
+        gpoParams.Default = config.GasPrice
+    }
+    leth.ApiBackend.gpo = gasprice.NewOracle(leth.ApiBackend, gpoParams)
+    return leth, nil
+}
+```
+  
 5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
     ```go
     // Initiate a sub-protocol for every implemented version we can handle
