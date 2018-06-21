@@ -12,6 +12,25 @@ The following `go-ethereum` types are referenced in this tour:
 
 The following types are used in the initialization phase of this tour:
 
+### `cli.Context` {#Context}
+This publicly visible type is provided by the [`github.com/urfave/cli.v1`](hhttps://github.com/urfave/cli#cli) dependency:
+> "cli is a simple, fast, and fun package for building command line apps in Go. The goal is to enable developers to write fast and distributable command line applications in an expressive way.
+
+```go
+// Context is a type that is passed through to
+// each Handler action in a cli application. Context
+// can be used to retrieve context-specific Args and
+// parsed command-line options.
+type Context struct {
+    App *App
+    Command Command
+    shellComplete bool
+    flagSet *flag.FlagSet
+    setFlags map[string]bool
+    parentContext *Context
+}
+```
+
 ### `gethConfig` {#gethConfig}
 The `gethConfig` private type is only visible within the `main` package for the `geth` command. The package `main` is the top-level package for Go programs, and tells the Go compiler that the package should compile as an executable program instead of a shared library.
 
