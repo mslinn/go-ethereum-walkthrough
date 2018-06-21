@@ -10,6 +10,21 @@ The following `go-ethereum` types are referenced in this tour:
  * [Database](/Types/database.md)
  * [Peer to peer](/Types/p2p.md)
 
+The following types are used in the initialization phase of this tour:
+
+### `gethConfig` {#gethConfig}
+The `gethConfig` private type is only visible within the `main` package for the `geth` command. The package `main` is the top-level package for Go programs, and tells the Go compiler that the package should compile as an executable program instead of a shared library.
+
+```go
+type gethConfig struct {
+    Eth eth.Config
+    Shh whisper.Config
+    Node node.Config
+    Ethstats ethstatsConfig
+    Dashboard dashboard.Config
+}
+```
+
 ## Attribution {#attribution}
 Following is a modified version of [go-ethereum-code-walkthrough.md](https://gist.github.com/gsalgado/16a67aa51207f87e259a7007a2e8d274) by [gsalgado](https://github.com/gsalgado). Code references were updated, more detail was added, links to types were provided, a redundant step was removed, spelling was corrected and code snippets were added.
 
@@ -36,20 +51,8 @@ func geth(ctx *cli.Context) error {
         return nil
 }
   ```
-  
-2. The `gethConfig` private type is only visible within the `main` package for the `geth` command. The package `main` is the top-level package for Go programs, and tells the Go compiler that the package should compile as an executable program instead of a shared library.
 
-  ```go
-type gethConfig struct {
-       Eth       eth.Config
-       Shh       whisper.Config
-       Node      node.Config
-       Ethstats  ethstatsConfig
-       Dashboard dashboard.Config
-}
-```
-
-  The `loadConfig` method accepts a reference to an instance of `gethConfig` called `cfg`. This method is only invoked from the `geth` command; see [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); 
+2. The `loadConfig` method accepts a reference to an instance of `gethConfig` called `cfg`. This method is only invoked from the `geth` command; see [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); 
  
   ```go
 func loadConfig(file string, cfg *gethConfig) error {           // <<=== #2a
