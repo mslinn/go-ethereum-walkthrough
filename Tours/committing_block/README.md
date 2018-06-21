@@ -178,18 +178,18 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
   ```
 
-4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146). As previously mentioned, `RegisterEthService` uses a reference to a new `Node` (which is actually a new Ethereum client) and the corresponding `eth.Config` data to add the new Ethereum client. The `eth.New` method, shown in `#5a` and `#5b`, returns the registered Ethereum client. `TODO` the terminology is confusing; the terms "Ethereum client", "stack" and "Ethereum service" all seem to refer to the same object.
+4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146). As previously mentioned, `RegisterEthService` uses a reference to a new `Node` (which is actually a new Ethereum client) and the corresponding `eth.Config` data to add the new Ethereum client. The `eth.New` method, shown in `#4a` and `#4b`, returns the registered Ethereum client. `TODO` the terminology is confusing; the terms "Ethereum client", "stack" and "Ethereum service" all seem to refer to the same object.
     ```go
     // RegisterEthService adds an Ethereum client to the stack.
     func RegisterEthService(stack *node.Node, cfg *eth.Config) {
         var err error
         if cfg.SyncMode == downloader.LightSync {
             err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-                return les.New(ctx, cfg) // <<=== #5a
+                return les.New(ctx, cfg) // <<=== #4a
             })
         } else {
             err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-                fullNode, err := eth.New(ctx, cfg)  // <<=== #5a
+                fullNode, err := eth.New(ctx, cfg)  // <<=== #4b
                 if fullNode != nil && cfg.LightServ > 0 {
                     ls, _ := les.NewLesServer(fullNode, cfg)
                     fullNode.AddLesServer(ls)
@@ -203,7 +203,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
    ```
 
-5. The `eth.New` method accepts a `node.ServiceContext` and a reference to an `eth.Config` instance and returns a reference to a new `LightEthereum` instance; see [`les/backend.go#L83-L140`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L83-L140):
+5. The `eth.New` method accepts a `node.ServiceContext` and a reference to an `eth.Config` instance and returns a reference to a new `LightEthereum` instance; see [`les/backend.go#L83-L140`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L83-L140). The new `LightEthereum` instance contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version; see #5. 
   ```go
   func New(ctx *node.ServiceContext, config *eth.Config) (*LightEthereum, error) {
     chainDb, err := eth.CreateDB(ctx, config, "lightchaindata")
@@ -252,7 +252,8 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
 
     leth.txPool = light.NewTxPool(leth.chainConfig, leth.blockchain, leth.relay)
-    if leth.protocolManager, err = NewProtocolManager(leth.chainConfig, true, ClientProtocolVersions, config.NetworkId, leth.eventMux, leth.engine, leth.peers, leth.blockchain, nil, chainDb, leth.odr, leth.relay, leth.serverPool, quitSync, &leth.wg); err != nil {
+    // <<=== #6 on next line
+    if leth.protocolManager, err = NewProtocolManager(leth.chainConfig, true, ClientProtocolVersions, config.NetworkId, leth.eventMux, leth.engine, leth.peers, leth.blockchain, nil, chainDb, leth.odr, leth.relay, leth.serverPool, quitSync, &leth.wg); err != nil { 
         return nil, err
     }
     leth.ApiBackend = &LesApiBackend{leth, nil}
@@ -265,7 +266,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
 }
 ```
   
-5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
     ```go
     // Initiate a sub-protocol for every implemented version we can handle
     manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
@@ -280,7 +281,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
                Name:    ProtocolName,
                Version: version,
                Length:  ProtocolLengths[i],
-               Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {          // <<=== #6b start
+               Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {          // <<=== #7b start
                    peer := manager.newPeer(int(version), p, rw)
                    select {
                    case manager.newPeerCh &lt;- peer:
@@ -290,7 +291,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
                    case &lt;-manager.quitSync:
                        return p2p.DiscQuitting
                    }
-               },                                                            // <<=== #6b end
+               },                                                            // <<=== #7b end
                NodeInfo: func() interface{} {
                    return manager.NodeInfo()
                },
