@@ -71,17 +71,91 @@ func geth(ctx *cli.Context) error {
 }
   ```
 
-2. The `loadConfig` method accepts a reference to an instance of `gethConfig` called `cfg`. This method is only invoked from the `geth` command; see [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); 
+2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+```go
+func makeFullNode(ctx *cli.Context) *node.Node {
+       stack, cfg := makeConfigNode(ctx)          // <<=== #2a
+       utils.RegisterEthService(stack, &cfg.Eth)  // <<=== #2b
+       if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
+       utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
+}
+```
+
+3. The private `makeConfigNode` method is shown below; see [`cmd/geth/config.go#L110-L141`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141). It starts by creating an instance of [`gethConfig`](#gethConfig), described above; the two properties of interest are `Eth` and `Node`. The former property is assigned a default value (`eth.DefaultConfig`, see `#3a`, and shown in detail next), while the latter property's value is computed by the `defaultNodeConfig` method, see `#3b` and shown in detail following.
+```go
+func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
+    // Load defaults.
+    cfg := gethConfig{
+        Eth:       eth.DefaultConfig,      // <<=== #3a
+        Shh:       whisper.DefaultConfig,
+        Node:      defaultNodeConfig(),    // <<=== #3b
+        Dashboard: dashboard.DefaultConfig,
+    }
+
+    // Load config file.
+    if file := ctx.GlobalString(configFileFlag.Name); file != "" {
+        if err := loadConfig(file, &cfg); err != nil {
+            utils.Fatalf("%v", err)
+        }
+    }
+
+    // Apply flags.
+    utils.SetNodeConfig(ctx, &cfg.Node)
+    stack, err := node.New(&cfg.Node)
+    if err != nil {
+        utils.Fatalf("Failed to create the protocol stack: %v", err)
+    }
+    utils.SetEthConfig(ctx, stack, &cfg.Eth)
+    if ctx.GlobalIsSet(utils.EthStatsURLFlag.Name) {
+        cfg.Ethstats.URL = ctx.GlobalString(utils.EthStatsURLFlag.Name)
+    }
+
+    utils.SetShhConfig(ctx, stack, &cfg.Shh)
+    utils.SetDashboardConfig(ctx, &cfg.Dashboard)
+
+    return stack, cfg
+}
+
+```
+
+4. `eth.DefaultConfig` looks like this; see [`eth/config.go#L36-L58`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L36-L58):
+```go
+// DefaultConfig contains default settings for use on the Ethereum main net.
+var DefaultConfig = Config{
+    SyncMode: downloader.FastSync,
+    Ethash: ethash.Config{
+        CacheDir:       "ethash",
+        CachesInMem:    2,
+        CachesOnDisk:   3,
+        DatasetsInMem:  1,
+        DatasetsOnDisk: 2,
+    },
+    NetworkId:     1,
+    LightPeers:    100,
+    DatabaseCache: 768,
+    TrieCache:     256,
+    TrieTimeout:   60 * time.Minute,
+    GasPrice:      big.NewInt(18 * params.Shannon),
+
+    TxPool: core.DefaultTxPoolConfig,
+    GPO: gasprice.Config{
+        Blocks:     20,
+        Percentile: 60,
+    },
+}
+```
+
+5. The `loadConfig` method accepts a reference to an instance of `gethConfig` called `cfg`. This method is only invoked from the `geth` command; see [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); 
  
-  ```go
-func loadConfig(file string, cfg *gethConfig) error {           // <<=== #2a
+```go
+func loadConfig(file string, cfg *gethConfig) error {           // <<=== #3a
     f, err := os.Open(file)
     if err != nil {
         return err
     }
     defer f.Close()
 
-    err = tomlSettings.NewDecoder(bufio.NewReader(f)).Decode(cfg)  // <<=== #2b
+    err = tomlSettings.NewDecoder(bufio.NewReader(f)).Decode(cfg)  // <<=== #3b
     // Add file name to errors that have a line number.
     if _, ok := err.(*toml.LineError); ok {
         err = errors.New(file + ", " + err.Error())
@@ -124,16 +198,6 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
 
       return stack, cfg
 }
-  ```
-
-4. `makeConfigNode` is invoked and returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#3a` below. On the next line (see `#3b` below) `RegisterEthService` uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
-  ```go
-  func makeFullNode(ctx *cli.Context) *node.Node {
-        stack, cfg := makeConfigNode(ctx)           // <<=== #3a
-        utils.RegisterEthService(stack, &cfg.Eth)   // <<=== #3b
-        if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
-            utils.RegisterDashboardService(stack, &cfg.Dashboard, gitCommit)
-        }
   ```
 
 5. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
