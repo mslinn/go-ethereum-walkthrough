@@ -81,7 +81,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
     ```
 
-3. The private `makeConfigNode` method is shown below; see [`cmd/geth/config.go#L110-L141`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141). It starts by creating an instance of [`gethConfig`](#gethConfig), described above; the two properties of interest are `Eth` and `Node`. The former property is assigned a default value (`eth.DefaultConfig`, see `#3a`, and shown in detail next), while the latter property's value is computed by the `defaultNodeConfig` method, see `#3b` and shown in detail following.
+3. The private `makeConfigNode` method added to the `cli.Context` type in `cmd/geth/config.go` uses the user-supplied command line to return a tuple containing a reference to a new `Node` and the new instance of `gethConfig` used to construct the `Node`; see [`cmd/geth/config.go#L110-L141`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141). It starts by creating an instance of [`gethConfig`](#gethConfig), described above; the two properties of interest are `Eth` and `Node`. The former property is assigned a default value (`eth.DefaultConfig`, see `#3a`, and shown in detail next), while the latter property's value is computed by the `defaultNodeConfig` method, see `#3b` and shown in detail following.
 
   ```go
     func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
@@ -119,7 +119,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     
     ```
 
-4. `eth.DefaultConfig` looks like this; see [`eth/config.go#L36-L58`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L36-L58):
+  a. `eth.DefaultConfig` looks like this; see [`eth/config.go#L36-L58`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L36-L58):
     ```go
     // DefaultConfig contains default settings for use on the Ethereum main net.
     var DefaultConfig = Config{
@@ -146,94 +146,39 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
     ```
 
-5. The `defaultNodeConfig` method returns a `node.Config` instance based on `node.DefaultConfig`, see [`cmd/geth/config.go#L100-L108`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L100-L108):
+  b. The `defaultNodeConfig` method returns a `node.Config` instance based on `node.DefaultConfig`, see [`cmd/geth/config.go#L100-L108`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L100-L108):
   ```go
-  func defaultNodeConfig() node.Config {
-	cfg := node.DefaultConfig
-	cfg.Name = clientIdentifier
-	cfg.Version = params.VersionWithCommit(gitCommit)
-	cfg.HTTPModules = append(cfg.HTTPModules, "eth", "shh")
-	cfg.WSModules = append(cfg.WSModules, "eth", "shh")
-	cfg.IPCPath = "geth.ipc"
-	return cfg
-  }
-  ```
-  
-5. `node.DefaultConfig` looks like this; see [`node/defaults.go#L36-L49`](https://github.com/ethereum/go-ethereum/blob/master/node/defaults.go#L36-L49):
-  
-  ```go
-  // DefaultConfig contains reasonable default settings.
-var DefaultConfig = Config{
-	DataDir:          DefaultDataDir(),
-	HTTPPort:         DefaultHTTPPort,
-	HTTPModules:      []string{"net", "web3"},
-	HTTPVirtualHosts: []string{"localhost"},
-	WSPort:           DefaultWSPort,
-	WSModules:        []string{"net", "web3"},
-	P2P: p2p.Config{
-		ListenAddr: ":30303",
-		MaxPeers:   25,
-		NAT:        nat.Any(),
-	},
-  }
-  ```
-
-6. The `loadConfig` method accepts a reference to an instance of `gethConfig` called `cfg`. This method is only invoked from the `geth` command; see [`config.go#L85-L98`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L85-L98); 
- 
-    ```go
-    func loadConfig(file string, cfg *gethConfig) error {           // <<=== #3a
-        f, err := os.Open(file)
-        if err != nil {
-            return err
-        }
-        defer f.Close()
-    
-        err = tomlSettings.NewDecoder(bufio.NewReader(f)).Decode(cfg)  // <<=== #3b
-        // Add file name to errors that have a line number.
-        if _, ok := err.(*toml.LineError); ok {
-            err = errors.New(file + ", " + err.Error())
-        }
-        return err
+    func defaultNodeConfig() node.Config {
+        cfg := node.DefaultConfig
+        cfg.Name = clientIdentifier
+        cfg.Version = params.VersionWithCommit(gitCommit)
+        cfg.HTTPModules = append(cfg.HTTPModules, "eth", "shh")
+        cfg.WSModules = append(cfg.WSModules, "eth", "shh")
+        cfg.IPCPath = "geth.ipc"
+        return cfg
     }
-    ```
-
-7. The private `makeConfigNode` method added to the `cli.Context` type in `cmd/geth/config.go` uses the user-supplied command line to return a tuple containing a reference to a new `Node` and the new instance of `gethConfig` used to construct the `Node`; see [`cmd/geth/config.go#L110-L141`](
-https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141):
+  ```
+  
+  c. `node.DefaultConfig` looks like this; see [`node/defaults.go#L36-L49`](https://github.com/ethereum/go-ethereum/blob/master/node/defaults.go#L36-L49):
+  
   ```go
-    func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
-          // Load defaults.
-          cfg := gethConfig{
-              Eth: eth.DefaultConfig,
-              Shh: whisper.DefaultConfig,
-              Node: defaultNodeConfig(),
-              Dashboard: dashboard.DefaultConfig,
-          }
-          // Load config file.
-          if file := ctx.GlobalString(configFileFlag.Name); file != "" {
-              if err := loadConfig(file, &cfg); err != nil {
-                  utils.Fatalf("%v", err)
-              }
-          }
-    
-          // Apply flags.
-          utils.SetNodeConfig(ctx, &cfg.Node)
-          stack, err := node.New(&cfg.Node)
-          if err != nil {
-              utils.Fatalf("Failed to create the protocol stack: %v", err)
-          }
-          utils.SetEthConfig(ctx, stack, &cfg.Eth)
-          if ctx.GlobalIsSet(utils.EthStatsURLFlag.Name) {
-              cfg.Ethstats.URL = ctx.GlobalString(utils.EthStatsURLFlag.Name)
-          }
-    
-          utils.SetShhConfig(ctx, stack, &cfg.Shh)
-          utils.SetDashboardConfig(ctx, &cfg.Dashboard)
-    
-          return stack, cfg
+    // DefaultConfig contains reasonable default settings.
+    var DefaultConfig = Config{
+        DataDir: DefaultDataDir(),
+        HTTPPort: DefaultHTTPPort,
+        HTTPModules: []string{"net", "web3"},
+        HTTPVirtualHosts: []string{"localhost"},
+        WSPort: DefaultWSPort,
+        WSModules: []string{"net", "web3"},
+        P2P: p2p.Config{
+            ListenAddr: ":30303",
+            MaxPeers: 25,
+            NAT: nat.Any(),
+        },
     }
   ```
 
-8. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
+4. `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
    ```go
     // RegisterEthService adds an Ethereum client to the stack.
     func RegisterEthService(stack *node.Node, cfg *eth.Config) {
@@ -258,7 +203,7 @@ https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141
     }
    ```
 
-9. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. The `eth.Ethereum` struct contains a [`ProtocolManager`](/Types/p2p.md#protocol_manager), which includes one `p2p.Protocol` for every supported protocol version. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
     ```go
     // Initiate a sub-protocol for every implemented version we can handle
     manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
@@ -297,7 +242,7 @@ https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141
        }
     ```
 
-10. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet.
+6. Each of the `SubProtocols` defines a `Run` method that calls the `ProtocolManager`'s `handle()` method; see [`eth/handler.go#L142`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L142), contained in the preceding code snippet.
 
 11. The `Run` method of each `SubProtocol` is called when `geth` starts the `Node`. 
   
@@ -343,7 +288,7 @@ https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L110-L141
   err := proto.Run(p, rw)
   ```
    
-12. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
+7. An infinite loop handles incoming messages from the connected peer. See [eth/handler.go#L307-L313](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L307-L313):
   ```go
     // main loop. handle incoming messages.
     for {
