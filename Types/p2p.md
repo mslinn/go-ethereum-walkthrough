@@ -109,6 +109,45 @@ type Config struct {
 }
 ```
 
+## `LightEthereum` {#LightEthereum}
+A [`LightEthereum`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L49-L81) is a node on the Ethereum blockchain. `TODO` how is this different from a `Node`?
+
+```go
+type LightEthereum struct {
+    config *eth.Config
+
+    odr         *LesOdr
+    relay       *LesTxRelay
+    chainConfig *params.ChainConfig
+    // Channel for shutting down the service
+    shutdownChan chan bool
+    // Handlers
+    peers           *peerSet
+    txPool          *light.TxPool
+    blockchain      *light.LightChain
+    protocolManager *ProtocolManager
+    serverPool      *serverPool
+    reqDist         *requestDistributor
+    retriever       *retrieveManager
+    // DB interfaces
+    chainDb ethdb.Database // Block chain database
+
+    bloomRequests   chan chan *bloombits.Retrieval // Channel receiving bloom data retrieval requests
+    bloomIndexer, chtIndexer, bloomTrieIndexer *core.ChainIndexer
+
+    ApiBackend *LesApiBackend
+
+    eventMux       *event.TypeMux
+    engine         consensus.Engine
+    accountManager *accounts.Manager
+
+    networkId     uint64
+    netRPCService *ethapi.PublicNetAPI
+
+    wg sync.WaitGroup
+}
+```
+
 ## `Node` {#node}
 A [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74) is a node on the Ethereum blockchain, each of which has its own Ethereum Virtual Machine (EVM).
 
