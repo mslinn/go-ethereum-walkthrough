@@ -266,7 +266,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
 }
 ```
   
-5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method in `eth/handler.go` returns a new Ethereum sub-protocol manager. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
+5. The Ethereum sub-protocol manages peers within the Ethereum network. The `NewProtocolManager` method returns a new Ethereum sub-protocol manager. `NewProtocolManager` is a long method, so only a portion of it is shown here; see [`eth/handler.go#L99-L182`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L99-L182) to see all of it. `ProtocolManager.SubProtocols` is assigned a `p2p.Protocol` for every supported protocol; see [`eth/handler.go#L132`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L132):
     ```go
     // Initiate a sub-protocol for every implemented version we can handle
     manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
