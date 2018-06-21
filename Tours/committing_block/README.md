@@ -178,7 +178,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
     }
   ```
 
-4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function that resides in `cmd/utils/flags.go`; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146):
+4. <a name="RegisterEthService"></a> `RegisterEthService` is a publicly visible function; see [`cmd/utils/flags.go#L1126-L1146`](https://github.com/ethereum/go-ethereum/blob/master/cmd/utils/flags.go#L1126-L1146). As previously mentioned, `RegisterEthService` uses a reference to a new `Node` (which is actually a new Ethereum client) and the corresponding `eth.Config` data to add the new Ethereum client. `TODO` the terminology is confusing; the terms "Ethereum client", "stack" and "Ethereum service" all seem to refer to the same object.
     ```go
     // RegisterEthService adds an Ethereum client to the stack.
     func RegisterEthService(stack *node.Node, cfg *eth.Config) {
