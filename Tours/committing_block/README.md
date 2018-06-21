@@ -149,7 +149,7 @@ _This section is messed up right now due to reorganization, check back in a bit.
   b. The `defaultNodeConfig` method returns a `node.Config` instance based on `node.DefaultConfig`, see [`cmd/geth/config.go#L100-L108`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L100-L108):
   ```go
     func defaultNodeConfig() node.Config {
-        cfg := node.DefaultConfig
+        cfg := node.DefaultConfig   // <<=== #3c
         cfg.Name = clientIdentifier
         cfg.Version = params.VersionWithCommit(gitCommit)
         cfg.HTTPModules = append(cfg.HTTPModules, "eth", "shh")
