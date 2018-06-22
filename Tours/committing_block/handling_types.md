@@ -9,7 +9,7 @@ The following `go-ethereum` types are referenced in this phase of the **Committi
 The following types are only used in the Message Handling phase of this tour:
 
 ### `newBlockData`
-See [`eth/protocol.go#L170-L174`](https://github.com/ethereum/go-ethereum/blob/master/eth/protocol.go#L170-L174).
+All of the members of this private type are public. See [`eth/protocol.go#L170-L174`](https://github.com/ethereum/go-ethereum/blob/master/eth/protocol.go#L170-L174).
 ```go
 // newBlockData is the network packet for the block propagation message.
 type newBlockData struct {
