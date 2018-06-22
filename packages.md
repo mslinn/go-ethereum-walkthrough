@@ -77,7 +77,7 @@ grep -rIhw --include \*.go "^\s*package\s*" | grep -v "not installed" | \
   sort | uniq | wc -l
 ```
 
-### Counting Top-Level Directories
+#### Counting Top-Level Directories
 The following incantation lists the top-level directories, most of which are package names:
 
 ```bash
