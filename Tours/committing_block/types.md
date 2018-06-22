@@ -4,9 +4,10 @@ The following `go-ethereum` types are referenced in this tour:
  * [Database](/Types/database.md)
  * [Peer to peer](/Types/p2p.md)
 
+## Initialization Types {#init_types}
 The following types are used in the initialization phase of this tour:
 
-## `cli.Context` {#Context}
+### `cli.Context` {#Context}
 This publicly visible type is provided by the [`github.com/urfave/cli.v1`](hhttps://github.com/urfave/cli#cli) dependency:
 > "cli is a simple, fast, and fun package for building command line apps in Go. The goal is to enable developers to write fast and distributable command line applications in an expressive way.
 
@@ -25,7 +26,7 @@ type Context struct {
 }
 ```
 
-## `gethConfig` {#gethConfig}
+### `gethConfig` {#gethConfig}
 The `gethConfig` private type is only visible within the `main` package for the `geth` command. The package `main` is the top-level package for Go programs, and tells the Go compiler that the package should compile as an executable program instead of a shared library.
 
 ```go
@@ -38,7 +39,7 @@ type gethConfig struct {
 }
 ```
 
-## `Node` {#node}
+### `Node` {#node}
 `Node` type is only used by `geth`; see [`node/node.go#L39-L74`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L39-L74).
 
 An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of the `Node` type. The definition of `Node` contains many properties, none of which are exported; this means that `Node` state is only accessed from other packages via methods.
@@ -84,7 +85,7 @@ type Node struct {
 }
 ```
 
-## `Service` {#service}
+### `Service` {#service}
 See [`node/service.go#L74-L98`](https://github.com/ethereum/go-ethereum/blob/master/node/service.go#L74-L98)
 
 ```go
@@ -112,5 +113,33 @@ type Service interface {
 	// Stop terminates all goroutines belonging to the service, blocking until they
 	// are all terminated.
 	Stop() error
+}
+```
+
+## Message Handling Types {#handling_types}
+
+### `peer` {#peer}
+This private type has only private members; see [`eth/peer.go#L75-L94`](https://github.com/ethereum/go-ethereum/blob/master/eth/peer.go#L75-L94).
+
+```go
+type peer struct {
+    id string
+
+    *p2p.Peer
+    rw p2p.MsgReadWriter
+
+    version  int         // Protocol version negotiated
+    forkDrop *time.Timer // Timed connection dropper if forks aren't validated in time
+
+    head common.Hash
+    td   *big.Int
+    lock sync.RWMutex
+
+    knownTxs    *set.Set                  // Set of transaction hashes known to be known by this peer
+    knownBlocks *set.Set                  // Set of block hashes known to be known by this peer
+    queuedTxs   chan []*types.Transaction // Queue of transactions to broadcast to the peer
+    queuedProps chan *propEvent           // Queue of blocks to broadcast to the peer
+    queuedAnns  chan *types.Block         // Queue of blocks to announce to the peer
+    term        chan struct{}             // Termination channel to stop the broadcaster
 }
 ```
