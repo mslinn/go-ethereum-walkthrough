@@ -17,7 +17,7 @@ _This section has not yet been worked over._
     ```
 
 3. The block fetcher then tries to import the new block; see
-[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313)
+[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313). `Suggestion` refactor the `loop` method so it is not so long.
     ```go
     f.insert(op.origin, op.block)
     ```

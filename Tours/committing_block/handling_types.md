@@ -65,6 +65,16 @@ type Fetcher struct {
 }
 ```
 
+### `prque.Prque`
+A priority queue from [`karalabe/cookiejar.v2`](gopkg.in/karalabe/cookiejar.v2). See [`prque/prque.go#L26-L29`](https://github.com/karalabe/cookiejar/blob/master/collections/prque/prque.go#L26-L29)
+
+```go
+// Priority queue data structure.
+type Prque struct {
+    cont *sstack
+}
+```
+
 ### ``
 See [``]().
 
