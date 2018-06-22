@@ -39,6 +39,7 @@
       * [`cli.Context`](Tours/committing_block/types.md#Context)
       * [`gethConfig`](Tours/committing_block/types.md#gethConfig)
       * [`Node`](Tours/committing_block/types.md#node)
+      * [`Service`](Tours/committing_block/types.md#service)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)    
       * [Initialization](Tours/committing_block/initialization.md#initialization)
