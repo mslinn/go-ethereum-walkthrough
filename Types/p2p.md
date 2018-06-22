@@ -110,10 +110,21 @@ type Config struct {
 ```
 
 ## `LightEthereum` {#LightEthereum}
-The [Light Ethereum Protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) is implemented in the `les` package. 
-From the [Parity documentation](https://wiki.parity.io/Light-Ethereum-Subprotocol-\(LES\)):
+The [Light Ethereum Protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) is implemented in the `les` package. The Gitter channel is [ethereum/light-client](https://gitter.im/ethereum/light-client). From the [Parity documentation](https://wiki.parity.io/Light-Ethereum-Subprotocol-\(LES\)):
 
 > The Light Ethereum Subprotocol (LES) is the protocol used by “light” clients, which only download block headers as they appear and fetch other parts of the blockchain on-demand. They provide full functionality in terms of safely accessing the blockchain, but do not mine and therefore do not take part in the consensus process. Full and archive nodes can also support the LES protocol besides ETH in order to be able to serve light nodes. It has been decided to create a separate sub-protocol in order to avoid interference with the consensus-critical ETH network and make it easier to update during the development phase. Some of the LES protocol messages are similar to the “new sync model” (ETH62/63) of the Ethereum Wire Protocol, with the addition of a few fields.
+
+Here are some outtakes from the [original LES documentation](https://blog.ethereum.org/2017/01/07/introduction-light-client-dapp-developers/):
+
+> Light clients do not receive pending transactions from the main Ethereum network. The only pending transactions a light client knows about are the ones that have been created and sent from that client. When a light client sends a transaction, it starts downloading entire blocks until it finds the sent transaction in one of the blocks, then removes it from the pending transaction set.
+
+> Latency is the key performance parameter of a light client. It is usually in the 100-200ms order of magnitude, and it applies to every state/contract storage read, block and receipt set retrieval.
+
+> ... at the moment you should not search for anything in the entire history because it will take an extremely long time.
+
+> ... With garbage collection enabled, the database will function more like a cache, and a light client will be able to run with as low as 10Mb of storage space. Note that the current Geth implementation uses around 200Mb of memory, which can probably be further reduced. Bandwidth requirements are also lower when the client is not used heavily. Bandwidth used is usually well under 1Mb/hour when running idle, with an additional 2-3kb for an average state/storage request.
+
+
 
 A [`LightEthereum`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L49-L81) is a secondary node on the Ethereum blockchain. These nodes differ from full `Node`s by not requiring as many resources, because they are not fully capable.
 
