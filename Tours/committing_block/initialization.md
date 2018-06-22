@@ -1,4 +1,9 @@
 # Initialization for Committing a Block {#initialization}
+
+## [Types](initializing_types.md#types) {#types}
+
+## Walkthrough {#walkthrough}
+
 1. `geth` sets up a [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
     // geth is the main entry point into the system if no special subcommand is ran.

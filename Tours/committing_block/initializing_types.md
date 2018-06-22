@@ -1,11 +1,12 @@
-# Types for Committing a Block {#types}
-The following `go-ethereum` types are referenced in this tour:
+# Types for Committing a Block / Initialization {#types}
+The following `go-ethereum` types are referenced in this phase of the **Committing a Block** tour:
+
  * [Common](/Types/common.md)
  * [Database](/Types/database.md)
  * [Peer to peer](/Types/p2p.md)
 
 ## Initialization Types {#init_types}
-The following types are used in the initialization phase of this tour:
+The following types are only used in the initialization phase of this tour:
 
 ### `cli.Context` {#Context}
 This publicly visible type is provided by the [`github.com/urfave/cli.v1`](hhttps://github.com/urfave/cli#cli) dependency:

@@ -1,7 +1,8 @@
 # Message Handling for Committing a Block {#handling}
 
-Types specific to this section are [here](types.md#handling_types).
+## [Types](handling_types.md#types) {#types}
 
+## Walkthrough {#walkthrough}
 _This section has not yet been worked over._
 
 1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
@@ -16,7 +17,7 @@ _This section has not yet been worked over._
     ```
 
 3. The block fetcher then tries to import the new block; see
-[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313
+[eth/fetcher/fetcher.go#L313](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313)
     ```go
     f.insert(op.origin, op.block)
     ```
