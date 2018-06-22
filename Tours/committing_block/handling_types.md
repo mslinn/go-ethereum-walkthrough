@@ -18,6 +18,31 @@ type newBlockData struct {
 }
 ```
 
+### `Block `
+See [`core/types.go#L144-L162`](https://github.com/ethereum/go-ethereum/blob/master/core/types/block.go#L144-L162).
+
+```go
+// Block represents an entire block in the Ethereum blockchain.
+type Block struct {
+header *Header
+uncles []*Header
+transactions Transactions
+
+// caches
+hash atomic.Value
+size atomic.Value
+
+// Td is used by package core to store the total difficulty
+// of the chain up to and including the block.
+td *big.Int
+
+// These fields are used by package eth to track
+// inter-peer block relay.
+ReceivedAt time.Time
+ReceivedFrom interface{}
+}
+```
+
 ### `Fetcher`
 See [`eth/fetcher/fetcher.go#L106-L146`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L106-L146).
 
@@ -74,6 +99,28 @@ type Prque struct {
     cont *sstack
 }
 ```
+
+### `Transaction`
+See [`core/types/transaction.go#L38-L44`](https://github.com/ethereum/go-ethereum/blob/master/core/types/transaction.go#L38-L44).
+
+```go
+type Transaction struct {
+    data txdata
+    // caches
+    hash atomic.Value
+    size atomic.Value
+    from atomic.Value
+}
+```
+
+### `Transactions`
+See [`core/types/transaction.go#L254-L255`](https://github.com/ethereum/go-ethereum/blob/master/core/types/transaction.go#L254-L255).
+
+```go
+// Transactions is a Transaction slice type for basic sorting.
+type Transactions []*Transaction
+```
+
 
 ### ``
 See [``]().
