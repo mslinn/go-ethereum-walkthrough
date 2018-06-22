@@ -1,6 +1,7 @@
 # Tour: Committing a Block {#committing-block}
 
 _This tour follows a block in the `geth` client from the socket until it is committed to the blockchain._
+
 ## Types {#types}
 The following `go-ethereum` types are referenced in this tour:
  * [Common](/Types/common.md)
