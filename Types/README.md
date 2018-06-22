@@ -9,10 +9,10 @@ This section describes critical data structures used in `go-ethereum`. The main 
 * [Peer to Peer](p2p.md) &ndash; defines Ethereum nodes
 * [Smart Contract](smart_contract.md) &ndash; defines data structures for smart contracts
 
-## Public / Private Visibility
+## Public / Private Visibility {#visibility}
 [Remember](https://tour.golang.org/basics/3), publicly visible methods and properties in Go (those that are _exported_) are denoted by having names that start with a capital letter. Private scope is denoted by names starting with a lower-case letter.
 
-## Incantation: Counting Types
+## Incantation: Counting Types {#counting}
 The following incantation reports the number of types in the `go-ethereum` project:
 
 ```bash

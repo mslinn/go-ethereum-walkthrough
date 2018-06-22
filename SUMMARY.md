@@ -14,6 +14,8 @@
     * [Counting Packages](packages.md#counting)
     * [Counting Top-Level Directories](packages.md#tld)
 * [Types](Types/README.md#types)
+  * [Public / Private Visibility](Types/common.md#visibility)
+  * [Incantation: Counting Types](Types/common.md#counting)
   * [Common](Types/common.md#common)
     * [`Address`](Types/common.md#address)
     * [`Hash`](Types/common.md#hash)
