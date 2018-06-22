@@ -42,7 +42,7 @@
       * [`Service`](Tours/committing_block/types.md#service)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)    
-      * [Initialization](Tours/committing_block/initialization.md#initialization)
+    * [Initialization](Tours/committing_block/initialization.md#initialization)
     * [Message Handling](Tours/committing_block/handling.md#handling)
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md#tour)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
