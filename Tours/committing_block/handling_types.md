@@ -18,6 +18,32 @@ type newBlockData struct {
 }
 ```
 
+### `peer` {#peer}
+This private type has only private members; see [`eth/peer.go#L75-L94`](https://github.com/ethereum/go-ethereum/blob/master/eth/peer.go#L75-L94).
+
+```go
+type peer struct {
+id string
+
+*p2p.Peer
+rw p2p.MsgReadWriter
+
+version int // Protocol version negotiated
+forkDrop *time.Timer // Timed connection dropper if forks aren't validated in time
+
+head common.Hash
+td *big.Int
+lock sync.RWMutex
+
+knownTxs *set.Set // Set of transaction hashes known to be known by this peer
+knownBlocks *set.Set // Set of block hashes known to be known by this peer
+queuedTxs chan []*types.Transaction // Queue of transactions to broadcast to the peer
+queuedProps chan *propEvent // Queue of blocks to broadcast to the peer
+queuedAnns chan *types.Block // Queue of blocks to announce to the peer
+term chan struct{} // Termination channel to stop the broadcaster
+}
+```
+
 ### `Block `
 See [`core/types.go#L144-L162`](https://github.com/ethereum/go-ethereum/blob/master/core/types/block.go#L144-L162).
 
@@ -191,7 +217,6 @@ See [`core/types/transaction.go#L254-L255`](https://github.com/ethereum/go-ether
 // Transactions is a Transaction slice type for basic sorting.
 type Transactions []*Transaction
 ```
-
 
 ### ``
 See [``]().
