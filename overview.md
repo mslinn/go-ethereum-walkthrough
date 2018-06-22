@@ -19,13 +19,13 @@ The above comment indicates that the line containing the definition of a variabl
 
 When a reference would benefit from showing more code, I try to provide that code in a subordinate item with a corresponding identifier; for example, if references `#3a`, `#3b` and `#3c` all have their own code blocks to clarify the explanations, those blocks would be provided under item `3` as `3(a)`, `3(b)` and `3(c)`.
 
-If a block of code is referenced it is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
+If a block of code is referenced it is demarked with `start` and `end` comments. In the following example, the first line is reference `#5a`, while the entire `Run` function is reference `#5b`:
 ```go
-manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
+manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5a
     Name: ProtocolName,
     Version: version,
     Length: ProtocolLengths[i],
-    Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error { // <<=== #6 start
+    Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error { // <<=== #5b start
         peer := manager.newPeer(int(version), p, rw)
         select {
         case manager.newPeerCh &lt;- peer:
@@ -35,7 +35,7 @@ manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
         case &lt;-manager.quitSync:
             return p2p.DiscQuitting
         }
-    }, // <<=== #6 end
+    }, // <<=== #5b end
     NodeInfo: func() interface{} {
     return manager.NodeInfo()
 },
