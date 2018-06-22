@@ -359,7 +359,6 @@ Following is a modified version of [go-ethereum-code-walkthrough.md](https://gis
   ```
 
 ## Message Handling {#handling}
-_This section is messed up right now due to reorganization, check back in a bit._
 
 1. `handleMsg()` reads the message from the peer; see [eth/handler.go#L320](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
     ```go 
