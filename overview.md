@@ -15,7 +15,9 @@ var x = 41
 var y = 42   // <<=== #1
 var z = 43
 ```
-The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context. When a reference would benefit from showing more code, I try to provide that code in a subordinate item with a corresponding identifier; for example, if references `#3a`, `#3b` and `#3c` all have their own code blocks to clarify the explanations, those blocks would be provided under item `3` as `3(a)`, `3(b)` and `3(c)`.
+The above comment indicates that the line containing the definition of a variable called `y` is the first subject of discussion; the other lines merely provide context.
+
+When a reference would benefit from showing more code, I try to provide that code in a subordinate item with a corresponding identifier; for example, if references `#3a`, `#3b` and `#3c` all have their own code blocks to clarify the explanations, those blocks would be provided under item `3` as `3(a)`, `3(b)` and `3(c)`.
 
 If a block of code is referenced it is demarked with `start` and `end` comments. In the following example, the first line is reference #5, while the entire `Run` function is reference #6:
 ```go
