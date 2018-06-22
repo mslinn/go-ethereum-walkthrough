@@ -43,6 +43,13 @@ ReceivedFrom interface{}
 }
 ```
 
+### `Blocks` {#Blocks}
+See [`core/types/block.go#L391`](https://github.com/ethereum/go-ethereum/blob/master/core/types/block.go#L391).
+
+```go
+type Blocks []*Block
+```
+
 ### `Fetcher`
 See [`eth/fetcher/fetcher.go#L106-L146`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L106-L146).
 
@@ -127,3 +134,4 @@ See [``]().
 
 ```go
 ```
+
