@@ -1,5 +1,5 @@
 # Initialization for Committing a Block {#initialization}
-1. `geth` sets up a full [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
+1. `geth` sets up a [`Node`](/Types/p2p.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
     // geth is the main entry point into the system if no special subcommand is ran.
     // It creates a default node based on the command line arguments and runs it in
@@ -302,4 +302,3 @@
           }
     }
   ```
-
