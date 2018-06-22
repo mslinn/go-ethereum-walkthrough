@@ -110,9 +110,7 @@ type Config struct {
 ```
 
 ## `LightEthereum` {#LightEthereum}
-The [Light Ethereum Protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) is implemented in the `les` package.
-
-A [`LightEthereum`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L49-L81) is a secondary node on the Ethereum blockchain. These nodes differ from full `Node`s by not requiring as many resources, because they are not fully capable.
+The [Light Ethereum Protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) is implemented in the `les` package. A [`LightEthereum`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L49-L81) is a secondary node on the Ethereum blockchain. These nodes differ from full `Node`s by not requiring as many resources, because they are not fully capable.
 
 ```go
 type LightEthereum struct {
