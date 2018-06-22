@@ -39,9 +39,11 @@ type gethConfig struct {
 ```
 
 ## `Node` {#node}
-The [`Node`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L40-L74) type is only used by `geth`.
+`Node` type is only used by `geth`; see [`node/node.go#L39-L74`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L39-L74).
 
-An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of the `Node` type. The definition of `Node` contains many properties, none of which are exported; this means that `Node` state is only accessed from other packages via methods:
+An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of the `Node` type. The definition of `Node` contains many properties, none of which are exported; this means that `Node` state is only accessed from other packages via methods.
+
+`TODO` `Node` instances are often named `stack`; why is that? Seems important.
 
 ```go
 // Node is a container on which services can be registered.
