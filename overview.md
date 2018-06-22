@@ -1,4 +1,4 @@
-## Overview
+## Overview {}
 
 _This is a work in progress. Comments and suggestions are welcome._
 
@@ -8,7 +8,7 @@ This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source 
 
 FYI, the Gitter channel for `go-ethereum` is [`ethereum/go-ethereum`](https://gitter.im/ethereum/go-ethereum).
 
-## Code Reference Comments
+## Code Reference Comments {#references}
 I've added special comments in the displayed source code, in this format:
 ```go
 var x = 41
@@ -39,6 +39,6 @@ manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{ // <<=== #5
 },
 ```
 
-## TODO and Suggestion
+## TODO and Suggestion {#comments}
 I've added some suggestions for how the source code might be improved \(to locate them, search for `Suggestion`\). If there is general agreement that these suggestions make sense \(tell me in the comments!\) then I'll create a pull request. Anything I don't know or am unsure about is marked with `TODO`.
 
