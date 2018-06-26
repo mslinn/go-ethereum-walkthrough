@@ -99,7 +99,7 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
         // snip
     ```
 
-4. Check that the block header validates; see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682)
+4. Check that the block header validates; see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682). See also [`Fetcher`](/Tours/committing_block/handling_types.html#Fetcher)
 
     ```go 
     // insert spawns a new goroutine to run a block insertion into the chain. If the
@@ -151,7 +151,11 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     }()
 }
     ```
-  a. If the block header validates correctly it is propagated to the node&apos;s peers (`#4a` above).
+  a. If the block header validates correctly it is propagated to the node&apos;s peers (`#4a` above); see [`eth/fetcher/fetcher.go#58-59`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#58-59)
+  ```go
+  // blockBroadcasterFn is a callback type for broadcasting a block to connected peers.
+  type blockBroadcasterFn func(block *types.Block, propagate bool)
+  ```
 
   b. The block is inserted into the forked blockchain (`#4b` above).
 
