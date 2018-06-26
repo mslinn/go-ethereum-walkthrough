@@ -101,7 +101,6 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
 
 4. Check that the block header validates; see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682)
 
-  b. If the block header validates correctly it is propagated to the node's peers (`#4a`)
     ```go 
     // insert spawns a new goroutine to run a block insertion into the chain. If the
 // block's number is at the same height as the current import phase, it updates
@@ -152,14 +151,9 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     }()
 }
     ```
+  a. If the block header validates correctly it is propagated to the node&apos;s peers (`#4a` above).
 
-  b. The block is inserted into the forked blockchain; see [`eth/fetcher/fetcher.go#L669-L672`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L669-L672)
-    ```go
-    if _, err := f.insertChain(types.Blocks{block}); err != nil { << #5
-          glog.V(logger.Warn).Infof("Peer %s: block #%d [%x…] import failed: %v", peer, block.NumberU64(), hash[:4], err)
-          return
-    }
-    ```
+  b. The block is inserted into the forked blockchain (`#4b` above).
 
 6. The block is processed; see [`core/blockchain.go#L1147`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1147)
     ```go
