@@ -154,6 +154,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
   // blockBroadcasterFn is a callback type for broadcasting a block to connected peers.
   type blockBroadcasterFn func(block *types.Block, propagate bool)
   ```
+  `Fetcher` has a private member called `broadcastBlock` with type `blockBroadcasterFn`. This callback is set up when the `Fetcher` is created. TODO show when the [`Fetcher` `New`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L148-L173) function creates a new `Fetcher`.
 
   b. The block is inserted into the forked blockchain (`#3b` above).
 
