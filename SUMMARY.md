@@ -53,7 +53,7 @@
         * [prque.Prque](Tours/committing_block/handling_types.md#prque)
         * [Transaction](Tours/committing_block/handling_types.md#Transaction)
         * [Transactions](Tours/committing_block/handling_types.md#Transactions)
-    * [Walkthrough](Tours/committing_block/README.md#walkthrough)
+    * [Walkthrough](Tours/committing_block/handling.md#walkthrough)
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md#tour)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
     * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
