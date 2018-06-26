@@ -12,6 +12,8 @@ This section describes critical data structures used in `go-ethereum`. The main 
 ## Public / Private Visibility {#visibility}
 [Remember](https://tour.golang.org/basics/3), publicly visible methods and properties in Go (those that are _exported_) are denoted by having names that start with a capital letter. Private scope is denoted by names starting with a lower-case letter.
 
+If a data structure / type has no publicly visible data members, the only way to access its properties from other packages are via public methods.
+
 ## Incantation: Counting Types {#counting}
 The following incantation reports the number of types in the `go-ethereum` project:
 
