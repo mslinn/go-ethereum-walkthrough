@@ -54,15 +54,101 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
     }
     ```
 
-3. The block fetcher then tries to import the new block; see
-[`eth/fetcher/fetcher.go#L313`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L313). `Suggestion` refactor the `loop` method so it is not so long.
+3. The block fetcher then tries to import the new block (see `#3`); see
+[`eth/fetcher/fetcher.go#L277-L314`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L277-L314). `Suggestion` refactor the `loop` method so it is not so long.
     ```go
-    f.insert(op.origin, op.block)
+    // Loop is the main fetcher loop, checking and processing various notification
+    // events.
+    func (f *Fetcher) loop() {
+        // Iterate the block fetching until a quit is requested
+        fetchTimer := time.NewTimer(0)
+        completeTimer := time.NewTimer(0)
+    
+        for {
+            // Clean up any expired block fetches
+            for hash, announce := range f.fetching {
+                if time.Since(announce.time) > fetchTimeout {
+                    f.forgetHash(hash)
+                }
+            }
+            // Import any queued blocks that could potentially fit
+            height := f.chainHeight()
+            for !f.queue.Empty() {
+                op := f.queue.PopItem().(*inject)
+                hash := op.block.Hash()
+                if f.queueChangeHook != nil {
+                    f.queueChangeHook(hash, false)
+                }
+                // If too high up the chain or phase, continue later
+                number := op.block.NumberU64()
+                if number > height+1 {
+                    f.queue.Push(op, -float32(number))
+                    if f.queueChangeHook != nil {
+                        f.queueChangeHook(hash, true)
+                    }
+                    break
+                }
+                // Otherwise if fresh and still unknown, try and import
+                if number+maxUncleDist < height || f.getBlock(hash) != nil {
+                    f.forgetBlock(hash)
+                    continue
+                }
+                f.insert(op.origin, op.block)  // <<=== #3
+            }
+        
+        // snip
     ```
 
-4. If the block header validates correctly it is propagated to the node's peers; see [`eth/fetcher/fetcher.go#L654-L657`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L654-L657)
+4. If the block header validates correctly it is propagated to the node's peers (`#4`); see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682)
     ```go 
-    go f.broadcastBlock(block, true)
+    // insert spawns a new goroutine to run a block insertion into the chain. If the
+// block's number is at the same height as the current import phase, it updates
+// the phase states accordingly.
+func (f *Fetcher) insert(peer string, block *types.Block) {
+    hash := block.Hash()
+
+    // Run the import on a new thread
+    log.Debug("Importing propagated block", "peer", peer, "number", block.Number(), "hash", hash)
+    go func() {
+        defer func() { f.done <- hash }()
+
+        // If the parent's unknown, abort insertion
+        parent := f.getBlock(block.ParentHash())
+        if parent == nil {
+            log.Debug("Unknown parent of propagated block", "peer", peer, "number", block.Number(), "hash", hash, "parent", block.ParentHash())
+            return
+        }
+        // Quickly validate the header and propagate the block if it passes
+        switch err := f.verifyHeader(block.Header()); err {
+        case nil:
+            // All ok, quickly propagate to our peers
+            propBroadcastOutTimer.UpdateSince(block.ReceivedAt)
+            go f.broadcastBlock(block, true)
+
+        case consensus.ErrFutureBlock:
+            // Weird future block, don't fail, but neither propagate
+
+        default:
+            // Something went very wrong, drop the peer
+            log.Debug("Propagated block verification failed", "peer", peer, "number", block.Number(), "hash", hash, "err", err)
+            f.dropPeer(peer)
+            return
+        }
+        // Run the actual import and log any issues
+        if _, err := f.insertChain(types.Blocks{block}); err != nil {
+            log.Debug("Propagated block import failed", "peer", peer, "number", block.Number(), "hash", hash, "err", err)
+            return
+        }
+        // If import succeeded, broadcast the block
+        propAnnounceOutTimer.UpdateSince(block.ReceivedAt)
+        go f.broadcastBlock(block, false)                  // <<=== #4
+
+        // Invoke the testing hook if needed
+        if f.importedHook != nil {
+            f.importedHook(block)
+        }
+    }()
+}
     ```
 
 5. The block is inserted into the forked blockchain; see [`eth/fetcher/fetcher.go#L669-L672`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L669-L672)
