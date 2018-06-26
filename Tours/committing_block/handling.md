@@ -3,7 +3,6 @@
 ## [Types](handling_types.md#types) {#types}
 
 ## Walkthrough {#walkthrough}
-_This section has not yet been worked over._
 
 1. `handleMsg()` reads the message from the peer; see [`eth/handler.go#L320`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
     ```go 
