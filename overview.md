@@ -1,6 +1,6 @@
 ## Overview {#overview}
 
-_This is a work in progress. Comments and suggestions are welcome._
+_This is a work in progress. Errors certainly exist. Corrections, comments and suggestions are most welcome._
 
 This documentation contains several tours through the [`go-ethereum`](https://github.com/ethereum/go-ethereum) source code. The tours are contained in the last section of this documentation. The penultimate section discusses the major types used in `go-ethereum`, broken into the subsections so they can be conveniently referenced from each of the tours. 
 
