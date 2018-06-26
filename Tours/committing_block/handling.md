@@ -229,3 +229,19 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     ```
   a. It is committed to the database (`#6a` above)
   b. The new block is written to the chain (`#6b` above)
+  ```go
+  // WriteBlockWithoutState writes only the block and its metadata to the database,
+  // but does not write any state. This is used to construct competing side forks
+  // up to the point where they exceed the canonical total difficulty.
+  func (bc *BlockChain) WriteBlockWithoutState(block *types.Block, td *big.Int) (err error) {
+      bc.wg.Add(1)
+      defer bc.wg.Done()
+    
+      if err := bc.hc.WriteTd(block.Hash(), block.NumberU64(), td); err != nil {
+          return err
+      }
+      rawdb.WriteBlock(bc.db, block)
+    
+      return nil
+  }
+  ```
