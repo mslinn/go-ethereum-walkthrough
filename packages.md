@@ -43,7 +43,7 @@ The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 242
 | [`rlp`](https://github.com/ethereum/go-ethereum/tree/master/rlp) | Implements the RLP serialization format. |
 | [`rpc`](https://github.com/ethereum/go-ethereum/tree/master/rpc) | Provides access to the exported methods of an object across a network or other I/O connection. |
 | [`signer`](https://github.com/ethereum/go-ethereum/tree/master/signer) | Rule-based transaction signer. |
-| [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) | TODO how is this different from the Swarm command in the next table? |
+| [`swarm`](https://github.com/ethereum/go-ethereum/tree/master/swarm) | [Swarm is a service](https://blog.ethereum.org/2018/06/21/announcing-swarm-proof-of-concept-release-3/) that provides APIs to upload and download content to the cloud and through URL-based addressing offers virtual hosting of websites and decentralised applications (dapps) without web servers, using decentralised peer-to-peer distributed infrastructure. |
 | [`tests`](https://github.com/ethereum/go-ethereum/tree/master/tests) | Implements execution of Ethereum JSON tests. |
 | [`trie`](https://github.com/ethereum/go-ethereum/tree/master/trie) | Implements [Merkle Patricia tries](https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree). |
 | [`whisper`](https://github.com/ethereum/go-ethereum/tree/master/whisper) | Implements the [Whisper protocol](https://github.com/ethereum/wiki/wiki/Whisper). |
