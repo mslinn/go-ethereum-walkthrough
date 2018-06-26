@@ -9,7 +9,7 @@
     msg, err := p.rw.ReadMsg()
     ```
 
-2. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import:
+2. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import (`#2`):
 [`eth/handler.go#L634-L664`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L634-L664)
     ```go
     // handleMsg is invoked whenever an inbound message is received from a remote
@@ -29,7 +29,7 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
 
         // Mark the peer as owning the block and schedule it for import
         p.MarkBlock(request.Block.Hash())
-        pm.fetcher.Enqueue(p.id, request.Block)
+        pm.fetcher.Enqueue(p.id, request.Block)      // <<=== #2
 
         // Assuming the block is importable by the peer, but possibly not yet done so,
         // calculate the head hash and TD that the peer truly must have.
@@ -54,7 +54,7 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
     }
     ```
 
-3. The block fetcher then tries to import the new block (see `#3`); see
+3. The block fetcher then tries to import the new block (`#3`); see
 [`eth/fetcher/fetcher.go#L277-L314`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L277-L314). `Suggestion` refactor the `loop` method so it is not so long.
     ```go
     // Loop is the main fetcher loop, checking and processing various notification
