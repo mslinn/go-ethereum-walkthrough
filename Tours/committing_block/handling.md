@@ -227,8 +227,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     
         root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6a
     ```
-  a. It is committed to the database (`#6a` above)
-  b. The new block is written to the chain (`#6b` above)
+  a. The new block is written to the chain (`#6a` above)
   ```go
   // WriteBlockWithoutState writes only the block and its metadata to the database,
   // but does not write any state. This is used to construct competing side forks
@@ -244,4 +243,8 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     
       return nil
   }
+  ```
+  
+  b. It is committed to the database (`#6b` above)
+  ```go
   ```
