@@ -8,7 +8,7 @@ The following `go-ethereum` types are referenced in this phase of the **Committi
 ## Message Handling Types {#init_types}
 The following types are only used in the Message Handling phase of this tour:
 
-### `newBlockData`
+### `newBlockData` {#newBlockData}
 All of the members of this private type are public. See [`eth/protocol.go#L170-L174`](https://github.com/ethereum/go-ethereum/blob/master/eth/protocol.go#L170-L174).
 ```go
 // newBlockData is the network packet for the block propagation message.
@@ -44,7 +44,7 @@ type peer struct {
 }
 ```
 
-### `Block `
+### `Block` {#Block}
 See [`core/types.go#L144-L162`](https://github.com/ethereum/go-ethereum/blob/master/core/types/block.go#L144-L162).
 
 ```go
@@ -140,7 +140,7 @@ See [`core/types/block.go#L391`](https://github.com/ethereum/go-ethereum/blob/ma
 type Blocks []*Block
 ```
 
-### `Fetcher`
+### `Fetcher` {#Fetcher}
 See [`eth/fetcher/fetcher.go#L106-L146`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L106-L146).
 
 ```go
@@ -187,7 +187,7 @@ type Fetcher struct {
 }
 ```
 
-### `prque.Prque`
+### `prque.Prque` {#prque.Prque}
 A priority queue from [`karalabe/cookiejar.v2`](gopkg.in/karalabe/cookiejar.v2). See [`prque/prque.go#L26-L29`](https://github.com/karalabe/cookiejar/blob/master/collections/prque/prque.go#L26-L29)
 
 ```go
@@ -197,7 +197,7 @@ type Prque struct {
 }
 ```
 
-### `Transaction`
+### `Transaction` {#Transaction}
 See [`core/types/transaction.go#L38-L44`](https://github.com/ethereum/go-ethereum/blob/master/core/types/transaction.go#L38-L44).
 
 ```go
@@ -210,7 +210,7 @@ type Transaction struct {
 }
 ```
 
-### `Transactions`
+### `Transactions`{#Transactions}
 See [`core/types/transaction.go#L254-L255`](https://github.com/ethereum/go-ethereum/blob/master/core/types/transaction.go#L254-L255).
 
 ```go
