@@ -20,8 +20,6 @@ Here are some outtakes from the [original LES documentation](https://blog.ethere
 
 > ... With garbage collection enabled, the database will function more like a cache, and a light client will be able to run with as low as 10Mb of storage space. Note that the current Geth implementation uses around 200Mb of memory, which can probably be further reduced. Bandwidth requirements are also lower when the client is not used heavily. Bandwidth used is usually well under 1Mb/hour when running idle, with an additional 2-3kb for an average state/storage request.
 
-
-
 A [`LightEthereum`](https://github.com/ethereum/go-ethereum/blob/master/les/backend.go#L49-L81) is a secondary node on the Ethereum blockchain. These nodes differ from full `Node`s by not requiring as many resources, because they are not fully capable. `TODO` be more specific about the difference.
 
 ```go

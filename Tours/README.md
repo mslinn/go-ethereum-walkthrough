@@ -1,5 +1,5 @@
 #Tours
-The following tours of `go-ethereum`&rsquo;s source code are being worked on:
+The following tours of `go-ethereum`&rsquo;s source code are currently being developed:
 * [Committing a Block](committing_block/README.md)
 * [Smart Contracts](smart_contracts/SUMMARY.md)
 
