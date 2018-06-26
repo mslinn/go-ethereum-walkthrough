@@ -155,17 +155,80 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
 
   b. The block is inserted into the forked blockchain (`#4b` above).
 
-6. The block is processed; see [`core/blockchain.go#L1147`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1147)
+5. The block is processed by `insertChain` (`#5`); see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
     ```go
-    receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)
+    // insertChain will execute the actual chain insertion and event aggregation. The
+    // only reason this method exists as a separate one is to make locking cleaner
+    // with deferred statements.
+    func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*types.Log, error) {
+   
+     // snip  TODO this really long method should be refactored
+    
+        // Create a new statedb using the parent block and report an
+        // error if it fails.
+        var parent *types.Block
+        if i == 0 {
+            parent = bc.GetBlock(block.ParentHash(), block.NumberU64()-1)
+        } else {
+            parent = chain[i-1]
+        }
+        state, err := state.New(parent.Root(), bc.stateCache)
+        if err != nil {
+            return i, events, coalescedLogs, err
+        }
+        // Process block using the parent state as reference point.
+        receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)  // <<=== #5
+        if err != nil {
+            bc.reportBlock(block, receipts, err)
+            return i, events, coalescedLogs, err
+        }
+        // Validate the state using the default validator
+        err = bc.Validator().ValidateState(block, parent, state, receipts, usedGas)
+        if err != nil {
+            bc.reportBlock(block, receipts, err)
+            return i, events, coalescedLogs, err
+        }
+        proctime := time.Since(bstart)
+
+        // Write the block to the chain and get the status.
+        status, err := bc.WriteBlockWithState(block, receipts, state)
+    
+    // snip
+    }
     ```
 
-7. If the block is processed successfully it is committed to the database; see [`core/blockchain.go#L902`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L902)
+6. If the block is processed successfully it is committed to the database (`#6`); see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
     ```go
-    root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))
+    // WriteBlockWithState writes the block and all associated state to the database.
+    func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.Receipt, state *state.StateDB) (status WriteStatus, err error) {
+        bc.wg.Add(1)
+        defer bc.wg.Done()
+    
+        // Calculate the total difficulty of the block
+        ptd := bc.GetTd(block.ParentHash(), block.NumberU64()-1)
+        if ptd == nil {
+            return NonStatTy, consensus.ErrUnknownAncestor
+        }
+        // Make sure no inconsistent state is leaked during insertion
+        bc.mu.Lock()
+        defer bc.mu.Unlock()
+    
+        currentBlock := bc.CurrentBlock()
+        localTd := bc.GetTd(currentBlock.Hash(), currentBlock.NumberU64())
+        externTd := new(big.Int).Add(block.Difficulty(), ptd)
+    
+        // Irrelevant of the canonical status, write the block itself to the database
+        if err := bc.hc.WriteTd(block.Hash(), block.NumberU64(), externTd); err != nil {
+            return NonStatTy, err
+        }
+        // Write other block data using a batch.
+        batch := bc.db.NewBatch()
+        rawdb.WriteBlock(batch, block)
+    
+        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6
     ```
 
-8. The new block is written to the chain; see [`core/blockchain.go#L900`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L900)
+7. The new block is written to the chain; see [`core/blockchain.go#L900`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L900)
     ```go
     rawdb.WriteBlock(batch, block)
     ```
