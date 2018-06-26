@@ -223,9 +223,9 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
         }
         // Write other block data using a batch.
         batch := bc.db.NewBatch()
-        rawdb.WriteBlock(batch, block)  <<=== #6b
+        rawdb.WriteBlock(batch, block)  <<=== #6a
     
-        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6a
+        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6b
     ```
   a. The new block is written to the chain (`#6a` above)
   ```go
