@@ -197,7 +197,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     }
     ```
 
-6. If the block is processed successfully it is committed to the database (`#6`); see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
+6. If the block is processed successfully; see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
     ```go
     // WriteBlockWithState writes the block and all associated state to the database.
     func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.Receipt, state *state.StateDB) (status WriteStatus, err error) {
@@ -223,13 +223,9 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
         }
         // Write other block data using a batch.
         batch := bc.db.NewBatch()
-        rawdb.WriteBlock(batch, block)
+        rawdb.WriteBlock(batch, block)  <<=== #6b
     
-        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6
+        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6a
     ```
-
-7. The new block is written to the chain; see [`core/blockchain.go#L900`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L900)
-    ```go
-    rawdb.WriteBlock(batch, block)
-    ```
-    
+  a. It is committed to the database (`#6a` above)
+  b. The new block is written to the chain (`#6b` above)
