@@ -4,57 +4,55 @@
 
 ## Walkthrough {#walkthrough}
 
-1. `handleMsg()` reads the message from the peer; see [`eth/handler.go#L320`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
-    ```go 
-    msg, err := p.rw.ReadMsg()
-    ```
-
-2. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import (`#2`):
-[`eth/handler.go#L634-L664`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L634-L664)
+1. See [`eth/handler.go#L320`](https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go#L320):
     ```go
     // handleMsg is invoked whenever an inbound message is received from a remote
     // peer. The remote connection is torn down upon returning any error.
 func (pm *ProtocolManager) handleMsg(p *peer) error {
-    
-    // snip  TODO this is a REALLY long method and should be refactored
-    
-    case msg.Code == NewBlockMsg:
-        // Retrieve and decode the propagated block
-        var request newBlockData                  
-        if err := msg.Decode(&request); err != nil {
-            return errResp(ErrDecode, "%v: %v", msg, err)
-        }
-        request.Block.ReceivedAt = msg.ReceivedAt
-        request.Block.ReceivedFrom = p
-
-        // Mark the peer as owning the block and schedule it for import
-        p.MarkBlock(request.Block.Hash())
-        pm.fetcher.Enqueue(p.id, request.Block)      // <<=== #2
-
-        // Assuming the block is importable by the peer, but possibly not yet done so,
-        // calculate the head hash and TD that the peer truly must have.
-        var (
-            trueHead = request.Block.ParentHash()
-            trueTD   = new(big.Int).Sub(request.TD, request.Block.Difficulty())
-        )
-        // Update the peers total difficulty if better than the previous
-        if _, td := p.Head(); trueTD.Cmp(td) > 0 {
-            p.SetHead(trueHead, trueTD)
-
-            // Schedule a sync if above ours. Note, this will not fire a sync for a gap of
-            // a singe block (as the true TD is below the propagated block), however this
-            // scenario should easily be covered by the fetcher.
-            currentBlock := pm.blockchain.CurrentBlock()
-            if trueTD.Cmp(pm.blockchain.GetTd(currentBlock.Hash(), currentBlock.NumberU64())) > 0 {
-                go pm.synchronise(p)
-            }
-        }
+        // Read the next message from the remote peer, and ensure it's fully consumed
+        msg, err := p.rw.ReadMsg()  // <<=== #1a
         
-        // snip
+            // snip TODO this is a REALLY long method and should be refactored
+    case msg.Code == NewBlockMsg:
+      // Retrieve and decode the propagated block
+      var request newBlockData
+      if err := msg.Decode(&request); err != nil {
+          return errResp(ErrDecode, "%v: %v", msg, err)
+      }
+      request.Block.ReceivedAt = msg.ReceivedAt
+      request.Block.ReceivedFrom = p
+
+      // Mark the peer as owning the block and schedule it for import
+      p.MarkBlock(request.Block.Hash())
+      pm.fetcher.Enqueue(p.id, request.Block) // <<=== #1b
+
+      // Assuming the block is importable by the peer, but possibly not yet done so,
+      // calculate the head hash and TD that the peer truly must have.
+      var (
+          trueHead = request.Block.ParentHash()
+          trueTD = new(big.Int).Sub(request.TD, request.Block.Difficulty())
+      )
+      // Update the peers total difficulty if better than the previous
+      if _, td := p.Head(); trueTD.Cmp(td) > 0 {
+          p.SetHead(trueHead, trueTD)
+
+          // Schedule a sync if above ours. Note, this will not fire a sync for a gap of
+          // a singe block (as the true TD is below the propagated block), however this
+          // scenario should easily be covered by the fetcher.
+          currentBlock := pm.blockchain.CurrentBlock()
+          if trueTD.Cmp(pm.blockchain.GetTd(currentBlock.Hash(), currentBlock.NumberU64())) > 0 {
+              go pm.synchronise(p)
+          }
+      }
+      
+      // snip
+      
     }
     ```
+  a. `ProtocolManager.handleMsg()` reads the message from the peer (`#1a`).
+  b. The message is of type `NewBlockMsg`, so the block data is decoded and scheduled for import (`#1b`).
 
-3. The block fetcher then tries to import the new block (`#3`); see
+2. The block fetcher then tries to import the new block (`#2`); see
 [`eth/fetcher/fetcher.go#L277-L314`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L277-L314). `Suggestion` refactor the `loop` method so it is not so long.
     ```go
     // Loop is the main fetcher loop, checking and processing various notification
@@ -93,13 +91,13 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
                     f.forgetBlock(hash)
                     continue
                 }
-                f.insert(op.origin, op.block)  // <<=== #3
+                f.insert(op.origin, op.block)  // <<=== #2
             }
         
         // snip
     ```
 
-4. Check that the block header validates; see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682). See also [`Fetcher`](/Tours/committing_block/handling_types.html#Fetcher)
+3. Check that the block header validates; see [`eth/fetcher/fetcher.go#L635-L682`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#L635-L682). See also [`Fetcher`](/Tours/committing_block/handling_types.html#Fetcher)
 
     ```go 
     // insert spawns a new goroutine to run a block insertion into the chain. If the
@@ -124,7 +122,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
         case nil:
             // All ok, quickly propagate to our peers
             propBroadcastOutTimer.UpdateSince(block.ReceivedAt)
-            go f.broadcastBlock(block, true)                          // <<=== #4a
+            go f.broadcastBlock(block, true)                          // <<=== #3a
 
         case consensus.ErrFutureBlock:
             // Weird future block, don't fail, but neither propagate
@@ -136,7 +134,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
             return
         }
         // Run the actual import and log any issues
-        if _, err := f.insertChain(types.Blocks{block}); err != nil {  // <<=== #4b
+        if _, err := f.insertChain(types.Blocks{block}); err != nil {  // <<=== #3b
             log.Debug("Propagated block import failed", "peer", peer, "number", block.Number(), "hash", hash, "err", err)
             return
         }
@@ -151,15 +149,15 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     }()
 }
     ```
-  a. If the block header validates correctly it is propagated to the node&apos;s peers (`#4a` above); see [`eth/fetcher/fetcher.go#58-59`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#58-59)
+  a. If the block header validates correctly it is propagated to the node&apos;s peers (`#3a` above); see [`eth/fetcher/fetcher.go#58-59`](https://github.com/ethereum/go-ethereum/blob/master/eth/fetcher/fetcher.go#58-59)
   ```go
   // blockBroadcasterFn is a callback type for broadcasting a block to connected peers.
   type blockBroadcasterFn func(block *types.Block, propagate bool)
   ```
 
-  b. The block is inserted into the forked blockchain (`#4b` above).
+  b. The block is inserted into the forked blockchain (`#3b` above).
 
-5. The block is processed by `insertChain` (`#5`); see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
+4. The block is processed by `insertChain` (`#4`); see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
     ```go
     // insertChain will execute the actual chain insertion and event aggregation. The
     // only reason this method exists as a separate one is to make locking cleaner
@@ -181,7 +179,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
             return i, events, coalescedLogs, err
         }
         // Process block using the parent state as reference point.
-        receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)  // <<=== #5
+        receipts, logs, usedGas, err := bc.processor.Process(block, state, bc.vmConfig)  // <<=== #4
         if err != nil {
             bc.reportBlock(block, receipts, err)
             return i, events, coalescedLogs, err
@@ -201,7 +199,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
     }
     ```
 
-6. If the block is processed successfully; see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
+5. If the block is processed successfully; see [`core/blockchain.go#L1134-L1162`](https://github.com/ethereum/go-ethereum/blob/master/core/blockchain.go#L1134-L1162)
     ```go
     // WriteBlockWithState writes the block and all associated state to the database.
     func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.Receipt, state *state.StateDB) (status WriteStatus, err error) {
@@ -227,11 +225,11 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
         }
         // Write other block data using a batch.
         batch := bc.db.NewBatch()
-        rawdb.WriteBlock(batch, block)  <<=== #6a
+        rawdb.WriteBlock(batch, block)  <<=== #5a
     
-        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #6b
+        root, err := state.Commit(bc.chainConfig.IsEIP158(block.Number()))  // <<=== #5b
     ```
-  a. The new block is written to the chain (`#6a` above)
+  a. The new block is written to the chain (`#5a` above)
   ```go
   // WriteBlockWithoutState writes only the block and its metadata to the database,
   // but does not write any state. This is used to construct competing side forks
@@ -249,7 +247,7 @@ func (f *Fetcher) insert(peer string, block *types.Block) {
   }
   ```
   
-  b. It is committed to the database (`#6b` above); see [`core/state/statedb.go#L581-L628`](https://github.com/ethereum/go-ethereum/blob/master/core/state/statedb.go#L581-L628).
+  b. It is committed to the database (`#5b` above); see [`core/state/statedb.go#L581-L628`](https://github.com/ethereum/go-ethereum/blob/master/core/state/statedb.go#L581-L628).
   ```go
     // Commit writes the state to the underlying in-memory trie database.
     func (s *StateDB) Commit(deleteEmptyObjects bool) (root common.Hash, err error) {
