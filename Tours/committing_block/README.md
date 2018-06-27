@@ -45,8 +45,28 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   ```
   This is what my file looks like:
   ```json
-  $ cat .gowalkthrough/keystore/UTC--2018-06-27T21-35-05.846283500Z--c63c56283afe93fd0094d27890397de08e03ad5a
-{"address":"c63c56283afe93fd0094d27890397de08e03ad5a","crypto":{"cipher":"aes-128-ctr","ciphertext":"e2de36151b3ec2af0655f3c996d7b295265b7bce84f855ea1a22a85a30ba011c","cipherparams":{"iv":"420862fb4d32861b5f8bc8ee5dec9de2"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"fa16c26b1afcdbd61b4230768fa92c691c4ce9bc192d3636207d6f59ec34d625"},"mac":"08fd026accc839b892da18d2b2a7d4ca2cdd49ace715057802be18c65ca7cd1f"},"id":"c570d079-db1c-4b70-907c-56b0306d7a47","version":3}
+  $ cat .gowalkthrough/keystore/* | python -m json.tool
+{
+    "address": "c63c56283afe93fd0094d27890397de08e03ad5a",
+    "crypto": {
+        "cipher": "aes-128-ctr",
+        "cipherparams": {
+            "iv": "420862fb4d32861b5f8bc8ee5dec9de2"
+        },
+        "ciphertext": "e2de36151b3ec2af0655f3c996d7b295265b7bce84f855ea1a22a85a30ba011c",
+        "kdf": "scrypt",
+        "kdfparams": {
+            "dklen": 32,
+            "n": 262144,
+            "p": 1,
+            "r": 8,
+            "salt": "fa16c26b1afcdbd61b4230768fa92c691c4ce9bc192d3636207d6f59ec34d625"
+        },
+        "mac": "08fd026accc839b892da18d2b2a7d4ca2cdd49ace715057802be18c65ca7cd1f"
+    },
+    "id": "c570d079-db1c-4b70-907c-56b0306d7a47",
+    "version": 3
+}
   ```
 
 2. The [command line](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options) to set up for this tour is:
