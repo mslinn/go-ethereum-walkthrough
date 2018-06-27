@@ -18,28 +18,36 @@ The `geth` client uses the [light client protocol](https://github.com/ethereum/w
     ```
   The account address needs to be saved, so that the new Ethereum network can be initialized with preallocated funds. Here is a bash script that saves the address in an environment variable called `ACCOUNT`:
   ```bash
-  $ export ACCOUNT=$(cat ~/.gowalkthrough/keystore/* | python -c "import sys, json; print json.load(sys.stdin)['address']")
+  $ export ACCOUNT=$( \
+    cat ~/.gowalkthrough/keystore/* | \
+    python -c "import sys, json; print json.load(sys.stdin)['address']" \
+  )
   $ echo $ACCOUNT
 c63c56283afe93fd0094d27890397de08e03ad5a
    ```
 
-2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/.gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 420000000000000000000 Wei is specified for the default account:
-```bash
-$ echo "{
-    \"config\": {
-        \"chainId\": 555,
-        \"homesteadBlock\": 0,
-        \"eip155Block\": 0,
-        \"eip158Block\": 0
-    },
-    \"difficulty\": \"20\",
-    \"gasLimit\": \"2100000\",
-    \"alloc\": {
-        \"$ACCOUNT\":
-        { \"balance\": \"420000000000000000000\" }
-    }
-}" > ~/.gowalkthrough.json
-```
+2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/.gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 420,000,000,000,000,000,000 Wei is specified for the default account:
+  ```bash
+  $ echo "{
+      \"config\": {
+          \"chainId\": 555,
+          \"homesteadBlock\": 0,
+          \"eip155Block\": 0,
+          \"eip158Block\": 0
+      },
+      \"difficulty\": \"20\",
+      \"gasLimit\": \"2100000\",
+      \"alloc\": {
+          \"$ACCOUNT\":
+          { \"balance\": \"420000000000000000000\" }
+      }
+  }" > ~/.gowalkthrough.json
+  ```
+  This is what my file looks like:
+  ```json
+  $ cat .gowalkthrough/keystore/UTC--2018-06-27T21-35-05.846283500Z--c63c56283afe93fd0094d27890397de08e03ad5a
+{"address":"c63c56283afe93fd0094d27890397de08e03ad5a","crypto":{"cipher":"aes-128-ctr","ciphertext":"e2de36151b3ec2af0655f3c996d7b295265b7bce84f855ea1a22a85a30ba011c","cipherparams":{"iv":"420862fb4d32861b5f8bc8ee5dec9de2"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"fa16c26b1afcdbd61b4230768fa92c691c4ce9bc192d3636207d6f59ec34d625"},"mac":"08fd026accc839b892da18d2b2a7d4ca2cdd49ace715057802be18c65ca7cd1f"},"id":"c570d079-db1c-4b70-907c-56b0306d7a47","version":3}
+  ```
 
 2. The [command line](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options) to set up for this tour is:
 
