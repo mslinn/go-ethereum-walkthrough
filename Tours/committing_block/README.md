@@ -45,7 +45,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   }" > ~/.gowalkthrough.json
   ```
   This is what my file looks like:
-  ```json
+  ```bash
   $ cat .gowalkthrough/keystore/* | python -m json.tool
 {
     "address": "c63c56283afe93fd0094d27890397de08e03ad5a",
