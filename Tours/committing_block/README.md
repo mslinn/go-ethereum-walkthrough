@@ -25,6 +25,7 @@ The `geth` client uses the [light client protocol](https://github.com/ethereum/w
   $ echo $ACCOUNT
 c63c56283afe93fd0094d27890397de08e03ad5a
    ```
+   The configuration file in `~/.gowalkthrough/keystore/` has a very long name, for me it was `UTC--2018-06-27T21-35-05.846283500Z--c63c56283afe93fd0094d27890397de08e03ad5a`. It is easiest to refer to that file with `~/.gowalkthrough/keystore/*`, which expands to "all filenames in the `~/.gowalkthrough/keystore/` directory". Since there is only one file in that directory, this shorthand works fine.
 
 2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/.gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 420,000,000,000,000,000,000 Wei is specified for the default account:
   ```bash
