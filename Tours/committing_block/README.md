@@ -8,7 +8,7 @@ We will set up a new test network with preallocated funds in the default account
 
 The `geth` client uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
 
-1. A name is required for the new blockchain network and for the purposes of this tour, we’ll use “GoWalkthrough”. By default Ethereum stores data in a sub-directory of your home directory named “.ethereum”, which is a hidden directory on Linux/BSD. So as to keep the data for our private blockchain separate, we’ll use “~/.gowalkthrough”.
+1. A name is required for the new blockchain network and for the purposes of this tour, we’ll use `GoWalkthrough`. By default Ethereum stores data in a sub-directory of your home directory named `.ethereum`, which is a hidden directory on Linux/BSD/Darwin. So the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll use `~/.gowalkthrough`.
   ```bash
   $ geth --datadir ~/.gowalkthrough account new
   Your new account is locked with a password. Please give a password. Do not forget this password.
@@ -16,14 +16,14 @@ The `geth` client uses the [light client protocol](https://github.com/ethereum/w
   Repeat passphrase:
   Address: {c063a7c2c2d7364f3ea2b31b2aecd408a376fd43}
     ```
-  Take a note of the address of the account, since we’ll need this when we initialize the new network if we would like to preallocate any funds to it. Here is a bash script that saves the address in an environment variable called `ACCOUNT`:
+  The account address needs to be saved, so that the new Ethereum network can be initialized with preallocated funds. Here is a bash script that saves the address in an environment variable called `ACCOUNT`:
   ```bash
   $ export ACCOUNT=$(cat ~/.gowalkthrough/keystore/* | python -c "import sys, json; print json.load(sys.stdin)['address']")
   $ echo $ACCOUNT
 c63c56283afe93fd0094d27890397de08e03ad5a
    ```
 
-2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. This is configured via a JSON file, which we'll call `~/.gowalkthrough.json`. Here is an easy way to create that file:
+2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/.gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 420000000000000000000 Wei is specified for the default account:
 ```bash
 $ echo "{
     \"config\": {
