@@ -42,11 +42,11 @@ c63c56283afe93fd0094d27890397de08e03ad5a
           \"$ACCOUNT\":
           { \"balance\": \"420000000000000000000\" }
       }
-  }" > ~/.gowalkthrough.json
+  }" > ~/gowalkthrough.json
   ```
   This is what my file looks like:
   ```bash
-  $ cat .gowalkthrough/keystore/* | python -m json.tool
+  $ cat ~/gowalkthrough.json | python -m json.tool
 {
     "address": "c63c56283afe93fd0094d27890397de08e03ad5a",
     "crypto": {
@@ -70,14 +70,31 @@ c63c56283afe93fd0094d27890397de08e03ad5a
 }
   ```
 
-2. The [command line](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options) to set up for this tour is:
+3. Initialize the new Ethereum network genesis block with the following [command line](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options):
 
+  ```bash
+  $ geth --datadir ~/.gowalkthrough init ~/gowalkthrough.json
+  ```
+  Typical output is:
+  ```
+  INFO [06-27|15:47:52] Maximum peer count                       ETH=0 LES=100 total=12
+  INFO [06-27|15:47:52] Allocated cache and file handles         database=/home/mslinn/.gowalkthrough/geth/chaindata cache=16 handles=16
+  INFO [06-27|15:47:52] Writing custom genesis block
+  INFO [06-27|15:47:52] Persisted trie from memory database      nodes=1 size=149.00B time=121µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+  INFO [06-27|15:47:52] Successfully wrote genesis state         database=chaindata                                  hash=34d0fe…3093f4
+  INFO [06-27|15:47:52] Allocated cache and file handles         database=/home/mslinn/.gowalkthrough/geth/lightchaindata cache=16 handles=16
+  INFO [06-27|15:47:52] Writing custom genesis block
+  INFO [06-27|15:47:52] Persisted trie from memory database      nodes=1 size=149.00B time=159µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+  INFO [06-27|15:47:52] Successfully wrote genesis state         database=lightchaindata                                  hash=34d0fe…3093f4
+  ```
+  
+4. Start the Ethereum network:
   ```bash
   $ geth --syncmode light --cache 64 --maxpeers 12 \
     --rpcapi --wsapi --rinkeby \
-    --datadir ~.gowalkghrough init ~gowalkghrough.json
+    --datadir ~/.gowalkthrough
   ```
-  
+    
   Typical output looks like:
   ```
   INFO [06-27|13:22:37] Maximum peer count                       ETH=0 LES=100 total=12
