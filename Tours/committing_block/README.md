@@ -91,33 +91,32 @@ c63c56283afe93fd0094d27890397de08e03ad5a
 4. Start the Ethereum network:
   ```bash
   $ geth --syncmode light --cache 64 --maxpeers 12 \
-    --rpcapi --wsapi --rinkeby \
+    --rpcapi --wsapi \
     --datadir ~/.gowalkthrough
   ```
     
   Typical output looks like:
   ```
-  INFO [06-27|13:22:37] Maximum peer count                       ETH=0 LES=100 total=12
-  INFO [06-27|13:22:37] Starting peer-to-peer node               instance=Geth/v1.8.11-stable-dea1ce05/linux-amd64/go1.10
-  INFO [06-27|13:22:37] Allocated cache and file handles         database=/home/mslinn/.ethereum/rinkeby/geth/lightchaindata cache=48 handles=512
-  INFO [06-27|13:22:38] Persisted trie from memory database      nodes=355 size=51.91kB time=430µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-  INFO [06-27|13:22:38] Initialised chain configuration          config="{ChainID: 4 Homestead: 1 DAO: <nil> DAOSupport: true EIP150: 2 EIP155: 3 EIP158: 3 Byzantium: 1035301 Constantinople: <nil> Engine: clique}"
-  INFO [06-27|13:22:38] Loaded most recent local header          number=83648 hash=074e9f…47194d td=164879
-  INFO [06-27|13:22:38] Starting P2P networking
-  INFO [06-27|13:22:40] UDP listener up                          net=enode://fe9c3c8f29c364be0fc7659e1b6f8e9eb90c8ed7861d0b02474d3b46adff1581cc6f4be61a8769da087449358c24a2642cebd3a6797ce49bdeeca087ceea836c@[::]:30303
-  WARN [06-27|13:22:40] Light client mode is an experimental feature
-  INFO [06-27|13:22:40] RLPx listener up                         self="enode://fe9c3c8f29c364be0fc7659e1b6f8e9eb90c8ed7861d0b02474d3b46adff1581cc6f4be61a8769da087449358c24a2642cebd3a6797ce49bdeeca087ceea836c@[::]:30303?discport=0"
-  INFO [06-27|13:22:40] IPC endpoint opened                      url=/home/mslinn/.ethereum/rinkeby/geth.ipc
-  INFO [06-27|13:22:41] Block synchronisation started
-  INFO [06-27|13:22:43] Imported new block headers               count=0 elapsed=225.794ms number=83840 hash=5e83e3…65964c ignored=192
-  ```
+  INFO [06-27|16:25:39] Maximum peer count                       ETH=0 LES=100 total=12
+  INFO [06-27|16:25:39] Starting peer-to-peer node               instance=Geth/v1.8.11-stable-dea1ce05/linux-amd64/go1.10
+  INFO [06-27|16:25:39] Allocated cache and file handles         database=/home/mslinn/.gowalkthrough/geth/lightchaindata cache=48 handles=512
+  INFO [06-27|16:25:39] Initialised chain configuration          config="{ChainID: 555 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: <nil> EIP155: 0 EIP158: 0 Byzantium: <nil> Constantinople: <nil> Engine: unknown}"
+  INFO [06-27|16:25:39] Disk storage enabled for ethash caches   dir=/home/mslinn/.gowalkthrough/geth/ethash count=3
+  INFO [06-27|16:25:39] Disk storage enabled for ethash DAGs     dir=/home/mslinn/.ethash                    count=2
+  INFO [06-27|16:25:39] Loaded most recent local header          number=0 hash=1749e0…53d783 td=20
+  INFO [06-27|16:25:39] Starting P2P networking
+  INFO [06-27|16:25:41] UDP listener up                          net=enode://df1b9c450f2e868a5fc148dbeaa4e2bca5931aadc794878090c6df1c89d53ad1ba4ad7ac58b80e5981e47dd58a093873bf24b32ced60cb5e0cf992f791130ac8@[::]:30303
+  WARN [06-27|16:25:41] Light client mode is an experimental feature
+  INFO [06-27|16:25:41] RLPx listener up                         self="enode://df1b9c450f2e868a5fc148dbeaa4e2bca5931aadc794878090c6df1c89d53ad1ba4ad7ac58b80e5981e47dd58a093873bf24b32ced60cb5e0cf992f791130ac8@[::]:30303?discport=0"
+  INFO [06-27|16:25:41] IPC endpoint opened                      url=/home/mslinn/.gowalkthrough/geth.ipc
+    ```
   
   About 3 messages similar to the last one should appear every second.
   
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
   
   ```bash
-  $ geth attach ~/.ethereum/rinkeby/geth.ipc
+  $ geth attach ~/.gowalkthrough/geth.ipc
   ```
 
 4. Run the following JavaScript commands to create a transaction:
