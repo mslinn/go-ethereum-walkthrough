@@ -8,7 +8,7 @@ We will set up a new Ethereum network with preallocated funds in the default acc
 
 The `geth` client uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
 
-1. A name is required for the new blockchain network and for the purposes of this tour, we’ll use `GoWalkthrough`. By default Ethereum stores data in a sub-directory of your home directory named `.ethereum`, which is a hidden directory on Linux/BSD/Darwin. So the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll use `~/.gowalkthrough`.
+1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll use `~/.gowalkthrough`.
   ```bash
   $ geth --datadir ~/.gowalkthrough account new
   Your new account is locked with a password. Please give a password. Do not forget this password.
@@ -46,28 +46,22 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   ```
   This is what my file looks like:
   ```bash
-  $ cat ~/gowalkthrough.json | python -m json.tool
-{
-    "address": "c63c56283afe93fd0094d27890397de08e03ad5a",
-    "crypto": {
-        "cipher": "aes-128-ctr",
-        "cipherparams": {
-            "iv": "420862fb4d32861b5f8bc8ee5dec9de2"
-        },
-        "ciphertext": "e2de36151b3ec2af0655f3c996d7b295265b7bce84f855ea1a22a85a30ba011c",
-        "kdf": "scrypt",
-        "kdfparams": {
-            "dklen": 32,
-            "n": 262144,
-            "p": 1,
-            "r": 8,
-            "salt": "fa16c26b1afcdbd61b4230768fa92c691c4ce9bc192d3636207d6f59ec34d625"
-        },
-        "mac": "08fd026accc839b892da18d2b2a7d4ca2cdd49ace715057802be18c65ca7cd1f"
-    },
-    "id": "c570d079-db1c-4b70-907c-56b0306d7a47",
-    "version": 3
-}
+  $   $ cat ~/gowalkthrough.json | python -m json.tool        
+  {                                                       
+      "alloc": {                                          
+          "d1c037b9d67b8b0af6003cfaa6951adfa1f67d89": {   
+              "balance": "420000000000000000000"          
+          }                                               
+      },                                                  
+      "config": {                                         
+          "chainId": 555,                                 
+          "eip155Block": 0,                               
+          "eip158Block": 0,                               
+          "homesteadBlock": 0                             
+      },                                                  
+      "difficulty": "20",                                 
+      "gasLimit": "2100000"                               
+  }                                                       
   ```
 
 3. Initialize the new Ethereum network genesis block with the following [command line](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options):
