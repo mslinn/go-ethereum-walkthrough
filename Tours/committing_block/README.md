@@ -4,7 +4,7 @@ _This tour follows a block in the `geth` client from when it arrives at a networ
 
 ## Setup
 
-We will set up a new test network with preallocated funds in the default account.
+We will set up a new Ethereum network with preallocated funds in the default account.
 
 The `geth` client uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
 
