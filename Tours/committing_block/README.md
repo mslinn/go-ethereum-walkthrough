@@ -4,7 +4,7 @@ _This tour follows a block in the `geth` client from when it arrives at a networ
 
 ## Setup {#setup}
 
-We will set up a new Ethereum network with preallocated funds in the default account.
+We will set up a new Ethereum network with preallocated funds in the default account. We will initialize the balance in the default account for this network when we create the genesis block. This is the easiest way to set up an account with a non-zero balance.
 
 The `geth` client uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
 
@@ -16,7 +16,7 @@ The `geth` client uses the [light client protocol](https://github.com/ethereum/w
   Repeat passphrase:
   Address: {c063a7c2c2d7364f3ea2b31b2aecd408a376fd43}
     ```
-  The account address needs to be saved, so that the new Ethereum network can be initialized with preallocated funds. Here is a bash script that saves the address in an environment variable called `ACCOUNT`:
+  The account address of the default account for the Ethereum network defined by `~/.gowalkthrough` is stored in the in the `keystore` subdirectory. Here is a bash script that saves the address of the default account in an environment variable called `ACCOUNT`:
   ```bash
   $ export ACCOUNT=$( \
     cat ~/.gowalkthrough/keystore/* | \
@@ -44,12 +44,12 @@ c63c56283afe93fd0094d27890397de08e03ad5a
       }
   }" > ~/gowalkthrough.json
   ```
-  This is what my file looks like:
+  This is what my `~/gowalkthrough.json` looks like:
   ```bash
   $   $ cat ~/gowalkthrough.json | python -m json.tool        
   {                                                       
       "alloc": {                                          
-          "d1c037b9d67b8b0af6003cfaa6951adfa1f67d89": {   
+          "c63c56283afe93fd0094d27890397de08e03ad5a": {   
               "balance": "420000000000000000000"          
           }                                               
       },                                                  
@@ -82,7 +82,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   INFO [06-27|15:47:52] Successfully wrote genesis state         database=lightchaindata                                  hash=34d0fe…3093f4
   ```
   
-4. Start the Ethereum network:
+4. Start the new Ethereum network. This is not a test network, it is a private, live Ethereum network:
   ```bash
   $ geth --syncmode light --cache 64 --maxpeers 12 \
     --rpcapi --wsapi \
