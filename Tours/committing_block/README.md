@@ -2,7 +2,7 @@
 
 _This tour follows a block in the `geth` client from when it arrives at a network socket until it is committed to the blockchain._
 
-## Setup
+## Setup {#setup}
 
 We will set up a new Ethereum network with preallocated funds in the default account.
 
