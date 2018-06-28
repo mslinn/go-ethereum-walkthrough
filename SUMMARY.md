@@ -37,6 +37,7 @@
     * [Create a New Private Ethereum Network](Tours/setup.md#create)
     * [Start the New Ethereum Network](Tours/setup.md#start)
     * [Attach a JavaScript Console](Tours/setup.md#js)
+    * [Shut Down](Tours/setup.md#stop)
   * [Committing a Block](Tours/committing_block/README.md#committing-block)
     * [Setup](Tours/committing_block/README.md#setup)
     * [Attribution](Tours/committing_block/README.md#attribution)
