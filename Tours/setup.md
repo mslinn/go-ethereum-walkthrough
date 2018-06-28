@@ -3,7 +3,7 @@
 These instructions set up a new private, live Ethereum network with pre-allocated funds in the default account. Because this is a new network, with no previous transactions to load, it boots up immediately. The balance in the default account for this network will be initialized when the genesis block is created. This is the easiest way to set up an account with a non-zero balance.
 
 ## Create a New Private Ethereum Network {#create}
-1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll use `~/.gowalkthrough`.
+1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll tell `geth` to use the `~/.gowalkthrough` directory for data storage.
   ```bash
   $ geth --datadir ~/.gowalkthrough account new
   Your new account is locked with a password. Please give a password. Do not forget this password.
@@ -22,7 +22,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
    ```
    The configuration file in `~/.gowalkthrough/keystore/` has a very long name, for me it was `UTC--2018-06-27T21-35-05.846283500Z--c63c56283afe93fd0094d27890397de08e03ad5a`. It is easiest to refer to that file with `~/.gowalkthrough/keystore/*`, which expands to "all filenames in the `~/.gowalkthrough/keystore/` directory". Since there is only one file in that directory, this shorthand works fine.
 
-2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 42,000,000,000,000,000,000 Wei (equivalent to 42 Ether) is specified for the default account:
+2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/gowalkthrough.json`. Here is a command line incantation to create that file; note that an initial balance of 42,000,000,000,000,000,000 Wei (equivalent to 42 Ether) is specified for the default account:
   ```bash
   $ echo "{
       \"config\": {
