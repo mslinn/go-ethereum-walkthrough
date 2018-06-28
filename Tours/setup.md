@@ -181,6 +181,15 @@ The first option is the simplest: freely run the network without debugging. Let'
 > I've also created a small video which should guide you on how to change the **Run kind** for a **Run Configuration**, [you can see it here](https://www.youtube.com/watch?v=ko-wKntCLjg).
 
 Be sure to specify the same command-line options as in the previous section: `--syncmode full --cache 64 --maxpeers 12 --rpcapi --wsapi --datadir ~/.gowalkthrough`.
+
+** Fails: **
+```
+C:\Go\bin\go.exe build -i -o C:\Users\mslin_000\AppData\Local\Temp\___geth_server.exe github.com/ethereum/go-ethereum/cmd/geth #gosetup
+C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: cannot find package "github.com/prometheus/prometheus/util/flock" in any of:
+	C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\vendor\github.com\prometheus\prometheus\util\flock (vendor tree)
+	C:\Go\src\github.com\prometheus\prometheus\util\flock (from $GOROOT)
+	C:\Users\mslin_000\go\src\github.com\prometheus\prometheus\util\flock (from $GOPATH)
+```
         
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
