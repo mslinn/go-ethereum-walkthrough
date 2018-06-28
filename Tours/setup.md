@@ -156,7 +156,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   
   About 3 messages similar to the last one should appear every second.
 
-## Debug with IntelliJ {#intellij}
+## Debug with GoLand / IntelliJ {#intellij}
 [StackOverflow](https://ethereum.stackexchange.com/a/27649/25828) has a posting that discusses this.
 
 > First make sure you have the latest version, EAP 15, 173.2696.28, and you are using the latest version of Go, 1.9, as that's preferred for a better debugging experience due to the recent improvements in Go with regards to debugging.
