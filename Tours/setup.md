@@ -14,14 +14,12 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
 2. Create the directory to hold `go-ethereum`. It must be exactly this name:
   ```bash
   $ mkdir -p $GOPATH/src/github.com/ethereum
-  
   $ cd $GOPATH/src/github.com/ethereum/
   ```
 
 3. Check out `go-ethereum`:
   ```bash
   $ git clone git@github.com:ethereum/go-ethereum.git go-ethereum
-  
   $ cd go-ethereum
   ```
 
