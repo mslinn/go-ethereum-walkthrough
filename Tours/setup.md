@@ -30,11 +30,16 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ govendor remove github.com/Azure/azure-storage-go
   $ govendor fetch -v +vendor     # this takes a long time
   ```
-5. Recreate all generated code:
+
+5. Install `govendor` runtime dependencies:
   ```bash
   $ go get -u github.com/fjl/gencodec
-  $ go get -u github.com/jteeuwen/go-bindata
-  $ sudo -H npm install -g yarn
+  $ sudo -H npm i -g npm
+  $ sudo -H npm install -g protobuf-compiler go-bindata yarn
+```
+
+6. Recreate all generated code:
+  ```bash
   $ govendor generate -v +local   # this takes a long time
   ```
   I got this error, which I ignored:
@@ -42,7 +47,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   info fsevents@1.1.3: The platform "linux" is incompatible with this module
   ```
 
-6. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
+7. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
 ```bash
 $ go install -v ./cmd/geth
 ```
