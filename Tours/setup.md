@@ -5,39 +5,36 @@ These instructions set up a new private, live Ethereum network with pre-allocate
 Because we want to set run a debugger on `geth` and breakpoints, we must first download the `go-ethereum` source code, fetch all the dependencies, and build the `geth` command.
 
 ## Check out and Build `go-ethereum` {#checkout}
-Ensure that [`GOPATH`](https://github.com/golang/go/wiki/GOPATH) is set:
-```bash
-$ echo $GOPATH
-/home/mslinn/go
-```
-Create the directory to hold `go-ethereum`. It must be exactly this name:
+1. Ensure that [`GOPATH`](https://github.com/golang/go/wiki/GOPATH) is set:
+  ```bash
+  $ echo $GOPATH
+  /home/mslinn/go
+  ```
+  
+2. Create the directory to hold `go-ethereum`. It must be exactly this name:
+  ```bash
+  $ mkdir -p $GOPATH/src/github.com/ethereum
+  
+  $ cd $GOPATH/src/github.com/ethereum/
+  ```
 
-```bash
-$ mkdir -p $GOPATH/src/github.com/ethereum
+3. Check out `go-ethereum`:
+  ```bash
+  $ git clone git@github.com:ethereum/go-ethereum.git go-ethereum
+  
+  $ cd go-ethereum
+  ```
 
-$ cd $GOPATH/src/github.com/ethereum/
-```
+4. Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken), then recreate all generated code:
 
-Check out `go-ethereum`:
-```bash
-$ git clone git@github.com:ethereum/go-ethereum.git go-ethereum
+  ```bash
+  $ go get -u github.com/kardianos/govendor
+  $ govendor remove github.com/Azure/azure-storage-go
+  $ govendor fetch -v +vendor
+  $ govendor generate -v +local
+  ```
 
-$ cd go-ethereum
-```
-
-Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken), then recreate all generated code:
-
-```bash
-$ go get -u github.com/kardianos/govendor
-
-$ govendor remove github.com/Azure/azure-storage-go
-
-$ govendor fetch -v +vendor
-
-$ govendor generate -v +local
-```
-
-Build all the tools, but only install `geth` in `$GOPATH/bin`:
+5. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
 ```bash
 $ go install -v ./cmd/geth
 ```
