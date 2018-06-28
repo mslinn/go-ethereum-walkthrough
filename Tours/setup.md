@@ -2,6 +2,40 @@
 
 These instructions set up a new private, live Ethereum network with pre-allocated funds in the default account. Because this is a new network, with no previous transactions to load, it boots up immediately. The balance in the default account for this network will be initialized when the genesis block is created. This is the easiest way to set up an account with a non-zero balance.
 
+## Check out `go-ethereum` {#checkout}
+Ensure that [`GOPATH`](https://github.com/golang/go/wiki/GOPATH) is set:
+```bash
+$ echo $GOPATH
+/home/mslinn/go
+```
+Create the directory to hold `go-ethereum`. It must be exactly this name:
+
+```bash
+$ mkdir -p $GOPATH/src/github.com/ethereum
+```
+
+Check out `go-ethereum`:
+```bash
+$ git clone git@github.com:ethereum/go-ethereum.git $GOPATH/src/github.com/ethereum/go-ethereum
+```
+
+Fetch all dependencies specified in the `vendor` directory using [`govendor`](https://github.com/kardianos/govendor), then recreate all generated code:
+
+```bash
+$ go get -u github.com/kardianos/govendor
+
+$ govendor fetch +v
+
+$ govendor generate +l
+```
+
+Build all the tools, but only install `geth` in `$GOPATH/bin`:
+```
+$ cd $GOPATH/src/github.com/ethereum/go-ethereum
+
+$ go install -v ./cmd/geth
+```
+
 ## Create a New Private Ethereum Network {#create}
 1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll tell `geth` to use the `~/.gowalkthrough` directory for data storage.
   ```bash
