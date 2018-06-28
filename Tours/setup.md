@@ -32,9 +32,9 @@ $ go get -u github.com/kardianos/govendor
 
 $ govendor remove github.com/Azure/azure-storage-go
 
-$ govendor fetch +v
+$ govendor fetch -v +vendor
 
-$ govendor generate +l
+$ govendor generate -v +local
 ```
 
 Build all the tools, but only install `geth` in `$GOPATH/bin`:
