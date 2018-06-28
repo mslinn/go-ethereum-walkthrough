@@ -35,7 +35,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ go get -u github.com/fjl/gencodec
   $ go get -u github.com/jteeuwen/go-bindata
   $ sudo -H npm install -g yarn
-  $ govendor generate -v +local   # builds lots of programs!
+  $ govendor generate -v +local   # this takes a long time
   ```
 
 6. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
