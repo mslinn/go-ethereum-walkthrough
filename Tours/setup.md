@@ -34,6 +34,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
 5. Install `govendor` runtime dependencies:
   ```bash
   $ go get -u github.com/fjl/gencodec
+  $ go get -u github.com/prometheus/prometheus/cmd/...
   $ sudo -H npm i -g npm
   $ sudo apt install protobuf-compiler  # TODO need Mac incantation
   $ sudo -H npm install -g stringer go-bindata yarn
