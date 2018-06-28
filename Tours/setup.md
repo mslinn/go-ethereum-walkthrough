@@ -2,7 +2,9 @@
 
 These instructions set up a new private, live Ethereum network with pre-allocated funds in the default account. Because this is a new network, with no previous transactions to load, it boots up immediately. The balance in the default account for this network will be initialized when the genesis block is created. This is the easiest way to set up an account with a non-zero balance.
 
-## Check out `go-ethereum` {#checkout}
+Because we want to set run a debugger on `geth` and breakpoints, we must first download the `go-ethereum` source code, fetch all the dependencies, and build the `geth` command.
+
+## Check out and Build `go-ethereum` {#checkout}
 Ensure that [`GOPATH`](https://github.com/golang/go/wiki/GOPATH) is set:
 ```bash
 $ echo $GOPATH
