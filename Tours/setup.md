@@ -1,8 +1,6 @@
 # Setup {#setup}
 
-We will set up a new Ethereum network with preallocated funds in the default account. We will initialize the balance in the default account for this network when we create the genesis block. This is the easiest way to set up an account with a non-zero balance.
-
-The `geth` client uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
+These instructions set up a new Ethereum network with pre-allocated funds in the default account. The balance in the default account for this network will be initialized when the genesis block is created. This is the easiest way to set up an account with a non-zero balance.
 
 ## Create a New Private Ethereum Network {#create}
 1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll use `~/.gowalkthrough`.
@@ -78,7 +76,12 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   INFO [06-27|15:47:52] Persisted trie from memory database      nodes=1 size=149.00B time=159µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
   INFO [06-27|15:47:52] Successfully wrote genesis state         database=lightchaindata                                  hash=34d0fe…3093f4
   ```
+
 ## Start the New Ethereum Network  {#start}
+TODO: I think the following is probably wrong; the light protocol seems inappropriate for what we need to demonstrate.
+
+The `geth` node uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
+
 4. This is not a test network, it is a private, live Ethereum network:
   ```bash
   $ geth --syncmode light --cache 64 --maxpeers 12 \
