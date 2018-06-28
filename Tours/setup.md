@@ -129,19 +129,8 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   ```
 
 ## Start the New Ethereum Network  {#start}
-TODO: I think the following is probably wrong; the light protocol seems inappropriate for what we need to demonstrate. Also, this happens in the JavaScript console only when light mode:
-```
-> eth.coinbase
-Error: not supported
-    at web3.js:3143:20
-    at web3.js:6347:15
-    at get (web3.js:6247:38)
-    at <unknown>
-```
 
-The `geth` node uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
-
-4. These instructions do not launch a test network, instead, they launch a private, live, full Ethereum network:
+1. These instructions do not launch a test network, instead, they launch a private, live, full Ethereum network:
   ```bash
   $ geth --syncmode full --cache 64 --maxpeers 12 \
     --rpcapi --wsapi \
