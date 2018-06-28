@@ -34,7 +34,6 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
 5. Install `govendor` runtime dependencies:
   ```bash
   $ go get -u github.com/fjl/gencodec
-  $ go get -u github.com/prometheus/prometheus/cmd/...
   $ sudo -H npm i -g npm
   $ sudo apt install protobuf-compiler  # TODO need Mac incantation
   $ sudo -H npm install -g stringer go-bindata yarn
@@ -49,10 +48,15 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   info fsevents@1.1.3: The platform "linux" is incompatible with this module
   ```
 
-7. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
-```bash
-$ go install -v ./cmd/geth
-```
+7. Install `geth` runtime dependencies:
+  ```
+  $ go get -u github.com/prometheus/prometheus/cmd/...
+  ```
+
+8. No need to do this if debugging from IntelliJ GoLand or IDEA: Build all the tools, but only install `geth` in `$GOPATH/bin`:
+  ```bash
+  $ go install -v ./cmd/geth
+  ```
 
 ## Create a New Private Ethereum Network {#create}
 1. By default Ethereum stores data in a sub-directory of your home directory named `~/.ethereum`. So that the data for the private blockchain is distinct from the public Ethereum blockchain, we’ll tell `geth` to use the `~/.gowalkthrough` directory for data storage.
