@@ -90,12 +90,13 @@ Error: not supported
 
 The `geth` node uses the [light client protocol](https://github.com/ethereum/wiki/wiki/Light-client-protocol) for this walkthrough. Ethereum&apos;s light client protocol allows for small devices such as the [Raspberry Pi](https://www.rs-online.com/designspark/exploring-ethereum-with-raspberry-pi-part-1-getting-started) to join the network, download block headers as they appear, and only validate certain pieces of state on-demand as required by their users.
 
-4. This is not a test network, it is a private, live Ethereum network:
+4. This is not a test network, it is a private, live, full Ethereum network:
   ```bash
   $ geth --syncmode full --cache 64 --maxpeers 12 \
     --rpcapi --wsapi \
     --datadir ~/.gowalkthrough
   ```
+  The `--rcapi` option causes a file called `~/.gowalkthrough/geth.ipc` to be created; that file is automatically deleted when `geth` stops.
     
   Typical output looks like:
   ```
