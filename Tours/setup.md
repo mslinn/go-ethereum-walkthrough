@@ -134,7 +134,17 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   ```
 
 ## Start the New Ethereum Network  {#start}
+You can run the new Ethereum network several ways:
 
+1. Run the network without debugging
+  a. Let it run freely
+  b. Attach to the process remotely.
+
+2. Under the control of a debugger, which can be a bit complicated, but is necessary in order to set breakpoints and follow along with the walkthrough. 
+
+The first option is the simplest: freely run the network without debugging. Let's explore that option first.
+
+### Start Without Debugging Enabled {#nodebug}
 1. These instructions do not launch a test network, instead, they launch a private, live, full Ethereum network:
   ```bash
   $ geth --syncmode full --cache 64 --maxpeers 12 \
