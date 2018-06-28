@@ -36,7 +36,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   ```bash
   $ go get -u github.com/fjl/gencodec
   $ go get -u github.com/jteeuwen/go-bindata
-  $ npm install -g yarn
+  $ sudo -H npm install -g yarn
   $ govendor generate -v +local   # builds lots of programs!
   ```
 
