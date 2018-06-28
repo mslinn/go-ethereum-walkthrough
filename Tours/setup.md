@@ -37,6 +37,10 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ sudo -H npm install -g yarn
   $ govendor generate -v +local   # this takes a long time
   ```
+  I got this error, which I ignored:
+  ```
+  info fsevents@1.1.3: The platform "linux" is incompatible with this module
+  ```
 
 6. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
 ```bash
