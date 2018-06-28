@@ -19,10 +19,14 @@ Check out `go-ethereum`:
 $ git clone git@github.com:ethereum/go-ethereum.git $GOPATH/src/github.com/ethereum/go-ethereum
 ```
 
-Fetch all dependencies specified in the `vendor` directory using [`govendor`](https://github.com/kardianos/govendor), then recreate all generated code:
+Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken), then recreate all generated code:
 
 ```bash
 $ go get -u github.com/kardianos/govendor
+
+$ cd $GOPATH/src/github.com/ethereum/go-ethereum
+
+$ govendor remove github.com/Azure/azure-storage-go
 
 $ govendor fetch +v
 
@@ -30,9 +34,7 @@ $ govendor generate +l
 ```
 
 Build all the tools, but only install `geth` in `$GOPATH/bin`:
-```
-$ cd $GOPATH/src/github.com/ethereum/go-ethereum
-
+```bash
 $ go install -v ./cmd/geth
 ```
 
