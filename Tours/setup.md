@@ -155,7 +155,18 @@ The `geth` node uses the [light client protocol](https://github.com/ethereum/wik
     ```
   
   About 3 messages similar to the last one should appear every second.
-  
+
+## Debug with IntelliJ {#intellij}
+[StackOverflow](https://ethereum.stackexchange.com/a/27649/25828) has a posting that discusses this.
+
+> First make sure you have the latest version, EAP 15, 173.2696.28, and you are using the latest version of Go, 1.9, as that's preferred for a better debugging experience due to the recent improvements in Go with regards to debugging.
+
+> Then, go to **Run** | **Edit Configurations** | **Go Applications** | select the run configuration you want to edit | **Run kind** and change it to `File` from `Package`. Then type the name of the package, for example, `github.com/ethereum/go-ethereum/cmd/geth` and save the settings. Then go to **Run** | **Debug...** and select the run configuration you've edited previously and select that as a debug run.
+
+> I've also created a small video which should guide you on how to change the **Run kind** for a **Run Configuration**, [you can see it here](https://www.youtube.com/watch?v=ko-wKntCLjg).
+
+Be sure to specify the same command-line options as in the previous section: `--syncmode full --cache 64 --maxpeers 12 --rpcapi --wsapi --datadir ~/.gowalkthrough`.
+        
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
   
