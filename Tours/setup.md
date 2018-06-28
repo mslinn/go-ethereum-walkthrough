@@ -171,7 +171,7 @@ The first option is the simplest: freely run the network without debugging. Let'
   
   About 3 messages similar to the last one should appear every second.
 
-## Debug with GoLand / IntelliJ {#intellij}
+### Debug with GoLand / IntelliJ {#intellij}
 [StackOverflow](https://ethereum.stackexchange.com/a/27649/25828) has a posting that discusses this.
 
 > First make sure you have the latest version, EAP 15, 173.2696.28, and you are using the latest version of Go, 1.9, as that's preferred for a better debugging experience due to the recent improvements in Go with regards to debugging.
