@@ -34,6 +34,7 @@
     * [`instructionSet`](Types/smart_contract.md#instruction_set)
 * [Tours](Tours/README.md)
   * [Setup](Tours/setup.md#setup)
+    * [Check out and Build go-ethereum](Tours/setup.md#checkout)
     * [Create a New Private Ethereum Network](Tours/setup.md#create)
     * [Start the New Ethereum Network](Tours/setup.md#start)
       * [Start Without Debugging Enabled](Tours/setup.md#nodebug)
