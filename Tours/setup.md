@@ -36,7 +36,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ go get -u github.com/fjl/gencodec
   $ sudo -H npm i -g npm
   $ sudo apt install protobuf-compiler  # TODO need Mac incantation
-  $ sudo -H npm install -g go-bindata yarn
+  $ sudo -H npm install -g stringer go-bindata yarn
 ```
 
 6. Recreate all generated code:
