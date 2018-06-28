@@ -12,19 +12,21 @@ Create the directory to hold `go-ethereum`. It must be exactly this name:
 
 ```bash
 $ mkdir -p $GOPATH/src/github.com/ethereum
+
+$ cd $GOPATH/src/github.com/ethereum/
 ```
 
 Check out `go-ethereum`:
 ```bash
-$ git clone git@github.com:ethereum/go-ethereum.git $GOPATH/src/github.com/ethereum/go-ethereum
+$ git clone git@github.com:ethereum/go-ethereum.git go-ethereum
+
+$ cd go-ethereum
 ```
 
 Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken), then recreate all generated code:
 
 ```bash
 $ go get -u github.com/kardianos/govendor
-
-$ cd $GOPATH/src/github.com/ethereum/go-ethereum
 
 $ govendor remove github.com/Azure/azure-storage-go
 
