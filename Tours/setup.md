@@ -25,18 +25,22 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ cd go-ethereum
   ```
 
-4. Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken), then recreate all generated code:
+4. Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken):
 
   ```bash
   $ go get -u github.com/kardianos/govendor
   $ govendor remove github.com/Azure/azure-storage-go
   $ govendor fetch -v +vendor     # this takes a long time
+  ```
+5. Recreate all generated code:
+  ```bash
   $ go get -u github.com/fjl/gencodec
   $ go get -u github.com/jteeuwen/go-bindata
+  $ npm install -g yarn
   $ govendor generate -v +local   # builds lots of programs!
   ```
 
-5. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
+6. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
 ```bash
 $ go install -v ./cmd/geth
 ```
