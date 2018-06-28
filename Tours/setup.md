@@ -22,7 +22,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
    ```
    The configuration file in `~/.gowalkthrough/keystore/` has a very long name, for me it was `UTC--2018-06-27T21-35-05.846283500Z--c63c56283afe93fd0094d27890397de08e03ad5a`. It is easiest to refer to that file with `~/.gowalkthrough/keystore/*`, which expands to "all filenames in the `~/.gowalkthrough/keystore/` directory". Since there is only one file in that directory, this shorthand works fine.
 
-2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 420,000,000,000,000,000,000 Wei is specified for the default account:
+2. A genesis block needs to be created that will be used by the initial set of nodes that will participate in the network. The genesis block is configured via a JSON file, which we'll call `~/gowalkthrough.json`. Here is an easy way to create that file; note that an initial balance of 42,000,000,000,000,000,000 Wei (equivalent to 42 Ether) is specified for the default account:
   ```bash
   $ echo "{
       \"config\": {
@@ -35,7 +35,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
       \"gasLimit\": \"2100000\",
       \"alloc\": {
           \"$ACCOUNT\":
-          { \"balance\": \"420000000000000000000\" }
+          { \"balance\": \"42000000000000000000\" }
       }
   }" > ~/gowalkthrough.json
   ```
@@ -45,7 +45,7 @@ c63c56283afe93fd0094d27890397de08e03ad5a
   {                                                       
       "alloc": {                                          
           "c63c56283afe93fd0094d27890397de08e03ad5a": {   
-              "balance": "420000000000000000000"          
+              "balance": "42000000000000000000"          
           }                                               
       },                                                  
       "config": {                                         
@@ -122,10 +122,16 @@ The `geth` node uses the [light client protocol](https://github.com/ethereum/wik
   $ geth attach ~/.gowalkthrough/geth.ipc
   ```
 
-4. Run the following JavaScript commands to create a transaction:
+4. Run the following JavaScript commands to create the default account; notice its balance is 420 Ether:
 ```javascript
 > personal.newAccount()
+Passphrase:
+Repeat passphrase:
+"0xbc2dba1e18dd874707c4e495b139138d050a5846"
+
 > web3.fromWei(eth.getBalance(eth.coinbase), "ether")
+42
+
 > TODO write me
 ```
   
