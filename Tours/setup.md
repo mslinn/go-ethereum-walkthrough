@@ -30,8 +30,9 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   ```bash
   $ go get -u github.com/kardianos/govendor
   $ govendor remove github.com/Azure/azure-storage-go
-  $ govendor fetch -v +vendor
-  $ govendor generate -v +local
+  $ govendor fetch -v +vendor     # this takes a long time
+  $ go get -u github.com/fjl/gencodec
+  $ govendor generate -v +local   # builds lots of programs!
   ```
 
 5. No need to do this if debugging from IntelliJ: Build all the tools, but only install `geth` in `$GOPATH/bin`:
