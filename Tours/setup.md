@@ -132,7 +132,7 @@ The `geth` node uses the [light client protocol](https://github.com/ethereum/wik
   >
   ```
 
-4. Run the following JavaScript commands to create the default account; notice its balance is 420 Ether:
+4. Run the following JavaScript commands to create the default account; notice its balance is 42 Ether:
 
   ```javascript
   > personal.newAccount()
