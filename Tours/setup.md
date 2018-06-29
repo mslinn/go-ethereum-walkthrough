@@ -42,7 +42,8 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   For all commands, -n prevents execution of external programs (dry run mode).
   ```
 
-`make geth` fails under Windows Subsystem for Linux like this: 
+  `make geth` fails under Windows Subsystem for Linux like this: 
+  
   ```bash
   $ make geth
   build/env.sh go run build/ci.go install ./cmd/geth
