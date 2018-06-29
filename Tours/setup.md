@@ -26,10 +26,10 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
 4. The `go-ethereum` project has a `Makefile` so `make` can be used to build all the command line programs in `go-ethereum`, or selected command line programs. The `Makefile` calls `build/ci.go`, which does not have any documentation or help except that which is shown in the `godoc`:
   ```
   The ci command is called from Continuous Integration scripts.
-  Usage: go run build/ci.go \<command\> \<command flags/arguments\>
+  Usage: go run build/ci.go <command> <command flags/arguments>
   Available commands are:
-     install    \[ -arch architecture \] [ -cc compiler \] \[ packages... \]                          -- builds packages and executables
-     test       \[ -coverage \] \[ packages... ]                                                    -- runs the tests
+     install    [ -arch architecture ] [ -cc compiler ] [ packages... ]                          -- builds packages and executables
+     test       [ -coverage ] [ packages... ]                                                    -- runs the tests
      lint                                                                                        -- runs certain pre-selected linters
      archive    [ -arch architecture ] [ -type zip|tar ] [ -signer key-envvar ] [ -upload dest ] -- archives build artefacts
      importkeys                                                                                  -- imports signing keys from env
