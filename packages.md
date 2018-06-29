@@ -4,7 +4,7 @@ The [`go-ethereum`](https://github.com/ethereum/go-ethereum) project defines 242
 
 ### Notes {#notes}
 
-1. The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory does not contain a Go source package; instead, it contains scripts and configurations for building the package in various environments.
+1. The [`build/`](https://github.com/ethereum/go-ethereum/tree/master/build) directory only contains one special Go command-line program package, for building the distribution. The `build` directory also contains scripts and configurations for building the package in various environments.
 
 2. Only the directories that map 1:1 with packages are shown in this table. The exception is the `ethereum` package, which is defined in only one file: [`interfaces.go`](https://github.com/ethereum/go-ethereum/blob/master/interfaces.go). There is a note in that file to migrate the contents to the `event` package.
 
