@@ -23,7 +23,26 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ cd go-ethereum
   ```
   
-4. Make `geth` fails under Windows Subsystem for Linux like this: 
+4. The `go-ethereum` project has a `Makefile` so `make` can be used to build all the command line programs in `go-ethereum`, or selected command line programs. The `Makefile` calls `build/ci.go`, which does not have any documentation or help except that which is shown in the `godoc`:
+  ```
+  The ci command is called from Continuous Integration scripts.
+  Usage: go run build/ci.go \<command\> \<command flags/arguments\>
+  Available commands are:
+     install    \[ -arch architecture \] [ -cc compiler \] \[ packages... \]                          -- builds packages and executables
+     test       \[ -coverage \] \[ packages... ]                                                    -- runs the tests
+     lint                                                                                        -- runs certain pre-selected linters
+     archive    [ -arch architecture ] [ -type zip|tar ] [ -signer key-envvar ] [ -upload dest ] -- archives build artefacts
+     importkeys                                                                                  -- imports signing keys from env
+     debsrc     [ -signer key-id ] [ -upload dest ]                                              -- creates a debian source package
+     nsis                                                                                        -- creates a Windows NSIS installer
+     aar        [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an Android archive
+     xcode      [ -local ] [ -sign key-id ] [-deploy repo] [ -upload dest ]                      -- creates an iOS XCode framework
+     xgo        [ -alltools ] [ options ]                                                        -- cross builds according to options
+     purge      [ -store blobstore ] [ -days threshold ]                                         -- purges old archives from the blobstore
+  For all commands, -n prevents execution of external programs (dry run mode).
+  ```
+
+`make geth` fails under Windows Subsystem for Linux like this: 
   ```bash
   $ make geth
   build/env.sh go run build/ci.go install ./cmd/geth
