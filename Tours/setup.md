@@ -23,7 +23,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ cd go-ethereum
   ```
   
-4. Make `geth`. TODO if this works, delete the rest of the steps in this section.
+4. Make `geth` fails under Windows Subsystem for Linux like this: 
   ```bash
   $ make geth
   build/env.sh go run build/ci.go install ./cmd/geth
@@ -34,37 +34,168 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   Makefile:15: recipe for target 'geth' failed
   make: *** [geth] Error 1
   ```
+  However it works fine under Ubuntu:
+  ```bash
+  $ build/env.sh go run build/ci.go install ./cmd/geth
+  >>> /usr/lib/go-1.10/bin/go install -ldflags -X main.gitCommit=e916f9786dd318ec873cab21c8092d4da2c8dd54 -v ./cmd/geth
+  github.com/ethereum/go-ethereum/vendor/github.com/hashicorp/golang-lru/simplelru
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/net/html/atom
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/internal/identifier
+  github.com/ethereum/go-ethereum/crypto/sha3
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/sys/unix
+  github.com/ethereum/go-ethereum/common/hexutil
+  github.com/ethereum/go-ethereum/vendor/github.com/go-stack/stack
+  github.com/ethereum/go-ethereum/common/math
+  github.com/ethereum/go-ethereum/rlp
+  github.com/ethereum/go-ethereum/common
+  github.com/ethereum/go-ethereum/crypto/secp256k1
+  github.com/ethereum/go-ethereum/params
+  github.com/ethereum/go-ethereum/log
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/util
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/cache
+  github.com/ethereum/go-ethereum/vendor/github.com/elastic/gosigar
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/comparer
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/storage
+  github.com/ethereum/go-ethereum/metrics
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/filter
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/opt
+  github.com/ethereum/go-ethereum/vendor/github.com/golang/snappy
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/errors
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/karalabe/cookiejar.v2/collections/prque
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/iterator
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/journal
+  github.com/ethereum/go-ethereum/vendor/github.com/aristanetworks/goarista/monotime
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/memdb
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb/table
+  github.com/ethereum/go-ethereum/common/mclock
+  github.com/ethereum/go-ethereum/event
+  github.com/ethereum/go-ethereum/crypto/randentropy
+  github.com/ethereum/go-ethereum/vendor/github.com/syndtr/goleveldb/leveldb
+  github.com/ethereum/go-ethereum/vendor/github.com/rjeczalik/notify
+  github.com/ethereum/go-ethereum/vendor/github.com/pborman/uuid
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/crypto/pbkdf2
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/crypto/scrypt
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/fatih/set.v0
+  github.com/ethereum/go-ethereum/cmd/internal/browser
+  github.com/ethereum/go-ethereum/common/fdlimit
+  github.com/ethereum/go-ethereum/vendor/github.com/hashicorp/golang-lru
+  github.com/ethereum/go-ethereum/p2p/netutil
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/net/context
+  github.com/ethereum/go-ethereum/vendor/github.com/edsrzf/mmap-go
+  github.com/ethereum/go-ethereum/vendor/github.com/rs/xhandler
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/net/websocket
+  github.com/ethereum/go-ethereum/vendor/github.com/rs/cors
+  github.com/ethereum/go-ethereum/common/bitutil
+  github.com/ethereum/go-ethereum/ethdb
+  github.com/ethereum/go-ethereum/crypto/bn256/cloudflare
+  github.com/ethereum/go-ethereum/rpc
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/crypto/ripemd160
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/httpu
+  github.com/ethereum/go-ethereum/crypto/bn256
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/scpd
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/soap
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/ssdp
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/net/html
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/transform
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/internal/utf8internal
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/runes
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/internal
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/charmap
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/japanese
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/korean
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/simplifiedchinese
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/traditionalchinese
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/unicode
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/internal/tag
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/language
+  github.com/ethereum/go-ethereum/vendor/github.com/jackpal/go-nat-pmp
+  github.com/ethereum/go-ethereum/vendor/github.com/davecgh/go-spew/spew
+  github.com/ethereum/go-ethereum/eth/tracers/internal/tracers
+  github.com/ethereum/go-ethereum/vendor/github.com/golang/protobuf/proto
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/olebedev/go-duktape.v3
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/text/encoding/htmlindex
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/net/html/charset
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/dcps/internetgateway1
+  github.com/ethereum/go-ethereum/vendor/github.com/huin/goupnp/dcps/internetgateway2
+  github.com/ethereum/go-ethereum/vendor/github.com/golang/protobuf/protoc-gen-go/descriptor
+  github.com/ethereum/go-ethereum/accounts/usbwallet/internal/trezor
+  github.com/ethereum/go-ethereum/p2p/nat
+  github.com/ethereum/go-ethereum/vendor/github.com/karalabe/hid
+  github.com/ethereum/go-ethereum/log/term
+  github.com/ethereum/go-ethereum/metrics/exp
+  github.com/ethereum/go-ethereum/vendor/github.com/fjl/memsize
+  github.com/ethereum/go-ethereum/vendor/github.com/fjl/memsize/memsizeui
+  github.com/ethereum/go-ethereum/vendor/github.com/mattn/go-colorable
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/urfave/cli.v1
+  github.com/ethereum/go-ethereum/internal/debug
+  github.com/ethereum/go-ethereum/vendor/github.com/prometheus/prometheus/util/flock
+  github.com/ethereum/go-ethereum/les/flowcontrol
+  github.com/ethereum/go-ethereum/vendor/golang.org/x/sync/syncmap
+  github.com/ethereum/go-ethereum/internal/jsre/deps
+  github.com/ethereum/go-ethereum/vendor/github.com/mattn/go-isatty
+  github.com/ethereum/go-ethereum/vendor/github.com/fatih/color
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/sourcemap.v1/base64vlq
+  github.com/ethereum/go-ethereum/vendor/gopkg.in/sourcemap.v1
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/file
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/token
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/ast
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/dbg
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/parser
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto/registry
+  github.com/ethereum/go-ethereum/vendor/github.com/robertkrimen/otto
+  github.com/ethereum/go-ethereum/internal/jsre
+  github.com/ethereum/go-ethereum/internal/web3ext
+  github.com/ethereum/go-ethereum/vendor/github.com/peterh/liner
+  github.com/ethereum/go-ethereum/vendor/github.com/maruel/panicparse/stack
+  github.com/ethereum/go-ethereum/vendor/github.com/mattn/go-runewidth
+  github.com/ethereum/go-ethereum/vendor/github.com/mitchellh/go-wordwrap
+  github.com/ethereum/go-ethereum/vendor/github.com/nsf/termbox-go
+  github.com/ethereum/go-ethereum/vendor/github.com/gizak/termui
+  github.com/ethereum/go-ethereum/vendor/github.com/naoina/go-stringutil
+  github.com/ethereum/go-ethereum/vendor/github.com/naoina/toml/ast
+  github.com/ethereum/go-ethereum/vendor/github.com/naoina/toml
+  github.com/ethereum/go-ethereum/crypto
+  github.com/ethereum/go-ethereum/trie
+  github.com/ethereum/go-ethereum/crypto/ecies
+  github.com/ethereum/go-ethereum/p2p/discover
+  github.com/ethereum/go-ethereum/p2p/discv5
+  github.com/ethereum/go-ethereum/core/types
+  github.com/ethereum/go-ethereum
+  github.com/ethereum/go-ethereum/core/state
+  github.com/ethereum/go-ethereum/accounts
+  github.com/ethereum/go-ethereum/core/rawdb
+  github.com/ethereum/go-ethereum/accounts/keystore
+  github.com/ethereum/go-ethereum/core/vm
+  github.com/ethereum/go-ethereum/consensus
+  github.com/ethereum/go-ethereum/consensus/misc
+  github.com/ethereum/go-ethereum/consensus/clique
+  github.com/ethereum/go-ethereum/consensus/ethash
+  github.com/ethereum/go-ethereum/p2p
+  github.com/ethereum/go-ethereum/core/bloombits
+  github.com/ethereum/go-ethereum/core
+  github.com/ethereum/go-ethereum/eth/fetcher
+  github.com/ethereum/go-ethereum/accounts/usbwallet
+  github.com/ethereum/go-ethereum/dashboard
+  github.com/ethereum/go-ethereum/node
+  github.com/ethereum/go-ethereum/eth/downloader
+  github.com/ethereum/go-ethereum/eth/filters
+  github.com/ethereum/go-ethereum/light
+  github.com/ethereum/go-ethereum/whisper/whisperv6
+  github.com/ethereum/go-ethereum/console
+  github.com/ethereum/go-ethereum/internal/ethapi
+  github.com/ethereum/go-ethereum/miner
+  github.com/ethereum/go-ethereum/ethclient
+  github.com/ethereum/go-ethereum/eth/gasprice
+  github.com/ethereum/go-ethereum/eth/tracers
+  github.com/ethereum/go-ethereum/eth
+  github.com/ethereum/go-ethereum/les
+  github.com/ethereum/go-ethereum/ethstats
+  github.com/ethereum/go-ethereum/cmd/utils
+  github.com/ethereum/go-ethereum/cmd/geth
+  ```
   
-4. Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken):
-
-  ```bash
-  $ go get -u github.com/kardianos/govendor
-  $ govendor remove github.com/Azure/azure-storage-go
-  $ govendor fetch -v +vendor     # this takes a long time
-  ```
-
-5. Install `govendor` runtime dependencies:
-  ```bash
-  $ go get -u github.com/fjl/gencodec
-  $ sudo -H npm i -g npm
-  $ sudo apt install protobuf-compiler  # TODO need Mac incantation
-  $ sudo -H npm install -g stringer go-bindata yarn
-```
-
-6. Recreate all generated code:
-  ```bash
-  $ govendor generate -v +local   # this takes a long time
-  ```
-  I got this error, which I ignored:
-  ```
-  info fsevents@1.1.3: The platform "linux" is incompatible with this module
-  ```
-
-7. Install `geth` runtime dependencies:
-  ```
-  $ go get -u github.com/prometheus/prometheus/cmd/...
-  ```
-
 8. No need to do this if debugging from IntelliJ GoLand or IDEA: Build all the tools, but only install `geth` in `$GOPATH/bin`:
   ```bash
   $ go install -v ./cmd/geth
