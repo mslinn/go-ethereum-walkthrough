@@ -34,7 +34,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   Makefile:15: recipe for target 'geth' failed
   make: *** [geth] Error 1
   ```
-  However it works fine under Ubuntu:
+  However it works fine under Ubuntu if the command that `make geth` runs is typed in explicitly:
   ```bash
   $ build/env.sh go run build/ci.go install ./cmd/geth
   >>> /usr/lib/go-1.10/bin/go install -ldflags -X main.gitCommit=e916f9786dd318ec873cab21c8092d4da2c8dd54 -v ./cmd/geth
@@ -196,7 +196,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   github.com/ethereum/go-ethereum/cmd/geth
   ```
   
-8. No need to do this if debugging from IntelliJ GoLand or IDEA: Build all the tools, but only install `geth` in `$GOPATH/bin`:
+5. No need to do this if debugging from IntelliJ GoLand or IDEA: Build all the tools, but only install `geth` in `$GOPATH/bin`:
   ```bash
   $ go install -v ./cmd/geth
   ```
