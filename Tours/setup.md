@@ -22,7 +22,19 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   $ git clone git@github.com:ethereum/go-ethereum.git go-ethereum
   $ cd go-ethereum
   ```
-
+  
+4. Make `geth`. TODO if this works, delete the rest of the steps in this section.
+  ```bash
+  $ make geth
+  build/env.sh go run build/ci.go install ./cmd/geth
+  internal/build/azure.go:23:2: cannot find package "github.com/Azure/azure-storage-go" in any of:
+          /mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/ethereum/go-ethereum/vendor/github.com/Azure/azure-storage-go (vendor tree)
+          /usr/lib/go-1.10/src/github.com/Azure/azure-storage-go (from $GOROOT)
+          /mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/Azure/azure-storage-go (from $GOPATH)
+  Makefile:15: recipe for target 'geth' failed
+  make: *** [geth] Error 1
+  ```
+  
 4. Use [`govendor`](https://github.com/kardianos/govendor) to fetch all dependencies specified in the `vendor` directory except `azure-storage-go` (which is broken):
 
   ```bash
