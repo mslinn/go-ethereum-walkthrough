@@ -35,6 +35,7 @@
     * [`instructionSet`](Types/smart_contract.md#instruction_set)
 * [Tours](Tours/README.md)
   * [Foreward](Tours/setup.md#forward)
+    * [Don&apos;t Try To Use Windows](Tours/setup.md#noWin)
   * [Setup](Tours/setup.md#setup)
     * [Check out and Build go-ethereum](Tours/setup.md#checkout)
     * [Create a New Private Ethereum Network](Tours/setup.md#create)
