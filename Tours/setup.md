@@ -355,7 +355,7 @@ C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: can
 ```
 
 ## Attach to a Running `geth` Process {#gethAttach}
-This is useful to see what `geth` does in response to various inputs.
+This is useful to see what `geth` does in response to various inputs. First, a refresher on the Linux utilities used:
 
 `man pgrep` describes a useful tool for discovering process IDs.
 
