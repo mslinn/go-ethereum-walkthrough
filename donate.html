@@ -75,7 +75,7 @@
   tipButton.addEventListener('click', function() {
     var user_address = web3.eth.accounts[0]
     web3.eth.sendTransaction({
-      to: YOUR_ADDRESS,
+      to: "0x844FdA3cD125df8464574977169DE4ecEa31aA65",
       from: user_address,
       value: web3.toWei('1', 'ether'),
     }, function (err, transactionHash) {
