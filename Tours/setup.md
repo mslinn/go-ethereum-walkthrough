@@ -386,6 +386,10 @@ The `strace` command's `-p` option accepts a comma-separated list of pids. The f
 ```bash
 sudo strace -t -p $(ls /proc/$(pgrep geth)/task -1 | paste -sd "," -) \
   -o geth.strace
+```
+
+The file `geth.strace` will contain something like:
+```
 strace: Process 23019 attached
 strace: Process 23020 attached
 strace: Process 23021 attached
