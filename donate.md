@@ -1,4 +1,4 @@
-Donations are appreciated!
+## Please Support This Work {#donate}
 
 <div style='display: inline-block; padding: 0.5em; width: 20%; text-align: center; vertical-align: top;'>
   <b>ETH</b><br>
