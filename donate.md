@@ -23,42 +23,42 @@ I have produced this work using my own personal resources and my own time. No-on
 </div>
 
 <style>
-.tip-button {
-  width: 304px;
-  height: 89px;
-  background-size: 100%;
-  background-image: url('images/1_pay_mm_off.png');
-  cursor: pointer;
-}
-
-.tip-button:hover {
-  background-image: url('images/1_pay_mm_over.png');
-}
-
-.tip-button:active {
-  background-image: url('images/1_pay_mm_off.png');
-}
+  .tip-button {
+    width: 304px;
+    height: 89px;
+    background-size: 100%;
+    background-image: url('images/1_pay_mm_off.png');
+    cursor: pointer;
+  }
+  
+  .tip-button:hover {
+    background-image: url('images/1_pay_mm_over.png');
+  }
+  
+  .tip-button:active {
+    background-image: url('images/1_pay_mm_off.png');
+  }
 </style>
 <script>
-var tipButton = document.querySelector('.tip-button')
-tipButton.addEventListener('click', function() {
-  if (typeof web3 === 'undefined') {
-    return renderMessage('You need to install MetaMask to use this feature.  https://metamask.io')
-  }
-
-  var user_address = web3.eth.accounts[0]
-  web3.eth.sendTransaction({
-    to: YOUR_ADDRESS,
-    from: user_address,
-    value: web3.toWei('1', 'ether'),
-  }, function (err, transactionHash) {
-    if (err) return renderMessage('Oh no!: ' + err.message)
-
-    // If you get a transactionHash, you can assume it was sent,
-    // or if you want to guarantee it was received, you can poll
-    // for that transaction to be mined first.
-    renderMessage('Thanks!')
+  var tipButton = document.querySelector('.tip-button')
+  tipButton.addEventListener('click', function() {
+    if (typeof web3 === 'undefined') {
+      return renderMessage('You need to install MetaMask to use this feature.  https://metamask.io')
+    }
+  
+    var user_address = web3.eth.accounts[0]
+    web3.eth.sendTransaction({
+      to: YOUR_ADDRESS,
+      from: user_address,
+      value: web3.toWei('1', 'ether'),
+    }, function (err, transactionHash) {
+      if (err) return renderMessage('Oh no!: ' + err.message)
+  
+      // If you get a transactionHash, you can assume it was sent,
+      // or if you want to guarantee it was received, you can poll
+      // for that transaction to be mined first.
+      renderMessage('Thanks!')
+    })
   })
-})
 </script>
 <div class="tip-button"></div>
