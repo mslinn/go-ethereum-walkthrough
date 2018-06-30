@@ -37,9 +37,7 @@ I have produced this work using my own personal resources and my own time. No-on
   
   .tip-button:active {
     background-image: url('images/1_pay_mm_off.png');
-  }
-</style>
-<script>
+  }</style><script>
   var tipButton = document.querySelector('.tip-button')
   tipButton.addEventListener('click', function() {
     if (typeof web3 === 'undefined') {
@@ -59,6 +57,5 @@ I have produced this work using my own personal resources and my own time. No-on
       // for that transaction to be mined first.
       renderMessage('Thanks!')
     })
-  })
-</script>
+  })</script>
 <div class="tip-button"></div>
