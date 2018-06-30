@@ -68,3 +68,4 @@
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md#tour)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
     * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
+* [Testing, testing](test.md)
