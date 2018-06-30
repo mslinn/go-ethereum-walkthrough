@@ -39,6 +39,7 @@
     * [Start the New Ethereum Network](Tours/setup.md#start)
       * [Start Without Debugging Enabled](Tours/setup.md#nodebug)
       * [Debug with GoLand / IntelliJ](Tours/setup.md#intellij)
+      * [Attach to a Running `geth` Process](Tours/setup.md#gethAttach)
     * [Attach a JavaScript Console](Tours/setup.md#js)
     * [Shut Down](Tours/setup.md#stop)
   * [Committing a Block](Tours/committing_block/README.md#committing-block)

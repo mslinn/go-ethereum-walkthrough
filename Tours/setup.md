@@ -42,19 +42,7 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   For all commands, -n prevents execution of external programs (dry run mode).
   ```
 
-  `make geth` fails under Windows Subsystem for Linux like this: 
-  
-  ```bash
-  $ make geth
-  build/env.sh go run build/ci.go install ./cmd/geth
-  internal/build/azure.go:23:2: cannot find package "github.com/Azure/azure-storage-go" in any of:
-          /mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/ethereum/go-ethereum/vendor/github.com/Azure/azure-storage-go (vendor tree)
-          /usr/lib/go-1.10/src/github.com/Azure/azure-storage-go (from $GOROOT)
-          /mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/Azure/azure-storage-go (from $GOPATH)
-  Makefile:15: recipe for target 'geth' failed
-  make: *** [geth] Error 1
-  ```
-  However it works fine under Ubuntu if the command that `make geth` runs is typed in explicitly:
+  You can invoke the command that `make geth` actually runs like this:
   ```bash
   $ build/env.sh go run build/ci.go install ./cmd/geth
   >>> /usr/lib/go-1.10/bin/go install -ldflags -X main.gitCommit=e916f9786dd318ec873cab21c8092d4da2c8dd54 -v ./cmd/geth
@@ -216,6 +204,18 @@ Because we want to set run a debugger on `geth` and breakpoints, we must first d
   github.com/ethereum/go-ethereum/cmd/geth
   ```
   
+  `make geth` fails under Windows Subsystem for Linux like this:
+```bash
+$ make geth
+build/env.sh go run build/ci.go install ./cmd/geth
+internal/build/azure.go:23:2: cannot find package "github.com/Azure/azure-storage-go" in any of:
+/mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/ethereum/go-ethereum/vendor/github.com/Azure/azure-storage-go (vendor tree)
+/usr/lib/go-1.10/src/github.com/Azure/azure-storage-go (from $GOROOT)
+/mnt/c/Users/mslin_000/go/src/github.com/ethereum/go-ethereum/build/_workspace/src/github.com/Azure/azure-storage-go (from $GOPATH)
+Makefile:15: recipe for target 'geth' failed
+make: *** [geth] Error 1
+```
+  
 5. No need to do this if debugging from IntelliJ GoLand or IDEA: Build all the tools, but only install `geth` in `$GOPATH/bin`:
   ```bash
   $ go install -v ./cmd/geth
@@ -353,7 +353,10 @@ C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: can
 	C:\Go\src\github.com\prometheus\prometheus\util\flock (from $GOROOT)
 	C:\Users\mslin_000\go\src\github.com\prometheus\prometheus\util\flock (from $GOPATH)
 ```
-        
+
+## Attach to a Running `geth` Process {#gethAttach}
+TODO write me.
+
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
   
