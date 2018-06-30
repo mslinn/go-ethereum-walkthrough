@@ -9,7 +9,7 @@ Donations are appreciated!
 
 <div style='display: inline-block; padding: 0.5em; width: 20%; text-align: center; vertical-align: top;'>
 <b>BTC</b><br>
-<a href="https://etherscan.io/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" title="See this Ethereum address on the blockchain explorer" style="font-size: 0.4vw;"><img src='/images/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc.png' style='width: 100%; height: auto;' />
+<a href="https://etherscan.io/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" title="See this BitCoin address on the blockchain explorer" style="font-size: 0.4vw;"><img src='/images/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc.png' style='width: 100%; height: auto;' />
 <br>3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc</a>
 </div>
 
