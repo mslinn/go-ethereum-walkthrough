@@ -19,5 +19,5 @@ I have produced this work using my own personal resources and my own time. No-on
 
 <div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
 <b>LTC</b><br>
-<a href="https://live.blockcypher.com/ltc/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" title="See this LiteCoin  address on the LiteCoin explorer" style="font-size: 0.35vw;"><img src='/images/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1.png' style='width: 100%; height: auto;' /><br>MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1</a>
+<a href="http://explorer.litecoin.net/address/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" title="See this LiteCoin  address on the LiteCoin explorer" style="font-size: 0.35vw;"><img src='/images/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1.png' style='width: 100%; height: auto;' /><br>MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1</a>
 </div>
