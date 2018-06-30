@@ -9,7 +9,6 @@ Donations are appreciated!
 <div style='display: inline-block; padding: 0.5em; width: 20%; text-align: center; vertical-align: top;'>
 <img src='/images/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc.png' style='width: 100%; height: auto;' />
 <br><b>BTC</b><br>
-[`3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc`](https://blockchain.info/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc "See this Bitcoin address on the blockchain explorer")
 <a href="https://etherscan.io/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" title="See this Ethereum address on the blockchain explorer" style="font-size: small;">3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc</a>
 </div>
 
