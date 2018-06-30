@@ -2,7 +2,7 @@
 
 ## Foreward {#forward}
 
-You can just passively read this document and gain lots of insight into how Ethereum works. The next level of understanding happens when you trace through the source code yourself according to what is written here. If and when you are ready to do that, read this section. Otherwise, just know that the information for how the walkthroughs were gathered is documented in this section and move lightly along to any of the walkthroughs that interest you of **GoEthereum Walkthrough**.
+You can just passively read this document and gain lots of insight into how Ethereum works. The next level of understanding happens when you trace through the source code yourself according to what is written here in **GoEthereum Walkthrough**. If and when you are ready to do that, read this section. Otherwise, just know that the information for how the walkthroughs were gathered is documented in this section and move lightly along to any of the walkthroughs that interest you of **GoEthereum Walkthrough**.
 
 ## Setup {#setup}
 
