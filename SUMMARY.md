@@ -43,6 +43,7 @@
     * [Attach a JavaScript Console](Tours/setup.md#js)
     * [Shut Down](Tours/setup.md#stop)
   * [Committing a Block](Tours/committing_block/README.md#committing-block)
+    * [Foreward](Tours/committing_block/README.md#forward)
     * [Setup](Tours/committing_block/README.md#setup)
     * [Attribution](Tours/committing_block/README.md#attribution)
     * [Preconditions](Tours/committing_block/README.md#preconditions)    
