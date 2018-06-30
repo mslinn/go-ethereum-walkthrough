@@ -359,6 +359,18 @@ TODO write me.
 
 `strace -fp <pid>` connects to all existing threads
 
+From [Using strace to attach to a multi-threaded process (like a JVM/Java)](https://itsecureadmin.com/2010/12/using-strace-to-attach-to-a-multi-threaded-process-like-a-jvmjava/):
+
+> When using strace to attach to a process that is running many threads, use the following format for a system call summary:
+
+> ```strace -f -c -p PID  -o /tmp/outfile.strace```
+
+> To run a trace without a summary, which will result in voluminous amounts of space, omit the ‘-c’:
+
+> ```strace -f -p PID  -o /tmp/outfile.strace```
+
+> This will capture system calls from all threads within the process.
+
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
   
