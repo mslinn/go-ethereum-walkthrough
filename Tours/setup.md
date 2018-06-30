@@ -357,6 +357,8 @@ C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: can
 ## Attach to a Running `geth` Process {#gethAttach}
 TODO write me.
 
+`strace -fp <pid>` connects to all existing threads
+
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
   
