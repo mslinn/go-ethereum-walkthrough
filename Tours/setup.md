@@ -1,5 +1,7 @@
 # Setup {#setup}
 
+You can just passively read this document and gain lots of insight into how Ethereum works. The next level of understanding happens when you trace through the source code yourself according to what is written here. If and when you are ready to do that, read this section. Otherwise, just know that the information for how the walkthroughs were gathered is documented in this section and move lightly along to the next section of **GoEthereum Walkthrough**.
+
 These instructions set up a new private, live Ethereum network with pre-allocated funds in the default account. Because this is a new network, with no previous transactions to load, it boots up immediately. The balance in the default account for this network will be initialized when the genesis block is created. This is the easiest way to set up an account with a non-zero balance.
 
 Because we want to set run a debugger on `geth` and breakpoints, we must first download the `go-ethereum` source code, fetch all the dependencies, and build the `geth` command.
