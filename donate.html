@@ -66,7 +66,7 @@
   var tipButton = document.querySelector('.tip-button');
   
   window.onload = function() { 
-    if (typeof web3 === 'undefined') {
+    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined') {
       var link = document.getElementById('tip-button');
       link.style.display = 'none';
     }
