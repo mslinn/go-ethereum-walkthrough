@@ -60,15 +60,19 @@
   </a>
 </div>
 
-<div class="tip-button"></div>
+<div id="tip-button" class="tip-button"></div>
 
 <script>
-  var tipButton = document.querySelector('.tip-button')
-  tipButton.addEventListener('click', function() {
-    if (typeof web3 === 'undefined') {
-      return renderMessage('You need to install MetaMask to use this feature.  https://metamask.io')
-    }
+  var tipButton = document.querySelector('.tip-button');
   
+  window.onload = function() { 
+    if (typeof web3 === 'undefined') {
+      var link = document.getElementById('tip-button');
+      link.style.display = 'none';
+    }
+  });
+  
+  tipButton.addEventListener('click', function() {
     var user_address = web3.eth.accounts[0]
     web3.eth.sendTransaction({
       to: YOUR_ADDRESS,
