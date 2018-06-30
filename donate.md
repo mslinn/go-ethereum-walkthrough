@@ -14,7 +14,7 @@ I have produced this work using my own personal resources and my own time. No-on
 
 <div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
 <b>BCH</b><br>
-<a href="https://etherscan.io/address/qzvegt3fzkfkq5sanxsfrxj2gcp9r45drv5qy4dxaw" title="See this Bitcoin Cash address on the blockchain explorer" style="font-size: 0.35vw;"><img src='/images/qzvegt3fzkfkq5sanxsfrxj2gcp9r45drv5qy4dxaw.png' style='width: 100%; height: auto;' /><br>qzvegt3fzkfkq5sanxsfrxj2gcp9r45drv5qy4dxaw</a>
+<a href="https://etherscan.io/address/qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42" title="See this Bitcoin Cash address on the blockchain explorer" style="font-size: 0.35vw;"><img src='/images/qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42.png' style='width: 100%; height: auto;' /><br>qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42</a>
 </div>
 
 <div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
