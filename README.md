@@ -15,7 +15,7 @@ Consider joining me at [SF Ethereum Developers](https://www.meetup.com/SF-Ethere
 
 This documentation includes text and code snippets from a variety of public sources, attributed appropriately, plus my own original writing.
 
-I have produced this work using my own personal resources and my own time. No-one has paid me for this. Please sponsor my work! I intend to make free videos and tour the world presenting this information live. Right now I'm seeking corporate and foundation sponsorship; if your organization would like to become a sponsor, and get a lot of exposure to Ethereum developers world-wide, please email me at [mslinn@micronauticsresearch.com](mailto:mslinn@micronauticsresearch.com).
+I have produced this work using my own personal resources and my own time. No-one has paid me for this. Please sponsor my work! I intend to make free videos and tour the world presenting this information live. I have produced hundreds of videos at [https://www.ScalaCourses.com](ScalaCourses.com), and I am ready to do the same for Ethereum and other blockchain projects. Right now I'm seeking corporate and foundation sponsorship; if your organization would like to become a sponsor, and get a lot of exposure to Ethereum developers world-wide, please email me at [mslinn@micronauticsresearch.com](mailto:mslinn@micronauticsresearch.com).
 
 Now, let me introduce you to [Go Ethereum](/overview.md).
 
