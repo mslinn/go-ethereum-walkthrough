@@ -2,7 +2,7 @@ Donations are appreciated!
 
 <div style='display: inline-block; padding: 0.5em; width: 20%; text-align: center; vertical-align: top;'>
   <b>ETH</b><br>
-  <a href="https://etherscan.io/address/0x844FdA3cD125df8464574977169DE4ecEa31aA65" title="See this Ethereum address on the blockchain explorer" style="font-size: 0.38vw;">
+  <a href="https://etherscan.io/address/0x844FdA3cD125df8464574977169DE4ecEa31aA65" title="See this Ethereum address on the blockchain explorer" style="font-size: 0.35vw;">
   <br>
   <img src='images/0x844FdA3cD125df8464574977169DE4ecEa31aA65.png' style='width: 100%; height: auto;' />
   0x844FdA3cD125df8464574977169DE4ecEa31aA65</a>
