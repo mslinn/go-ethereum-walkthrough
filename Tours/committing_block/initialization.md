@@ -6,15 +6,15 @@
 
 1. `geth` sets up a [`Node`](/Types/committing_block//initializing_types.md#node); see [`cmd/geth/main.go#L236`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/main.go#L236):
   ```go
-    // geth is the main entry point into the system if no special subcommand is ran.
-    // It creates a default node based on the command line arguments and runs it in
-    // blocking mode, waiting for it to be shut down.
-    func geth(ctx *cli.Context) error {
-            node := makeFullNode(ctx)    // <<=== #1
-            startNode(ctx, node)
-            node.Wait()
-            return nil
-    }
+  // geth is the main entry point into the system if no special subcommand is ran.
+  // It creates a default node based on the command line arguments and runs it in
+  // blocking mode, waiting for it to be shut down.
+  func geth(ctx *cli.Context) error {
+      node := makeFullNode(ctx)    // <<=== #1
+      startNode(ctx, node)
+      node.Wait()
+      return nil
+  }
   ```
 
 2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` (shown [later](#RegisterEthService)) uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
