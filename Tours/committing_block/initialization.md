@@ -282,17 +282,17 @@
     go srv.run(dialer)
   ```
   
-  f. see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
+  f. TODO write explanation for this step; see [`p2p/server.go#L894`](https://github.com/ethereum/go-ethereum/blob/master/p2p/server.go#L894) 
   ```go
   remoteRequested, err := p.run()
   ```
   
-  g. see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
+  g. TODO write explanation for this step;see [`p2p/peer.go#L197`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L197) 
   ```go
   p.startProtocols(writeStart, writeErr)
   ```
   
-  h. see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
+  h. TODO write explanation for this step;see [`p2p/peer.go#L348`](https://github.com/ethereum/go-ethereum/blob/master/p2p/peer.go#L348)
   ```go
   err := proto.Run(p, rw)
   ```
