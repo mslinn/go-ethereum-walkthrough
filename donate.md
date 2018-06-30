@@ -19,5 +19,5 @@ I have produced this work using my own personal resources and my own time. No-on
 
 <div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
 <b>LTC</b><br>
-<a href="https://etherscan.io/address/MFk9Y47S2GVQq7XSvuwqbyd7CmYa2MDFxu " title="See this LiteCoin  address on the blockchain explorer" style="font-size: 0.35vw;"><img src='/images/MFk9Y47S2GVQq7XSvuwqbyd7CmYa2MDFxu.png' style='width: 100%; height: auto;' /><br>MFk9Y47S2GVQq7XSvuwqbyd7CmYa2MDFxu</a>
+<a href="https://live.blockcypher.com/ltc/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" title="See this LiteCoin  address on the LiteCoin explorer" style="font-size: 0.35vw;"><img src='/images/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1.png' style='width: 100%; height: auto;' /><br>MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1</a>
 </div>
