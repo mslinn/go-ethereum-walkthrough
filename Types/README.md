@@ -1,4 +1,4 @@
-# Types
+# Types {#types}
 
 The `go-ethereum` project defines 57 types. Only some of them are discussed in this documentation.
 
