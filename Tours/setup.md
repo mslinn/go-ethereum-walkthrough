@@ -355,21 +355,53 @@ C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: can
 ```
 
 ## Attach to a Running `geth` Process {#gethAttach}
-TODO write me.
+`man pgrep` describes a useful tool for discovering process IDs.
+
+```
+NAME
+       pgrep, pkill - look up or signal processes based on name and other attributes
+
+SYNOPSIS
+       pgrep [options] pattern
+       pkill [options] pattern
+
+DESCRIPTION
+       pgrep looks through the currently running processes and lists the process IDs which match the selection criteria to stdout.  All the criteria have to match.  For example,
+
+              $ pgrep -u root sshd
+
+       will only list the processes called sshd AND owned by root.  On the other hand,
+
+              $ pgrep -u root,daemon
+
+       will list the processes owned by root OR daemon.
+
+       pkill will send the specified signal (by default SIGTERM) to each process instead of listing them on stdout.
+```       
 
 `strace -fp <pid>` connects to all existing threads
 
-From [Using strace to attach to a multi-threaded process (like a JVM/Java)](https://itsecureadmin.com/2010/12/using-strace-to-attach-to-a-multi-threaded-process-like-a-jvmjava/):
+The `strace` command's `-p` option accepts a comma-separated list of pids. The following incantation uses `pgrep` and `paste` to create that list, and captures system calls from all threads within the process.
 
-> When using strace to attach to a process that is running many threads, use the following format for a system call summary:
-
-> ```strace -f -c -p PID  -o /tmp/outfile.strace```
-
-> To run a trace without a summary, which will result in voluminous amounts of space, omit the ‘-c’:
-
-> ```strace -f -p PID  -o /tmp/outfile.strace```
-
-> This will capture system calls from all threads within the process.
+```bash
+sudo strace -t -p $(ls /proc/$(pgrep geth)/task -1 | paste -sd "," -) \
+  -o geth.strace
+strace: Process 23019 attached
+strace: Process 23020 attached
+strace: Process 23021 attached
+strace: Process 23022 attached
+strace: Process 23023 attached
+strace: Process 23024 attached
+strace: Process 23025 attached
+strace: Process 23026 attached
+strace: Process 23027 attached
+strace: Process 23028 attached
+strace: Process 23029 attached
+strace: Process 23030 attached
+strace: Process 23031 attached
+strace: Process 23032 attached
+strace: Process 23033 attached
+```
 
 ## Attach a JavaScript Console {#js}
 3. In another terminal console, start a JavaScript console that connects to the above running `geth` instance with this incantation:
