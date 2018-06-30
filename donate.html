@@ -5,6 +5,7 @@
     background-size: 100%;
     background-image: url('https://metamask.github.io/TipButton/images/1_pay_mm_off.png');
     cursor: pointer;
+    display: none;
   }
   
   .tip-button:hover {
@@ -69,7 +70,7 @@
     if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined') {
       var link = document.getElementById('tip-button');
       link.style.display = 'none';
-    }
+    } else link.style.display = 'display';
   };
   
   tipButton.addEventListener('click', function() {
