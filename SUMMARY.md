@@ -1,6 +1,7 @@
 # Summary
 
 * [Welcome](README.md)
+  * [Donations](README.md#donate)
 * [Overview](overview.md#overview)
   * [Code Reference Comments](overview.md#references)
   * [TODO and Suggestion](overview.md#comments)
@@ -68,4 +69,3 @@
   * [Smart Contracts](Tours/smart_contracts/SUMMARY.md#tour)
     * [`contract.go`](Tours/smart_contracts/contractgo.md)
     * [`contracts.go`](Tours/smart_contracts/contractsgo.md)
-* [Testing, testing](test123.md)
