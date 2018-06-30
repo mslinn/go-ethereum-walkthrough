@@ -17,7 +17,7 @@
   }
   ```
 
-2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` (shown [later](#RegisterEthService)) uses the tuple to add the new Ethereum client to the stack; see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
+2. The `makeFullNode` method is shown below; see [`cmd/geth/config.go#L153-L179`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L153-L179). It invokes `makeConfigNode`, which returns a tuple consisting of the new `Node` and the corresponding [`eth.Config`](https://github.com/ethereum/go-ethereum/blob/master/eth/config.go#L76-L117) data); see `#2a` below. On the next line (see `#2b` below) `RegisterEthService` (shown [later](#RegisterEthService)) uses the tuple to add the new Ethereum client to the stack (TODO describe the `Node` stack); see [`cmd/geth/config.go#L156`](https://github.com/ethereum/go-ethereum/blob/master/cmd/geth/config.go#L156):
     ```go
     func makeFullNode(ctx *cli.Context) *node.Node {
            stack, cfg := makeConfigNode(ctx)          // <<=== #2a
