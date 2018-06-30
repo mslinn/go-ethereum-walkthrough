@@ -1,6 +1,6 @@
 Donations are appreciated!
 <div style='display: inline-block; margin: 1em; width: 100px;'>
-<img src='/images/0x844FdA3cD125df8464574977169DE4ecEa31aA65.png' style='width: 100%; height: auto;' /><br>
+<img src='images/0x844FdA3cD125df8464574977169DE4ecEa31aA65.png' style='width: 100%; height: auto;' /><br>
 
 ETH: [`0x844FdA3cD125df8464574977169DE4ecEa31aA65`](https://etherscan.io/address/0x844FdA3cD125df8464574977169DE4ecEa31aA65 "See this address on the blockchain explorer")             
 </div>
