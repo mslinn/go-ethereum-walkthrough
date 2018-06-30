@@ -8,9 +8,6 @@ This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source 
 
 FYI, the Gitter channel for `go-ethereum` is [a`ethereum/go-ethereum`](https://gitter.im/ethereum/go-ethereum).
 
-## Don&apos;t Try To Use Windows
-Don&apos;t attempt to use Windows for building or debugging `go-ethereum`. Even Windows Subsystem for Linux is problematic. Ubuntu and Mac are safe choices, most other Linux distributions are probably equally easy to work with.
-
 ## Code Reference Comments {#references}
 I&apos;ve added special comments in the displayed source code, in this format:
 ```go
