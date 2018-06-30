@@ -67,10 +67,11 @@
   var tipButton = document.querySelector('.tip-button');
   
   window.onload = function() { 
-    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined') {
-      var link = document.getElementById('tip-button');
+    var link = document.getElementById('tip-button');
+    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined') 
       link.style.display = 'none';
-    } else link.style.display = 'display';
+    else 
+      link.style.display = 'display';
   };
   
   tipButton.addEventListener('click', function() {
