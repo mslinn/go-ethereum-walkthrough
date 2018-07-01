@@ -149,7 +149,9 @@ type gethConfig struct {
 ```
 
 ### `Node` {#node}
-`Node` type is only used by `geth`; see [`node/node.go#L39-L74`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L39-L74).
+[Godoc](https://godoc.org/github.com/ethereum/go-ethereum/node#Node); source definition: [`node/node.go#L39-L74`](https://github.com/ethereum/go-ethereum/blob/master/node/node.go#L39-L74)
+
+The `Node` type is only used by `geth`.
 
 An [entire package](https://godoc.org/github.com/ethereum/go-ethereum/node) defines the behavior of the `Node` type. The definition of `Node` contains many properties, none of which are exported; this means that `Node` state is only accessed from other packages via methods.
 
