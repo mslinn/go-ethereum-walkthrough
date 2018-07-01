@@ -356,7 +356,7 @@ The first option is the simplest: freely run the network without debugging. Let'
 
 Be sure to specify the same command-line options as in the previous section: `--syncmode full --cache 64 --maxpeers 12 --rpcapi --wsapi --datadir ~/.gowalkthrough`.
 
-** Fails: **
+** Fails Under Windows **
 ```
 C:\Go\bin\go.exe build -i -o C:\Users\mslin_000\AppData\Local\Temp\___geth_server.exe github.com/ethereum/go-ethereum/cmd/geth #gosetup
 C:\Users\mslin_000\go\src\github.com\ethereum\go-ethereum\node\node.go:36:2: cannot find package "github.com/prometheus/prometheus/util/flock" in any of:
