@@ -1,18 +1,49 @@
 <style>
-  .tip-button {
-    width: 304px;
-    height: 89px;
-    background-size: 100%;
+  .accountName img {
+    margin-bottom: 5px;
+  }
+
+  .accountName input[type="text"] {
+    display: none;
+    font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+    font-size: 1vw;
+    max-width: 100%;
+    overflow: auto;
+    width: 100%;
+  }
+  
+  .accountName {
+    display: inline-block;
+    padding: 0.5em;
+    text-align: center;
+    vertical-align: top;
+    width: 23%;
+  }
+  
+  .accountName img {
+    height: auto;
+    width: 100%;
+  }
+  
+  .currencyName {
+    font-weight: bold;
+    font-size: larger;
+  }
+  
+  .metamask-div {
     background-image: url('https://metamask.github.io/TipButton/images/1_pay_mm_off.png');
+    background-size: 100%;
     cursor: pointer;
     display: none;
+    height: 89px; 
+    width: 304px;
   }
-  
-  .tip-button:hover {
+
+  .metamask-div:hover {
     background-image: url('https://metamask.github.io/TipButton/images/1_pay_mm_over.png');
   }
-  
-  .tip-button:active {
+
+  .metamask-div:active {
     background-image: url('https://metamask.github.io/TipButton/images/1_pay_mm_off.png');
   }
 </style>
@@ -20,71 +51,80 @@
 <h2 id="donate">Please Support This Work</h2>
 
 <p>
-  I have produced this work using my own personal resources and my own time. 
-  No-one has paid me for this. 
-  Please sponsor my work! 
-  I intend to make free videos and tour the world presenting this information live. 
+  I have produced this work using my own personal resources and my own time.
+  No-one has paid me for this.
+  Please sponsor my work!
+  I intend to make free videos and tour the world presenting this information live.
   I also intend to translate this work into multiple languages, probably starting with Mandarin and Spanish.
 </p>
+
 <p>
-  I have produced hundreds of instructional videos at <a href="https://www.ScalaCourses.com">ScalaCourses.com</a>, 
-  and I am ready to do the same for Ethereum projects. 
-  If your organization would like to become a sponsor, 
-  and get a lot of exposure to Ethereum developers world-wide, 
-  please email me at <a href="mailto:mslinn@micronauticsresearch.com"><code>mslinn@micronauticsresearch.com</code></a>. 
-  You can also contribute below. 
+  I have produced hundreds of instructional videos at <a href="https://www.ScalaCourses.com">ScalaCourses.com</a>,
+  and I am ready to do the same for Ethereum projects.
+  If your organization would like to become a sponsor,
+  and get a lot of exposure to Ethereum developers world-wide,
+  please email me at <a href="mailto:mslinn@micronauticsresearch.com"><code>mslinn@micronauticsresearch.com</code></a>.
+  You can also contribute below.
 </p>
-  
-<div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
-  <b>ETH</b>
-  <br>
-  <a href="https://etherscan.io/address/0x844FdA3cD125df8464574977169DE4ecEa31aA65" title="See this Ethereum address on the blockchain explorer" style="font-size: 0.35vw;">
-    <img src='images/0x844FdA3cD125df8464574977169DE4ecEa31aA65.png' style='width: 100%; height: auto;' />
-    <br>
-    0x844FdA3cD125df8464574977169DE4ecEa31aA65
+
+<div class='accountName'>
+  <div class="currencyName">ETH</div>
+  <a href="https://etherscan.io/address/0x844FdA3cD125df8464574977169DE4ecEa31aA65" 
+    title="See this Ethereum address on the blockchain explorer">
+    <img src='images/0x844FdA3cD125df8464574977169DE4ecEa31aA65.png' />
   </a>
+  <input type="text" value="0x844FdA3cD125df8464574977169DE4ecEa31aA65" id="eth">
+  <button onclick="copyButton('eth')">Copy ETH account address to clipboard</button>
 </div>
 
-<div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
-  <b>BTC</b>
-  <br>
-  <a href="https://explorer.bitcoin.com/bch/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" title="See this address on the BitCoin explorer" style="font-size: 0.35vw;">
-    <img src='images/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc.png' style='width: 100%; height: auto;' />
-    <br>
-    3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc
+<div class='accountName'>
+  <div class="currencyName">BTC</div>
+  <a href="https://explorer.bitcoin.com/bch/address/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" 
+    title="See this address on the BitCoin explorer">
+    <img src='images/3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc.png' />
   </a>
+  <input type="text" value="3DzwmiMnfK5JbNGVb7CXHydGdifGVm72Gc" id="btc">
+  <button onclick="copyButton('btc')">Copy BTC account address to clipboard</button>
 </div>
 
-<div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
-  <b>BCH</b>
-  <br>
-  <a href="https://explorer.bitcoin.com/bch/address/bitcoincash:qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42" title="See this Bitcoin Cash address on the Bitcoin explorer" style="font-size: 0.35vw;">
-    <img src='images/qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42.png' style='width: 100%; height: auto;' />
-    <br>
-    qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42
+<div class='accountName'>
+  <div class="currencyName">BCH</div>
+  <a href="https://explorer.bitcoin.com/bch/address/bitcoincash:qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42" 
+    title="See this Bitcoin Cash address on the Bitcoin explorer">
+    <img src='images/qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42.png' />
   </a>
+  <input type="text" value="qqhxm8wdl3k9fnjj6hhhs366ucfpq8qj8quq8p2d42" id="bch">
+  <button onclick="copyButton('bch')">Copy BCH account address to clipboard</button>
 </div>
 
-<div style='display: inline-block; padding: 0.5em; width: 23%; text-align: center; vertical-align: top;'>
-  <b>LTC</b>
-  <br>
-  <a href="http://explorer.litecoin.net/address/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" title="See this LiteCoin  address on the LiteCoin explorer" style="font-size: 0.35vw;">
-    <img src='images/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1.png' style='width: 100%; height: auto;' />
-    <br>
-    MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1
+<div class='accountName'>
+  <div class="currencyName">LTC</div>
+  <a href="http://explorer.litecoin.net/address/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" 
+    title="See this LiteCoin address on the LiteCoin explorer">
+    <img src='images/MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1.png' />
   </a>
+  <input type="text" value="MKNtixLfWGvFQxMyLF2eDV1Dwv5TP25Fi1" id="ltc">
+  <button onclick="copyButton('ltc')">Copy LTC account address to clipboard</button>
 </div>
 
-<div id="tip-button" class="tip-button"></div>
+<div id="metamask-div" class="metamask-div"></div>
 
 <script>
-  var tipButton = document.querySelector('.tip-button');
+  function copyButton(id) {
+    var copyText = document.getElementById(id);
+    copyText.select();
+    document.execCommand("copy");
+    //alert("Copied " + copyText.value + " to the clipboard");
+  }
+
+  // tip jar
+  var tipButton = document.querySelector('.metamask-div');
   
-  window.onload = function() { 
-    var link = document.getElementById('tip-button');
-    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined') 
+  window.onload = function() {
+    var link = document.getElementById('metamask-div');
+    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined')
       link.style.display = 'none';
-    else 
+    else
       link.style.display = 'display';
   };
   
@@ -96,10 +136,7 @@
       value: web3.toWei('1', 'ether'),
     }, function (err, transactionHash) {
       if (err) return renderMessage('Oh no!: ' + err.message)
-  
-      // If you get a transactionHash, you can assume it was sent,
-      // or if you want to guarantee it was received, you can poll
-      // for that transaction to be mined first.
+      // If a transactionHash is received, assume the transaction was sent, or to guarantee it was received, poll for that transaction to be mined first.
       renderMessage('Thanks!')
     })
   })
