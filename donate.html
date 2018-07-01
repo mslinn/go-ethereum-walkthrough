@@ -139,7 +139,7 @@
   };
   
   tipButton.addEventListener('click', function() {
-    var user_address = web3.eth.accounts[0]
+    var user_address = web3.eth.accounts[0];
     web3.eth.sendTransaction({
       to: "0x844FdA3cD125df8464574977169DE4ecEa31aA65",
       from: user_address,
@@ -147,7 +147,7 @@
     }, function (err, transactionHash) {
       if (err) return renderMessage('Oh no!: ' + err.message)
       // If a transactionHash is received, assume the transaction was sent, or to guarantee it was received, poll for that transaction to be mined first.
-      renderMessage('Thanks!')
+      renderMessage('Thanks!');
     })
   })
 </script>
