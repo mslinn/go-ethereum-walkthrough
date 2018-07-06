@@ -44,7 +44,6 @@
     background-image: url('https://metamask.github.io/TipButton/images/1_pay_mm_off.png');
     background-size: 100%;
     cursor: pointer;
-    display: none;
     height: 89px; 
     width: 304px;
   }
@@ -123,8 +122,9 @@
 <form style="position: absolute !important; top: -9999px !important; left: -9999px !important;">
   <input id='copier'>
 </form>
-<div id="metamask-div" class="metamask-div"></div>
+<div id="metamask-div" class="metamask-div" title="The default donation is 1 ETH, but you can donate any amount."></div>
 
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script>
   function copyHelper(value) {
     var copier = document.getElementById("copier");
@@ -140,21 +140,23 @@
 
   // tip jar
   var tipButton = document.querySelector('.metamask-div');
+  var web3js;
   
   window.onload = function() {
+    web3js = new Web3(web3.currentProvider);
     var link = document.getElementById('metamask-div');
-    if (typeof web3 === 'undefined' || typeof web3.eth.accounts[0] === 'undefined')
+    if (typeof web3js === 'undefined' || typeof web3js.eth.accounts[0] === 'undefined' )
       link.style.display = 'none';
     else
-      link.style.display = 'display';
+      link.style.display = '';
   };
   
   tipButton.addEventListener('click', function() {
-    var user_address = web3.eth.accounts[0];
-    web3.eth.sendTransaction({
+    var user_address = web3js.eth.accounts[0];
+    web3js.eth.sendTransaction({
       to: "0x844FdA3cD125df8464574977169DE4ecEa31aA65",
       from: user_address,
-      value: web3.toWei('1', 'ether'),
+      value: web3js.toWei('1', 'ether'),
     }, function (err, transactionHash) {
       if (err) return renderMessage('Oh no!: ' + err.message)
       // If a transactionHash is received, assume the transaction was sent, or to guarantee it was received, poll for that transaction to be mined first.
