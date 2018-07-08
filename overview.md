@@ -8,7 +8,7 @@ This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source 
 
 ## Current Specs {#specs}
 
-A fully verifying #golang Ethereum (Geth 1.8.12, AWS i3 x2 large, cache=2GB) in full sync mode requires:
+A [fully verifying go-ethereum](https://twitter.com/peter_szilagyi/status/1014281456452096001) (v1.8.12, AWS i3 x2 large, cache=2GB) in full sync mode requires:
 
 - 1M blocks: 32 mins
 - 2M blocks: 1h 48 mins
