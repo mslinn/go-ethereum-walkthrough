@@ -6,7 +6,7 @@ This documentation contains several tours through the [`go-ethereum`](https://gi
 
 This documentation is up to date with the upcoming `go-ethereum` v1.8.12 source files in the `master` branch of the official [Go language](https://golang.org/) implementation of Ethereum, which includes the [`geth`](https://github.com/ethereum/go-ethereum/tree/master/core/vm) command-line Ethereum client program, along with many others. Ethereum clients include an implementation of the Ethereum Virtual Machine \(EVM\), which are able to parse and verify the Ethereum blockchain, including smart contracts, and provides interfaces to create transactions and mine blocks.
 
-## Current Specs
+## Current Specs {#specs}
 
 A fully verifying #golang Ethereum (Geth 1.8.12, AWS i3 x2 large, cache=2GB) in full sync mode requires:
 

@@ -4,6 +4,7 @@
   * [Donations](README.md#donate)
 * [Overview](overview.md#overview)
   * [Code Reference Comments](overview.md#references)
+  * [Current Specs](overview.md#specs)
   * [TODO and Suggestion](overview.md#comments)
 * [Licenses](license.md)
 * [Source Files](source_files.md)
